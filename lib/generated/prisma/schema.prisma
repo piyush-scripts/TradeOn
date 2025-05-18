@@ -14,8 +14,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id       Int    @id @default(autoincrement())
-  name     String @unique
-  password String
+model Users {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  password      String
+  createdAt     DateTime        @default(now())
+  refreshtokens RefreshTokens[]
+}
+
+model RefreshTokens {
+  id        Int      @id @default(autoincrement())
+  userName  String
+  user      Users    @relation(fields: [userName], references: [name], onDelete: Cascade)
+  token     String   @unique
+  userAgent String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }

@@ -1,8 +1,7 @@
 import { signupSchema, SignupSchema } from "@/zod/signupScheama";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
-import { sign } from "crypto";
-import { Prisma } from "@prisma/client";
+
 
 
 export async function POST(req: Request) {
@@ -24,21 +23,22 @@ export async function POST(req: Request) {
 
         try {
             // db reg logic here
-        await prisma.user.create({
+        await prisma.users.create({
             data: {
                 name : name,
                 password : hash
             }
         });
         } catch (error) {
-            return new Response(JSON.stringify({error : 'User already exists'}),{
+            console.log(error)
+            return new Response(JSON.stringify({error : 'users already exists'}),{
                 status: 409,
                 headers : {'Content-type' : 'application/json'}
             })
         }
         
 
-        return new Response(JSON.stringify({ message: 'User created successfully' }), {
+        return new Response(JSON.stringify({ message: 'users created successfully' }), {
             status: 201,
             headers: { 'Content-type': 'application/json' },
         });

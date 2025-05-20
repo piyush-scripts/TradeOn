@@ -1,4 +1,4 @@
-import { signupSchema, SignupSchema } from "@/zod/signupScheama";
+import { signupSchema, SignupSchema } from "@/zod/zodScheama";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         })
     }
 
-    const { name, password } = body;
+    const { name, password } = result.data;
 
     try {
         const user = await prisma.users.findUnique({ where: { name } })

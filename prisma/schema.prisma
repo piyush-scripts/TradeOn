@@ -20,6 +20,9 @@ model Users {
   password String
   createdAt DateTime @default(now())
   refreshtokens RefreshTokens[]
+  orders OrderbookHistory[]
+  holdings Holdings[]
+
 }
 
 model RefreshTokens {
@@ -31,4 +34,31 @@ model RefreshTokens {
   ipAddress String?
   createdAt DateTime @default(now())
   expiresAt DateTime
+}
+
+model OrderbookHistory {
+  id Int @id @default(autoincrement())
+  userName String
+  user Users @relation(fields: [userName] , references: [name] , onDelete: Cascade)
+  price Int
+  quantity Int
+  itemId Int
+  item Items @relation(fields: [itemId],references: [id])
+}
+
+model Items {
+  id Int @id @default(autoincrement()) @unique
+  itemName String
+  holdings Holdings[]
+  orders OrderbookHistory[]
+}
+
+model Holdings {
+  userName String
+  user Users @relation(fields: [userName],references: [name])
+  itemId Int
+  item Items @relation(fields: [itemId],references: [id])
+  quantity Int
+
+  @@id([userName,itemId])
 }

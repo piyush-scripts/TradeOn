@@ -1,4 +1,4 @@
-import { signupSchema, SignupSchema } from "@/zod/signupScheama";
+import { signupSchema, SignupSchema } from "@/zod/zodScheama";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 

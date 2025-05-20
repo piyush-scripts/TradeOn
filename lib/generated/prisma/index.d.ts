@@ -23,6 +23,21 @@ export type Users = $Result.DefaultSelection<Prisma.$UsersPayload>
  * 
  */
 export type RefreshTokens = $Result.DefaultSelection<Prisma.$RefreshTokensPayload>
+/**
+ * Model OrderbookHistory
+ * 
+ */
+export type OrderbookHistory = $Result.DefaultSelection<Prisma.$OrderbookHistoryPayload>
+/**
+ * Model Items
+ * 
+ */
+export type Items = $Result.DefaultSelection<Prisma.$ItemsPayload>
+/**
+ * Model Holdings
+ * 
+ */
+export type Holdings = $Result.DefaultSelection<Prisma.$HoldingsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +183,36 @@ export class PrismaClient<
     * ```
     */
   get refreshTokens(): Prisma.RefreshTokensDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.orderbookHistory`: Exposes CRUD operations for the **OrderbookHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrderbookHistories
+    * const orderbookHistories = await prisma.orderbookHistory.findMany()
+    * ```
+    */
+  get orderbookHistory(): Prisma.OrderbookHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.items`: Exposes CRUD operations for the **Items** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Items
+    * const items = await prisma.items.findMany()
+    * ```
+    */
+  get items(): Prisma.ItemsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.holdings`: Exposes CRUD operations for the **Holdings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Holdings
+    * const holdings = await prisma.holdings.findMany()
+    * ```
+    */
+  get holdings(): Prisma.HoldingsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +654,10 @@ export namespace Prisma {
 
   export const ModelName: {
     Users: 'Users',
-    RefreshTokens: 'RefreshTokens'
+    RefreshTokens: 'RefreshTokens',
+    OrderbookHistory: 'OrderbookHistory',
+    Items: 'Items',
+    Holdings: 'Holdings'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "refreshTokens"
+      modelProps: "users" | "refreshTokens" | "orderbookHistory" | "items" | "holdings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +828,228 @@ export namespace Prisma {
           }
         }
       }
+      OrderbookHistory: {
+        payload: Prisma.$OrderbookHistoryPayload<ExtArgs>
+        fields: Prisma.OrderbookHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrderbookHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrderbookHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.OrderbookHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrderbookHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.OrderbookHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.OrderbookHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.OrderbookHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrderbookHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.OrderbookHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          update: {
+            args: Prisma.OrderbookHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrderbookHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrderbookHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OrderbookHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.OrderbookHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderbookHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.OrderbookHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrderbookHistory>
+          }
+          groupBy: {
+            args: Prisma.OrderbookHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrderbookHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrderbookHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<OrderbookHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Items: {
+        payload: Prisma.$ItemsPayload<ExtArgs>
+        fields: Prisma.ItemsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          findFirst: {
+            args: Prisma.ItemsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          findMany: {
+            args: Prisma.ItemsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>[]
+          }
+          create: {
+            args: Prisma.ItemsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          createMany: {
+            args: Prisma.ItemsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ItemsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>[]
+          }
+          delete: {
+            args: Prisma.ItemsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          update: {
+            args: Prisma.ItemsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ItemsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>[]
+          }
+          upsert: {
+            args: Prisma.ItemsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemsPayload>
+          }
+          aggregate: {
+            args: Prisma.ItemsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItems>
+          }
+          groupBy: {
+            args: Prisma.ItemsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ItemsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemsCountArgs<ExtArgs>
+            result: $Utils.Optional<ItemsCountAggregateOutputType> | number
+          }
+        }
+      }
+      Holdings: {
+        payload: Prisma.$HoldingsPayload<ExtArgs>
+        fields: Prisma.HoldingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HoldingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HoldingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          findFirst: {
+            args: Prisma.HoldingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HoldingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          findMany: {
+            args: Prisma.HoldingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>[]
+          }
+          create: {
+            args: Prisma.HoldingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          createMany: {
+            args: Prisma.HoldingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HoldingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>[]
+          }
+          delete: {
+            args: Prisma.HoldingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          update: {
+            args: Prisma.HoldingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.HoldingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HoldingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HoldingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.HoldingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HoldingsPayload>
+          }
+          aggregate: {
+            args: Prisma.HoldingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHoldings>
+          }
+          groupBy: {
+            args: Prisma.HoldingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HoldingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HoldingsCountArgs<ExtArgs>
+            result: $Utils.Optional<HoldingsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +1136,9 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     users?: UsersOmit
     refreshTokens?: RefreshTokensOmit
+    orderbookHistory?: OrderbookHistoryOmit
+    items?: ItemsOmit
+    holdings?: HoldingsOmit
   }
 
   /* Types for Logging */
@@ -961,10 +1234,14 @@ export namespace Prisma {
 
   export type UsersCountOutputType = {
     refreshtokens: number
+    orders: number
+    holdings: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshtokens?: boolean | UsersCountOutputTypeCountRefreshtokensArgs
+    orders?: boolean | UsersCountOutputTypeCountOrdersArgs
+    holdings?: boolean | UsersCountOutputTypeCountHoldingsArgs
   }
 
   // Custom InputTypes
@@ -983,6 +1260,60 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountRefreshtokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RefreshTokensWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderbookHistoryWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountHoldingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HoldingsWhereInput
+  }
+
+
+  /**
+   * Count Type ItemsCountOutputType
+   */
+
+  export type ItemsCountOutputType = {
+    holdings: number
+    orders: number
+  }
+
+  export type ItemsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    holdings?: boolean | ItemsCountOutputTypeCountHoldingsArgs
+    orders?: boolean | ItemsCountOutputTypeCountOrdersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ItemsCountOutputType without action
+   */
+  export type ItemsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemsCountOutputType
+     */
+    select?: ItemsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ItemsCountOutputType without action
+   */
+  export type ItemsCountOutputTypeCountHoldingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HoldingsWhereInput
+  }
+
+  /**
+   * ItemsCountOutputType without action
+   */
+  export type ItemsCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderbookHistoryWhereInput
   }
 
 
@@ -1181,6 +1512,8 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
+    orders?: boolean | Users$ordersArgs<ExtArgs>
+    holdings?: boolean | Users$holdingsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1208,6 +1541,8 @@ export namespace Prisma {
   export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password" | "createdAt", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
+    orders?: boolean | Users$ordersArgs<ExtArgs>
+    holdings?: boolean | Users$holdingsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1217,6 +1552,8 @@ export namespace Prisma {
     name: "Users"
     objects: {
       refreshtokens: Prisma.$RefreshTokensPayload<ExtArgs>[]
+      orders: Prisma.$OrderbookHistoryPayload<ExtArgs>[]
+      holdings: Prisma.$HoldingsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1618,6 +1955,8 @@ export namespace Prisma {
   export interface Prisma__UsersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     refreshtokens<T extends Users$refreshtokensArgs<ExtArgs> = {}>(args?: Subset<T, Users$refreshtokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Users$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Users$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    holdings<T extends Users$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, Users$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2060,6 +2399,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RefreshTokensScalarFieldEnum | RefreshTokensScalarFieldEnum[]
+  }
+
+  /**
+   * Users.orders
+   */
+  export type Users$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    where?: OrderbookHistoryWhereInput
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    cursor?: OrderbookHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderbookHistoryScalarFieldEnum | OrderbookHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Users.holdings
+   */
+  export type Users$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    where?: HoldingsWhereInput
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    cursor?: HoldingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
   }
 
   /**
@@ -3200,6 +3587,3289 @@ export namespace Prisma {
 
 
   /**
+   * Model OrderbookHistory
+   */
+
+  export type AggregateOrderbookHistory = {
+    _count: OrderbookHistoryCountAggregateOutputType | null
+    _avg: OrderbookHistoryAvgAggregateOutputType | null
+    _sum: OrderbookHistorySumAggregateOutputType | null
+    _min: OrderbookHistoryMinAggregateOutputType | null
+    _max: OrderbookHistoryMaxAggregateOutputType | null
+  }
+
+  export type OrderbookHistoryAvgAggregateOutputType = {
+    id: number | null
+    price: number | null
+    quantity: number | null
+    itemId: number | null
+  }
+
+  export type OrderbookHistorySumAggregateOutputType = {
+    id: number | null
+    price: number | null
+    quantity: number | null
+    itemId: number | null
+  }
+
+  export type OrderbookHistoryMinAggregateOutputType = {
+    id: number | null
+    userName: string | null
+    price: number | null
+    quantity: number | null
+    itemId: number | null
+  }
+
+  export type OrderbookHistoryMaxAggregateOutputType = {
+    id: number | null
+    userName: string | null
+    price: number | null
+    quantity: number | null
+    itemId: number | null
+  }
+
+  export type OrderbookHistoryCountAggregateOutputType = {
+    id: number
+    userName: number
+    price: number
+    quantity: number
+    itemId: number
+    _all: number
+  }
+
+
+  export type OrderbookHistoryAvgAggregateInputType = {
+    id?: true
+    price?: true
+    quantity?: true
+    itemId?: true
+  }
+
+  export type OrderbookHistorySumAggregateInputType = {
+    id?: true
+    price?: true
+    quantity?: true
+    itemId?: true
+  }
+
+  export type OrderbookHistoryMinAggregateInputType = {
+    id?: true
+    userName?: true
+    price?: true
+    quantity?: true
+    itemId?: true
+  }
+
+  export type OrderbookHistoryMaxAggregateInputType = {
+    id?: true
+    userName?: true
+    price?: true
+    quantity?: true
+    itemId?: true
+  }
+
+  export type OrderbookHistoryCountAggregateInputType = {
+    id?: true
+    userName?: true
+    price?: true
+    quantity?: true
+    itemId?: true
+    _all?: true
+  }
+
+  export type OrderbookHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrderbookHistory to aggregate.
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrderbookHistories to fetch.
+     */
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrderbookHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrderbookHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrderbookHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OrderbookHistories
+    **/
+    _count?: true | OrderbookHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrderbookHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrderbookHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrderbookHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrderbookHistoryMaxAggregateInputType
+  }
+
+  export type GetOrderbookHistoryAggregateType<T extends OrderbookHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrderbookHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrderbookHistory[P]>
+      : GetScalarType<T[P], AggregateOrderbookHistory[P]>
+  }
+
+
+
+
+  export type OrderbookHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderbookHistoryWhereInput
+    orderBy?: OrderbookHistoryOrderByWithAggregationInput | OrderbookHistoryOrderByWithAggregationInput[]
+    by: OrderbookHistoryScalarFieldEnum[] | OrderbookHistoryScalarFieldEnum
+    having?: OrderbookHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrderbookHistoryCountAggregateInputType | true
+    _avg?: OrderbookHistoryAvgAggregateInputType
+    _sum?: OrderbookHistorySumAggregateInputType
+    _min?: OrderbookHistoryMinAggregateInputType
+    _max?: OrderbookHistoryMaxAggregateInputType
+  }
+
+  export type OrderbookHistoryGroupByOutputType = {
+    id: number
+    userName: string
+    price: number
+    quantity: number
+    itemId: number
+    _count: OrderbookHistoryCountAggregateOutputType | null
+    _avg: OrderbookHistoryAvgAggregateOutputType | null
+    _sum: OrderbookHistorySumAggregateOutputType | null
+    _min: OrderbookHistoryMinAggregateOutputType | null
+    _max: OrderbookHistoryMaxAggregateOutputType | null
+  }
+
+  type GetOrderbookHistoryGroupByPayload<T extends OrderbookHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrderbookHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrderbookHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrderbookHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], OrderbookHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrderbookHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userName?: boolean
+    price?: boolean
+    quantity?: boolean
+    itemId?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["orderbookHistory"]>
+
+  export type OrderbookHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userName?: boolean
+    price?: boolean
+    quantity?: boolean
+    itemId?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["orderbookHistory"]>
+
+  export type OrderbookHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userName?: boolean
+    price?: boolean
+    quantity?: boolean
+    itemId?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["orderbookHistory"]>
+
+  export type OrderbookHistorySelectScalar = {
+    id?: boolean
+    userName?: boolean
+    price?: boolean
+    quantity?: boolean
+    itemId?: boolean
+  }
+
+  export type OrderbookHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userName" | "price" | "quantity" | "itemId", ExtArgs["result"]["orderbookHistory"]>
+  export type OrderbookHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+  export type OrderbookHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+  export type OrderbookHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+
+  export type $OrderbookHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OrderbookHistory"
+    objects: {
+      user: Prisma.$UsersPayload<ExtArgs>
+      item: Prisma.$ItemsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userName: string
+      price: number
+      quantity: number
+      itemId: number
+    }, ExtArgs["result"]["orderbookHistory"]>
+    composites: {}
+  }
+
+  type OrderbookHistoryGetPayload<S extends boolean | null | undefined | OrderbookHistoryDefaultArgs> = $Result.GetResult<Prisma.$OrderbookHistoryPayload, S>
+
+  type OrderbookHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OrderbookHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OrderbookHistoryCountAggregateInputType | true
+    }
+
+  export interface OrderbookHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrderbookHistory'], meta: { name: 'OrderbookHistory' } }
+    /**
+     * Find zero or one OrderbookHistory that matches the filter.
+     * @param {OrderbookHistoryFindUniqueArgs} args - Arguments to find a OrderbookHistory
+     * @example
+     * // Get one OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrderbookHistoryFindUniqueArgs>(args: SelectSubset<T, OrderbookHistoryFindUniqueArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OrderbookHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OrderbookHistoryFindUniqueOrThrowArgs} args - Arguments to find a OrderbookHistory
+     * @example
+     * // Get one OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrderbookHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, OrderbookHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrderbookHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryFindFirstArgs} args - Arguments to find a OrderbookHistory
+     * @example
+     * // Get one OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrderbookHistoryFindFirstArgs>(args?: SelectSubset<T, OrderbookHistoryFindFirstArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrderbookHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryFindFirstOrThrowArgs} args - Arguments to find a OrderbookHistory
+     * @example
+     * // Get one OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrderbookHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, OrderbookHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OrderbookHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OrderbookHistories
+     * const orderbookHistories = await prisma.orderbookHistory.findMany()
+     * 
+     * // Get first 10 OrderbookHistories
+     * const orderbookHistories = await prisma.orderbookHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const orderbookHistoryWithIdOnly = await prisma.orderbookHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrderbookHistoryFindManyArgs>(args?: SelectSubset<T, OrderbookHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OrderbookHistory.
+     * @param {OrderbookHistoryCreateArgs} args - Arguments to create a OrderbookHistory.
+     * @example
+     * // Create one OrderbookHistory
+     * const OrderbookHistory = await prisma.orderbookHistory.create({
+     *   data: {
+     *     // ... data to create a OrderbookHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrderbookHistoryCreateArgs>(args: SelectSubset<T, OrderbookHistoryCreateArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OrderbookHistories.
+     * @param {OrderbookHistoryCreateManyArgs} args - Arguments to create many OrderbookHistories.
+     * @example
+     * // Create many OrderbookHistories
+     * const orderbookHistory = await prisma.orderbookHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrderbookHistoryCreateManyArgs>(args?: SelectSubset<T, OrderbookHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OrderbookHistories and returns the data saved in the database.
+     * @param {OrderbookHistoryCreateManyAndReturnArgs} args - Arguments to create many OrderbookHistories.
+     * @example
+     * // Create many OrderbookHistories
+     * const orderbookHistory = await prisma.orderbookHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OrderbookHistories and only return the `id`
+     * const orderbookHistoryWithIdOnly = await prisma.orderbookHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrderbookHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, OrderbookHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OrderbookHistory.
+     * @param {OrderbookHistoryDeleteArgs} args - Arguments to delete one OrderbookHistory.
+     * @example
+     * // Delete one OrderbookHistory
+     * const OrderbookHistory = await prisma.orderbookHistory.delete({
+     *   where: {
+     *     // ... filter to delete one OrderbookHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrderbookHistoryDeleteArgs>(args: SelectSubset<T, OrderbookHistoryDeleteArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OrderbookHistory.
+     * @param {OrderbookHistoryUpdateArgs} args - Arguments to update one OrderbookHistory.
+     * @example
+     * // Update one OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrderbookHistoryUpdateArgs>(args: SelectSubset<T, OrderbookHistoryUpdateArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OrderbookHistories.
+     * @param {OrderbookHistoryDeleteManyArgs} args - Arguments to filter OrderbookHistories to delete.
+     * @example
+     * // Delete a few OrderbookHistories
+     * const { count } = await prisma.orderbookHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrderbookHistoryDeleteManyArgs>(args?: SelectSubset<T, OrderbookHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrderbookHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OrderbookHistories
+     * const orderbookHistory = await prisma.orderbookHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrderbookHistoryUpdateManyArgs>(args: SelectSubset<T, OrderbookHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrderbookHistories and returns the data updated in the database.
+     * @param {OrderbookHistoryUpdateManyAndReturnArgs} args - Arguments to update many OrderbookHistories.
+     * @example
+     * // Update many OrderbookHistories
+     * const orderbookHistory = await prisma.orderbookHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OrderbookHistories and only return the `id`
+     * const orderbookHistoryWithIdOnly = await prisma.orderbookHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OrderbookHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, OrderbookHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OrderbookHistory.
+     * @param {OrderbookHistoryUpsertArgs} args - Arguments to update or create a OrderbookHistory.
+     * @example
+     * // Update or create a OrderbookHistory
+     * const orderbookHistory = await prisma.orderbookHistory.upsert({
+     *   create: {
+     *     // ... data to create a OrderbookHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OrderbookHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrderbookHistoryUpsertArgs>(args: SelectSubset<T, OrderbookHistoryUpsertArgs<ExtArgs>>): Prisma__OrderbookHistoryClient<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OrderbookHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryCountArgs} args - Arguments to filter OrderbookHistories to count.
+     * @example
+     * // Count the number of OrderbookHistories
+     * const count = await prisma.orderbookHistory.count({
+     *   where: {
+     *     // ... the filter for the OrderbookHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrderbookHistoryCountArgs>(
+      args?: Subset<T, OrderbookHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrderbookHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OrderbookHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrderbookHistoryAggregateArgs>(args: Subset<T, OrderbookHistoryAggregateArgs>): Prisma.PrismaPromise<GetOrderbookHistoryAggregateType<T>>
+
+    /**
+     * Group by OrderbookHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderbookHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrderbookHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrderbookHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: OrderbookHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrderbookHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrderbookHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OrderbookHistory model
+   */
+  readonly fields: OrderbookHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OrderbookHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrderbookHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    item<T extends ItemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemsDefaultArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OrderbookHistory model
+   */
+  interface OrderbookHistoryFieldRefs {
+    readonly id: FieldRef<"OrderbookHistory", 'Int'>
+    readonly userName: FieldRef<"OrderbookHistory", 'String'>
+    readonly price: FieldRef<"OrderbookHistory", 'Int'>
+    readonly quantity: FieldRef<"OrderbookHistory", 'Int'>
+    readonly itemId: FieldRef<"OrderbookHistory", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OrderbookHistory findUnique
+   */
+  export type OrderbookHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OrderbookHistory to fetch.
+     */
+    where: OrderbookHistoryWhereUniqueInput
+  }
+
+  /**
+   * OrderbookHistory findUniqueOrThrow
+   */
+  export type OrderbookHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OrderbookHistory to fetch.
+     */
+    where: OrderbookHistoryWhereUniqueInput
+  }
+
+  /**
+   * OrderbookHistory findFirst
+   */
+  export type OrderbookHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OrderbookHistory to fetch.
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrderbookHistories to fetch.
+     */
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrderbookHistories.
+     */
+    cursor?: OrderbookHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrderbookHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrderbookHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrderbookHistories.
+     */
+    distinct?: OrderbookHistoryScalarFieldEnum | OrderbookHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * OrderbookHistory findFirstOrThrow
+   */
+  export type OrderbookHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OrderbookHistory to fetch.
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrderbookHistories to fetch.
+     */
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrderbookHistories.
+     */
+    cursor?: OrderbookHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrderbookHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrderbookHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrderbookHistories.
+     */
+    distinct?: OrderbookHistoryScalarFieldEnum | OrderbookHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * OrderbookHistory findMany
+   */
+  export type OrderbookHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which OrderbookHistories to fetch.
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrderbookHistories to fetch.
+     */
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OrderbookHistories.
+     */
+    cursor?: OrderbookHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrderbookHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrderbookHistories.
+     */
+    skip?: number
+    distinct?: OrderbookHistoryScalarFieldEnum | OrderbookHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * OrderbookHistory create
+   */
+  export type OrderbookHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OrderbookHistory.
+     */
+    data: XOR<OrderbookHistoryCreateInput, OrderbookHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * OrderbookHistory createMany
+   */
+  export type OrderbookHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OrderbookHistories.
+     */
+    data: OrderbookHistoryCreateManyInput | OrderbookHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrderbookHistory createManyAndReturn
+   */
+  export type OrderbookHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many OrderbookHistories.
+     */
+    data: OrderbookHistoryCreateManyInput | OrderbookHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OrderbookHistory update
+   */
+  export type OrderbookHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OrderbookHistory.
+     */
+    data: XOR<OrderbookHistoryUpdateInput, OrderbookHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which OrderbookHistory to update.
+     */
+    where: OrderbookHistoryWhereUniqueInput
+  }
+
+  /**
+   * OrderbookHistory updateMany
+   */
+  export type OrderbookHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OrderbookHistories.
+     */
+    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which OrderbookHistories to update
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * Limit how many OrderbookHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrderbookHistory updateManyAndReturn
+   */
+  export type OrderbookHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update OrderbookHistories.
+     */
+    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which OrderbookHistories to update
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * Limit how many OrderbookHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OrderbookHistory upsert
+   */
+  export type OrderbookHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OrderbookHistory to update in case it exists.
+     */
+    where: OrderbookHistoryWhereUniqueInput
+    /**
+     * In case the OrderbookHistory found by the `where` argument doesn't exist, create a new OrderbookHistory with this data.
+     */
+    create: XOR<OrderbookHistoryCreateInput, OrderbookHistoryUncheckedCreateInput>
+    /**
+     * In case the OrderbookHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrderbookHistoryUpdateInput, OrderbookHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * OrderbookHistory delete
+   */
+  export type OrderbookHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which OrderbookHistory to delete.
+     */
+    where: OrderbookHistoryWhereUniqueInput
+  }
+
+  /**
+   * OrderbookHistory deleteMany
+   */
+  export type OrderbookHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrderbookHistories to delete
+     */
+    where?: OrderbookHistoryWhereInput
+    /**
+     * Limit how many OrderbookHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrderbookHistory without action
+   */
+  export type OrderbookHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Items
+   */
+
+  export type AggregateItems = {
+    _count: ItemsCountAggregateOutputType | null
+    _avg: ItemsAvgAggregateOutputType | null
+    _sum: ItemsSumAggregateOutputType | null
+    _min: ItemsMinAggregateOutputType | null
+    _max: ItemsMaxAggregateOutputType | null
+  }
+
+  export type ItemsAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ItemsSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ItemsMinAggregateOutputType = {
+    id: number | null
+    itemName: string | null
+  }
+
+  export type ItemsMaxAggregateOutputType = {
+    id: number | null
+    itemName: string | null
+  }
+
+  export type ItemsCountAggregateOutputType = {
+    id: number
+    itemName: number
+    _all: number
+  }
+
+
+  export type ItemsAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ItemsSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ItemsMinAggregateInputType = {
+    id?: true
+    itemName?: true
+  }
+
+  export type ItemsMaxAggregateInputType = {
+    id?: true
+    itemName?: true
+  }
+
+  export type ItemsCountAggregateInputType = {
+    id?: true
+    itemName?: true
+    _all?: true
+  }
+
+  export type ItemsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Items to aggregate.
+     */
+    where?: ItemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Items to fetch.
+     */
+    orderBy?: ItemsOrderByWithRelationInput | ItemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Items
+    **/
+    _count?: true | ItemsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemsMaxAggregateInputType
+  }
+
+  export type GetItemsAggregateType<T extends ItemsAggregateArgs> = {
+        [P in keyof T & keyof AggregateItems]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItems[P]>
+      : GetScalarType<T[P], AggregateItems[P]>
+  }
+
+
+
+
+  export type ItemsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemsWhereInput
+    orderBy?: ItemsOrderByWithAggregationInput | ItemsOrderByWithAggregationInput[]
+    by: ItemsScalarFieldEnum[] | ItemsScalarFieldEnum
+    having?: ItemsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemsCountAggregateInputType | true
+    _avg?: ItemsAvgAggregateInputType
+    _sum?: ItemsSumAggregateInputType
+    _min?: ItemsMinAggregateInputType
+    _max?: ItemsMaxAggregateInputType
+  }
+
+  export type ItemsGroupByOutputType = {
+    id: number
+    itemName: string
+    _count: ItemsCountAggregateOutputType | null
+    _avg: ItemsAvgAggregateOutputType | null
+    _sum: ItemsSumAggregateOutputType | null
+    _min: ItemsMinAggregateOutputType | null
+    _max: ItemsMaxAggregateOutputType | null
+  }
+
+  type GetItemsGroupByPayload<T extends ItemsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemsGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemName?: boolean
+    holdings?: boolean | Items$holdingsArgs<ExtArgs>
+    orders?: boolean | Items$ordersArgs<ExtArgs>
+    _count?: boolean | ItemsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["items"]>
+
+  export type ItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemName?: boolean
+  }, ExtArgs["result"]["items"]>
+
+  export type ItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemName?: boolean
+  }, ExtArgs["result"]["items"]>
+
+  export type ItemsSelectScalar = {
+    id?: boolean
+    itemName?: boolean
+  }
+
+  export type ItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemName", ExtArgs["result"]["items"]>
+  export type ItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    holdings?: boolean | Items$holdingsArgs<ExtArgs>
+    orders?: boolean | Items$ordersArgs<ExtArgs>
+    _count?: boolean | ItemsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ItemsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ItemsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ItemsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Items"
+    objects: {
+      holdings: Prisma.$HoldingsPayload<ExtArgs>[]
+      orders: Prisma.$OrderbookHistoryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      itemName: string
+    }, ExtArgs["result"]["items"]>
+    composites: {}
+  }
+
+  type ItemsGetPayload<S extends boolean | null | undefined | ItemsDefaultArgs> = $Result.GetResult<Prisma.$ItemsPayload, S>
+
+  type ItemsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ItemsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ItemsCountAggregateInputType | true
+    }
+
+  export interface ItemsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Items'], meta: { name: 'Items' } }
+    /**
+     * Find zero or one Items that matches the filter.
+     * @param {ItemsFindUniqueArgs} args - Arguments to find a Items
+     * @example
+     * // Get one Items
+     * const items = await prisma.items.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ItemsFindUniqueArgs>(args: SelectSubset<T, ItemsFindUniqueArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Items that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ItemsFindUniqueOrThrowArgs} args - Arguments to find a Items
+     * @example
+     * // Get one Items
+     * const items = await prisma.items.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ItemsFindUniqueOrThrowArgs>(args: SelectSubset<T, ItemsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Items that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsFindFirstArgs} args - Arguments to find a Items
+     * @example
+     * // Get one Items
+     * const items = await prisma.items.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ItemsFindFirstArgs>(args?: SelectSubset<T, ItemsFindFirstArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Items that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsFindFirstOrThrowArgs} args - Arguments to find a Items
+     * @example
+     * // Get one Items
+     * const items = await prisma.items.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ItemsFindFirstOrThrowArgs>(args?: SelectSubset<T, ItemsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Items that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Items
+     * const items = await prisma.items.findMany()
+     * 
+     * // Get first 10 Items
+     * const items = await prisma.items.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemsWithIdOnly = await prisma.items.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ItemsFindManyArgs>(args?: SelectSubset<T, ItemsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Items.
+     * @param {ItemsCreateArgs} args - Arguments to create a Items.
+     * @example
+     * // Create one Items
+     * const Items = await prisma.items.create({
+     *   data: {
+     *     // ... data to create a Items
+     *   }
+     * })
+     * 
+     */
+    create<T extends ItemsCreateArgs>(args: SelectSubset<T, ItemsCreateArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Items.
+     * @param {ItemsCreateManyArgs} args - Arguments to create many Items.
+     * @example
+     * // Create many Items
+     * const items = await prisma.items.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ItemsCreateManyArgs>(args?: SelectSubset<T, ItemsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Items and returns the data saved in the database.
+     * @param {ItemsCreateManyAndReturnArgs} args - Arguments to create many Items.
+     * @example
+     * // Create many Items
+     * const items = await prisma.items.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Items and only return the `id`
+     * const itemsWithIdOnly = await prisma.items.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ItemsCreateManyAndReturnArgs>(args?: SelectSubset<T, ItemsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Items.
+     * @param {ItemsDeleteArgs} args - Arguments to delete one Items.
+     * @example
+     * // Delete one Items
+     * const Items = await prisma.items.delete({
+     *   where: {
+     *     // ... filter to delete one Items
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ItemsDeleteArgs>(args: SelectSubset<T, ItemsDeleteArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Items.
+     * @param {ItemsUpdateArgs} args - Arguments to update one Items.
+     * @example
+     * // Update one Items
+     * const items = await prisma.items.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ItemsUpdateArgs>(args: SelectSubset<T, ItemsUpdateArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Items.
+     * @param {ItemsDeleteManyArgs} args - Arguments to filter Items to delete.
+     * @example
+     * // Delete a few Items
+     * const { count } = await prisma.items.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ItemsDeleteManyArgs>(args?: SelectSubset<T, ItemsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Items
+     * const items = await prisma.items.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ItemsUpdateManyArgs>(args: SelectSubset<T, ItemsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Items and returns the data updated in the database.
+     * @param {ItemsUpdateManyAndReturnArgs} args - Arguments to update many Items.
+     * @example
+     * // Update many Items
+     * const items = await prisma.items.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Items and only return the `id`
+     * const itemsWithIdOnly = await prisma.items.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ItemsUpdateManyAndReturnArgs>(args: SelectSubset<T, ItemsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Items.
+     * @param {ItemsUpsertArgs} args - Arguments to update or create a Items.
+     * @example
+     * // Update or create a Items
+     * const items = await prisma.items.upsert({
+     *   create: {
+     *     // ... data to create a Items
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Items we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ItemsUpsertArgs>(args: SelectSubset<T, ItemsUpsertArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsCountArgs} args - Arguments to filter Items to count.
+     * @example
+     * // Count the number of Items
+     * const count = await prisma.items.count({
+     *   where: {
+     *     // ... the filter for the Items we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemsCountArgs>(
+      args?: Subset<T, ItemsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemsAggregateArgs>(args: Subset<T, ItemsAggregateArgs>): Prisma.PrismaPromise<GetItemsAggregateType<T>>
+
+    /**
+     * Group by Items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemsGroupByArgs['orderBy'] }
+        : { orderBy?: ItemsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Items model
+   */
+  readonly fields: ItemsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Items.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    holdings<T extends Items$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, Items$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Items$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Items$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Items model
+   */
+  interface ItemsFieldRefs {
+    readonly id: FieldRef<"Items", 'Int'>
+    readonly itemName: FieldRef<"Items", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Items findUnique
+   */
+  export type ItemsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter, which Items to fetch.
+     */
+    where: ItemsWhereUniqueInput
+  }
+
+  /**
+   * Items findUniqueOrThrow
+   */
+  export type ItemsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter, which Items to fetch.
+     */
+    where: ItemsWhereUniqueInput
+  }
+
+  /**
+   * Items findFirst
+   */
+  export type ItemsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter, which Items to fetch.
+     */
+    where?: ItemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Items to fetch.
+     */
+    orderBy?: ItemsOrderByWithRelationInput | ItemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Items.
+     */
+    cursor?: ItemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Items.
+     */
+    distinct?: ItemsScalarFieldEnum | ItemsScalarFieldEnum[]
+  }
+
+  /**
+   * Items findFirstOrThrow
+   */
+  export type ItemsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter, which Items to fetch.
+     */
+    where?: ItemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Items to fetch.
+     */
+    orderBy?: ItemsOrderByWithRelationInput | ItemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Items.
+     */
+    cursor?: ItemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Items.
+     */
+    distinct?: ItemsScalarFieldEnum | ItemsScalarFieldEnum[]
+  }
+
+  /**
+   * Items findMany
+   */
+  export type ItemsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter, which Items to fetch.
+     */
+    where?: ItemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Items to fetch.
+     */
+    orderBy?: ItemsOrderByWithRelationInput | ItemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Items.
+     */
+    cursor?: ItemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Items.
+     */
+    skip?: number
+    distinct?: ItemsScalarFieldEnum | ItemsScalarFieldEnum[]
+  }
+
+  /**
+   * Items create
+   */
+  export type ItemsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Items.
+     */
+    data: XOR<ItemsCreateInput, ItemsUncheckedCreateInput>
+  }
+
+  /**
+   * Items createMany
+   */
+  export type ItemsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Items.
+     */
+    data: ItemsCreateManyInput | ItemsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Items createManyAndReturn
+   */
+  export type ItemsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Items.
+     */
+    data: ItemsCreateManyInput | ItemsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Items update
+   */
+  export type ItemsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Items.
+     */
+    data: XOR<ItemsUpdateInput, ItemsUncheckedUpdateInput>
+    /**
+     * Choose, which Items to update.
+     */
+    where: ItemsWhereUniqueInput
+  }
+
+  /**
+   * Items updateMany
+   */
+  export type ItemsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Items.
+     */
+    data: XOR<ItemsUpdateManyMutationInput, ItemsUncheckedUpdateManyInput>
+    /**
+     * Filter which Items to update
+     */
+    where?: ItemsWhereInput
+    /**
+     * Limit how many Items to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Items updateManyAndReturn
+   */
+  export type ItemsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * The data used to update Items.
+     */
+    data: XOR<ItemsUpdateManyMutationInput, ItemsUncheckedUpdateManyInput>
+    /**
+     * Filter which Items to update
+     */
+    where?: ItemsWhereInput
+    /**
+     * Limit how many Items to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Items upsert
+   */
+  export type ItemsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Items to update in case it exists.
+     */
+    where: ItemsWhereUniqueInput
+    /**
+     * In case the Items found by the `where` argument doesn't exist, create a new Items with this data.
+     */
+    create: XOR<ItemsCreateInput, ItemsUncheckedCreateInput>
+    /**
+     * In case the Items was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemsUpdateInput, ItemsUncheckedUpdateInput>
+  }
+
+  /**
+   * Items delete
+   */
+  export type ItemsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+    /**
+     * Filter which Items to delete.
+     */
+    where: ItemsWhereUniqueInput
+  }
+
+  /**
+   * Items deleteMany
+   */
+  export type ItemsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Items to delete
+     */
+    where?: ItemsWhereInput
+    /**
+     * Limit how many Items to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Items.holdings
+   */
+  export type Items$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    where?: HoldingsWhereInput
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    cursor?: HoldingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
+  }
+
+  /**
+   * Items.orders
+   */
+  export type Items$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderbookHistory
+     */
+    select?: OrderbookHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderbookHistory
+     */
+    omit?: OrderbookHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderbookHistoryInclude<ExtArgs> | null
+    where?: OrderbookHistoryWhereInput
+    orderBy?: OrderbookHistoryOrderByWithRelationInput | OrderbookHistoryOrderByWithRelationInput[]
+    cursor?: OrderbookHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderbookHistoryScalarFieldEnum | OrderbookHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Items without action
+   */
+  export type ItemsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Items
+     */
+    select?: ItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Items
+     */
+    omit?: ItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Holdings
+   */
+
+  export type AggregateHoldings = {
+    _count: HoldingsCountAggregateOutputType | null
+    _avg: HoldingsAvgAggregateOutputType | null
+    _sum: HoldingsSumAggregateOutputType | null
+    _min: HoldingsMinAggregateOutputType | null
+    _max: HoldingsMaxAggregateOutputType | null
+  }
+
+  export type HoldingsAvgAggregateOutputType = {
+    itemId: number | null
+    quantity: number | null
+  }
+
+  export type HoldingsSumAggregateOutputType = {
+    itemId: number | null
+    quantity: number | null
+  }
+
+  export type HoldingsMinAggregateOutputType = {
+    userName: string | null
+    itemId: number | null
+    quantity: number | null
+  }
+
+  export type HoldingsMaxAggregateOutputType = {
+    userName: string | null
+    itemId: number | null
+    quantity: number | null
+  }
+
+  export type HoldingsCountAggregateOutputType = {
+    userName: number
+    itemId: number
+    quantity: number
+    _all: number
+  }
+
+
+  export type HoldingsAvgAggregateInputType = {
+    itemId?: true
+    quantity?: true
+  }
+
+  export type HoldingsSumAggregateInputType = {
+    itemId?: true
+    quantity?: true
+  }
+
+  export type HoldingsMinAggregateInputType = {
+    userName?: true
+    itemId?: true
+    quantity?: true
+  }
+
+  export type HoldingsMaxAggregateInputType = {
+    userName?: true
+    itemId?: true
+    quantity?: true
+  }
+
+  export type HoldingsCountAggregateInputType = {
+    userName?: true
+    itemId?: true
+    quantity?: true
+    _all?: true
+  }
+
+  export type HoldingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Holdings to aggregate.
+     */
+    where?: HoldingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Holdings to fetch.
+     */
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HoldingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Holdings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Holdings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Holdings
+    **/
+    _count?: true | HoldingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HoldingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HoldingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HoldingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HoldingsMaxAggregateInputType
+  }
+
+  export type GetHoldingsAggregateType<T extends HoldingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateHoldings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHoldings[P]>
+      : GetScalarType<T[P], AggregateHoldings[P]>
+  }
+
+
+
+
+  export type HoldingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HoldingsWhereInput
+    orderBy?: HoldingsOrderByWithAggregationInput | HoldingsOrderByWithAggregationInput[]
+    by: HoldingsScalarFieldEnum[] | HoldingsScalarFieldEnum
+    having?: HoldingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HoldingsCountAggregateInputType | true
+    _avg?: HoldingsAvgAggregateInputType
+    _sum?: HoldingsSumAggregateInputType
+    _min?: HoldingsMinAggregateInputType
+    _max?: HoldingsMaxAggregateInputType
+  }
+
+  export type HoldingsGroupByOutputType = {
+    userName: string
+    itemId: number
+    quantity: number
+    _count: HoldingsCountAggregateOutputType | null
+    _avg: HoldingsAvgAggregateOutputType | null
+    _sum: HoldingsSumAggregateOutputType | null
+    _min: HoldingsMinAggregateOutputType | null
+    _max: HoldingsMaxAggregateOutputType | null
+  }
+
+  type GetHoldingsGroupByPayload<T extends HoldingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HoldingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HoldingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HoldingsGroupByOutputType[P]>
+            : GetScalarType<T[P], HoldingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HoldingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userName?: boolean
+    itemId?: boolean
+    quantity?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["holdings"]>
+
+  export type HoldingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userName?: boolean
+    itemId?: boolean
+    quantity?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["holdings"]>
+
+  export type HoldingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userName?: boolean
+    itemId?: boolean
+    quantity?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["holdings"]>
+
+  export type HoldingsSelectScalar = {
+    userName?: boolean
+    itemId?: boolean
+    quantity?: boolean
+  }
+
+  export type HoldingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userName" | "itemId" | "quantity", ExtArgs["result"]["holdings"]>
+  export type HoldingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+  export type HoldingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+  export type HoldingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    item?: boolean | ItemsDefaultArgs<ExtArgs>
+  }
+
+  export type $HoldingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Holdings"
+    objects: {
+      user: Prisma.$UsersPayload<ExtArgs>
+      item: Prisma.$ItemsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userName: string
+      itemId: number
+      quantity: number
+    }, ExtArgs["result"]["holdings"]>
+    composites: {}
+  }
+
+  type HoldingsGetPayload<S extends boolean | null | undefined | HoldingsDefaultArgs> = $Result.GetResult<Prisma.$HoldingsPayload, S>
+
+  type HoldingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HoldingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HoldingsCountAggregateInputType | true
+    }
+
+  export interface HoldingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Holdings'], meta: { name: 'Holdings' } }
+    /**
+     * Find zero or one Holdings that matches the filter.
+     * @param {HoldingsFindUniqueArgs} args - Arguments to find a Holdings
+     * @example
+     * // Get one Holdings
+     * const holdings = await prisma.holdings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HoldingsFindUniqueArgs>(args: SelectSubset<T, HoldingsFindUniqueArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Holdings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HoldingsFindUniqueOrThrowArgs} args - Arguments to find a Holdings
+     * @example
+     * // Get one Holdings
+     * const holdings = await prisma.holdings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HoldingsFindUniqueOrThrowArgs>(args: SelectSubset<T, HoldingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Holdings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsFindFirstArgs} args - Arguments to find a Holdings
+     * @example
+     * // Get one Holdings
+     * const holdings = await prisma.holdings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HoldingsFindFirstArgs>(args?: SelectSubset<T, HoldingsFindFirstArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Holdings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsFindFirstOrThrowArgs} args - Arguments to find a Holdings
+     * @example
+     * // Get one Holdings
+     * const holdings = await prisma.holdings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HoldingsFindFirstOrThrowArgs>(args?: SelectSubset<T, HoldingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Holdings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Holdings
+     * const holdings = await prisma.holdings.findMany()
+     * 
+     * // Get first 10 Holdings
+     * const holdings = await prisma.holdings.findMany({ take: 10 })
+     * 
+     * // Only select the `userName`
+     * const holdingsWithUserNameOnly = await prisma.holdings.findMany({ select: { userName: true } })
+     * 
+     */
+    findMany<T extends HoldingsFindManyArgs>(args?: SelectSubset<T, HoldingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Holdings.
+     * @param {HoldingsCreateArgs} args - Arguments to create a Holdings.
+     * @example
+     * // Create one Holdings
+     * const Holdings = await prisma.holdings.create({
+     *   data: {
+     *     // ... data to create a Holdings
+     *   }
+     * })
+     * 
+     */
+    create<T extends HoldingsCreateArgs>(args: SelectSubset<T, HoldingsCreateArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Holdings.
+     * @param {HoldingsCreateManyArgs} args - Arguments to create many Holdings.
+     * @example
+     * // Create many Holdings
+     * const holdings = await prisma.holdings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HoldingsCreateManyArgs>(args?: SelectSubset<T, HoldingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Holdings and returns the data saved in the database.
+     * @param {HoldingsCreateManyAndReturnArgs} args - Arguments to create many Holdings.
+     * @example
+     * // Create many Holdings
+     * const holdings = await prisma.holdings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Holdings and only return the `userName`
+     * const holdingsWithUserNameOnly = await prisma.holdings.createManyAndReturn({
+     *   select: { userName: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HoldingsCreateManyAndReturnArgs>(args?: SelectSubset<T, HoldingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Holdings.
+     * @param {HoldingsDeleteArgs} args - Arguments to delete one Holdings.
+     * @example
+     * // Delete one Holdings
+     * const Holdings = await prisma.holdings.delete({
+     *   where: {
+     *     // ... filter to delete one Holdings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HoldingsDeleteArgs>(args: SelectSubset<T, HoldingsDeleteArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Holdings.
+     * @param {HoldingsUpdateArgs} args - Arguments to update one Holdings.
+     * @example
+     * // Update one Holdings
+     * const holdings = await prisma.holdings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HoldingsUpdateArgs>(args: SelectSubset<T, HoldingsUpdateArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Holdings.
+     * @param {HoldingsDeleteManyArgs} args - Arguments to filter Holdings to delete.
+     * @example
+     * // Delete a few Holdings
+     * const { count } = await prisma.holdings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HoldingsDeleteManyArgs>(args?: SelectSubset<T, HoldingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Holdings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Holdings
+     * const holdings = await prisma.holdings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HoldingsUpdateManyArgs>(args: SelectSubset<T, HoldingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Holdings and returns the data updated in the database.
+     * @param {HoldingsUpdateManyAndReturnArgs} args - Arguments to update many Holdings.
+     * @example
+     * // Update many Holdings
+     * const holdings = await prisma.holdings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Holdings and only return the `userName`
+     * const holdingsWithUserNameOnly = await prisma.holdings.updateManyAndReturn({
+     *   select: { userName: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HoldingsUpdateManyAndReturnArgs>(args: SelectSubset<T, HoldingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Holdings.
+     * @param {HoldingsUpsertArgs} args - Arguments to update or create a Holdings.
+     * @example
+     * // Update or create a Holdings
+     * const holdings = await prisma.holdings.upsert({
+     *   create: {
+     *     // ... data to create a Holdings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Holdings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HoldingsUpsertArgs>(args: SelectSubset<T, HoldingsUpsertArgs<ExtArgs>>): Prisma__HoldingsClient<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Holdings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsCountArgs} args - Arguments to filter Holdings to count.
+     * @example
+     * // Count the number of Holdings
+     * const count = await prisma.holdings.count({
+     *   where: {
+     *     // ... the filter for the Holdings we want to count
+     *   }
+     * })
+    **/
+    count<T extends HoldingsCountArgs>(
+      args?: Subset<T, HoldingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HoldingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Holdings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HoldingsAggregateArgs>(args: Subset<T, HoldingsAggregateArgs>): Prisma.PrismaPromise<GetHoldingsAggregateType<T>>
+
+    /**
+     * Group by Holdings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HoldingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HoldingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HoldingsGroupByArgs['orderBy'] }
+        : { orderBy?: HoldingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HoldingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHoldingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Holdings model
+   */
+  readonly fields: HoldingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Holdings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HoldingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    item<T extends ItemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemsDefaultArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Holdings model
+   */
+  interface HoldingsFieldRefs {
+    readonly userName: FieldRef<"Holdings", 'String'>
+    readonly itemId: FieldRef<"Holdings", 'Int'>
+    readonly quantity: FieldRef<"Holdings", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Holdings findUnique
+   */
+  export type HoldingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Holdings to fetch.
+     */
+    where: HoldingsWhereUniqueInput
+  }
+
+  /**
+   * Holdings findUniqueOrThrow
+   */
+  export type HoldingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Holdings to fetch.
+     */
+    where: HoldingsWhereUniqueInput
+  }
+
+  /**
+   * Holdings findFirst
+   */
+  export type HoldingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Holdings to fetch.
+     */
+    where?: HoldingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Holdings to fetch.
+     */
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Holdings.
+     */
+    cursor?: HoldingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Holdings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Holdings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Holdings.
+     */
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
+  }
+
+  /**
+   * Holdings findFirstOrThrow
+   */
+  export type HoldingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Holdings to fetch.
+     */
+    where?: HoldingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Holdings to fetch.
+     */
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Holdings.
+     */
+    cursor?: HoldingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Holdings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Holdings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Holdings.
+     */
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
+  }
+
+  /**
+   * Holdings findMany
+   */
+  export type HoldingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Holdings to fetch.
+     */
+    where?: HoldingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Holdings to fetch.
+     */
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Holdings.
+     */
+    cursor?: HoldingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Holdings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Holdings.
+     */
+    skip?: number
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
+  }
+
+  /**
+   * Holdings create
+   */
+  export type HoldingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Holdings.
+     */
+    data: XOR<HoldingsCreateInput, HoldingsUncheckedCreateInput>
+  }
+
+  /**
+   * Holdings createMany
+   */
+  export type HoldingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Holdings.
+     */
+    data: HoldingsCreateManyInput | HoldingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Holdings createManyAndReturn
+   */
+  export type HoldingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Holdings.
+     */
+    data: HoldingsCreateManyInput | HoldingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Holdings update
+   */
+  export type HoldingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Holdings.
+     */
+    data: XOR<HoldingsUpdateInput, HoldingsUncheckedUpdateInput>
+    /**
+     * Choose, which Holdings to update.
+     */
+    where: HoldingsWhereUniqueInput
+  }
+
+  /**
+   * Holdings updateMany
+   */
+  export type HoldingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Holdings.
+     */
+    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyInput>
+    /**
+     * Filter which Holdings to update
+     */
+    where?: HoldingsWhereInput
+    /**
+     * Limit how many Holdings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Holdings updateManyAndReturn
+   */
+  export type HoldingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * The data used to update Holdings.
+     */
+    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyInput>
+    /**
+     * Filter which Holdings to update
+     */
+    where?: HoldingsWhereInput
+    /**
+     * Limit how many Holdings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Holdings upsert
+   */
+  export type HoldingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Holdings to update in case it exists.
+     */
+    where: HoldingsWhereUniqueInput
+    /**
+     * In case the Holdings found by the `where` argument doesn't exist, create a new Holdings with this data.
+     */
+    create: XOR<HoldingsCreateInput, HoldingsUncheckedCreateInput>
+    /**
+     * In case the Holdings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HoldingsUpdateInput, HoldingsUncheckedUpdateInput>
+  }
+
+  /**
+   * Holdings delete
+   */
+  export type HoldingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+    /**
+     * Filter which Holdings to delete.
+     */
+    where: HoldingsWhereUniqueInput
+  }
+
+  /**
+   * Holdings deleteMany
+   */
+  export type HoldingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Holdings to delete
+     */
+    where?: HoldingsWhereInput
+    /**
+     * Limit how many Holdings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Holdings without action
+   */
+  export type HoldingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Holdings
+     */
+    select?: HoldingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Holdings
+     */
+    omit?: HoldingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HoldingsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3234,6 +6904,34 @@ export namespace Prisma {
   };
 
   export type RefreshTokensScalarFieldEnum = (typeof RefreshTokensScalarFieldEnum)[keyof typeof RefreshTokensScalarFieldEnum]
+
+
+  export const OrderbookHistoryScalarFieldEnum: {
+    id: 'id',
+    userName: 'userName',
+    price: 'price',
+    quantity: 'quantity',
+    itemId: 'itemId'
+  };
+
+  export type OrderbookHistoryScalarFieldEnum = (typeof OrderbookHistoryScalarFieldEnum)[keyof typeof OrderbookHistoryScalarFieldEnum]
+
+
+  export const ItemsScalarFieldEnum: {
+    id: 'id',
+    itemName: 'itemName'
+  };
+
+  export type ItemsScalarFieldEnum = (typeof ItemsScalarFieldEnum)[keyof typeof ItemsScalarFieldEnum]
+
+
+  export const HoldingsScalarFieldEnum: {
+    userName: 'userName',
+    itemId: 'itemId',
+    quantity: 'quantity'
+  };
+
+  export type HoldingsScalarFieldEnum = (typeof HoldingsScalarFieldEnum)[keyof typeof HoldingsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3333,6 +7031,8 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     refreshtokens?: RefreshTokensListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+    holdings?: HoldingsListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -3341,6 +7041,8 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     refreshtokens?: RefreshTokensOrderByRelationAggregateInput
+    orders?: OrderbookHistoryOrderByRelationAggregateInput
+    holdings?: HoldingsOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -3352,6 +7054,8 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     refreshtokens?: RefreshTokensListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+    holdings?: HoldingsListRelationFilter
   }, "id" | "name">
 
   export type UsersOrderByWithAggregationInput = {
@@ -3443,11 +7147,169 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"RefreshTokens"> | Date | string
   }
 
+  export type OrderbookHistoryWhereInput = {
+    AND?: OrderbookHistoryWhereInput | OrderbookHistoryWhereInput[]
+    OR?: OrderbookHistoryWhereInput[]
+    NOT?: OrderbookHistoryWhereInput | OrderbookHistoryWhereInput[]
+    id?: IntFilter<"OrderbookHistory"> | number
+    userName?: StringFilter<"OrderbookHistory"> | string
+    price?: IntFilter<"OrderbookHistory"> | number
+    quantity?: IntFilter<"OrderbookHistory"> | number
+    itemId?: IntFilter<"OrderbookHistory"> | number
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+  }
+
+  export type OrderbookHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userName?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+    user?: UsersOrderByWithRelationInput
+    item?: ItemsOrderByWithRelationInput
+  }
+
+  export type OrderbookHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: OrderbookHistoryWhereInput | OrderbookHistoryWhereInput[]
+    OR?: OrderbookHistoryWhereInput[]
+    NOT?: OrderbookHistoryWhereInput | OrderbookHistoryWhereInput[]
+    userName?: StringFilter<"OrderbookHistory"> | string
+    price?: IntFilter<"OrderbookHistory"> | number
+    quantity?: IntFilter<"OrderbookHistory"> | number
+    itemId?: IntFilter<"OrderbookHistory"> | number
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+  }, "id">
+
+  export type OrderbookHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userName?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+    _count?: OrderbookHistoryCountOrderByAggregateInput
+    _avg?: OrderbookHistoryAvgOrderByAggregateInput
+    _max?: OrderbookHistoryMaxOrderByAggregateInput
+    _min?: OrderbookHistoryMinOrderByAggregateInput
+    _sum?: OrderbookHistorySumOrderByAggregateInput
+  }
+
+  export type OrderbookHistoryScalarWhereWithAggregatesInput = {
+    AND?: OrderbookHistoryScalarWhereWithAggregatesInput | OrderbookHistoryScalarWhereWithAggregatesInput[]
+    OR?: OrderbookHistoryScalarWhereWithAggregatesInput[]
+    NOT?: OrderbookHistoryScalarWhereWithAggregatesInput | OrderbookHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"OrderbookHistory"> | number
+    userName?: StringWithAggregatesFilter<"OrderbookHistory"> | string
+    price?: IntWithAggregatesFilter<"OrderbookHistory"> | number
+    quantity?: IntWithAggregatesFilter<"OrderbookHistory"> | number
+    itemId?: IntWithAggregatesFilter<"OrderbookHistory"> | number
+  }
+
+  export type ItemsWhereInput = {
+    AND?: ItemsWhereInput | ItemsWhereInput[]
+    OR?: ItemsWhereInput[]
+    NOT?: ItemsWhereInput | ItemsWhereInput[]
+    id?: IntFilter<"Items"> | number
+    itemName?: StringFilter<"Items"> | string
+    holdings?: HoldingsListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+  }
+
+  export type ItemsOrderByWithRelationInput = {
+    id?: SortOrder
+    itemName?: SortOrder
+    holdings?: HoldingsOrderByRelationAggregateInput
+    orders?: OrderbookHistoryOrderByRelationAggregateInput
+  }
+
+  export type ItemsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ItemsWhereInput | ItemsWhereInput[]
+    OR?: ItemsWhereInput[]
+    NOT?: ItemsWhereInput | ItemsWhereInput[]
+    itemName?: StringFilter<"Items"> | string
+    holdings?: HoldingsListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+  }, "id" | "id">
+
+  export type ItemsOrderByWithAggregationInput = {
+    id?: SortOrder
+    itemName?: SortOrder
+    _count?: ItemsCountOrderByAggregateInput
+    _avg?: ItemsAvgOrderByAggregateInput
+    _max?: ItemsMaxOrderByAggregateInput
+    _min?: ItemsMinOrderByAggregateInput
+    _sum?: ItemsSumOrderByAggregateInput
+  }
+
+  export type ItemsScalarWhereWithAggregatesInput = {
+    AND?: ItemsScalarWhereWithAggregatesInput | ItemsScalarWhereWithAggregatesInput[]
+    OR?: ItemsScalarWhereWithAggregatesInput[]
+    NOT?: ItemsScalarWhereWithAggregatesInput | ItemsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Items"> | number
+    itemName?: StringWithAggregatesFilter<"Items"> | string
+  }
+
+  export type HoldingsWhereInput = {
+    AND?: HoldingsWhereInput | HoldingsWhereInput[]
+    OR?: HoldingsWhereInput[]
+    NOT?: HoldingsWhereInput | HoldingsWhereInput[]
+    userName?: StringFilter<"Holdings"> | string
+    itemId?: IntFilter<"Holdings"> | number
+    quantity?: IntFilter<"Holdings"> | number
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+  }
+
+  export type HoldingsOrderByWithRelationInput = {
+    userName?: SortOrder
+    itemId?: SortOrder
+    quantity?: SortOrder
+    user?: UsersOrderByWithRelationInput
+    item?: ItemsOrderByWithRelationInput
+  }
+
+  export type HoldingsWhereUniqueInput = Prisma.AtLeast<{
+    userName_itemId?: HoldingsUserNameItemIdCompoundUniqueInput
+    AND?: HoldingsWhereInput | HoldingsWhereInput[]
+    OR?: HoldingsWhereInput[]
+    NOT?: HoldingsWhereInput | HoldingsWhereInput[]
+    userName?: StringFilter<"Holdings"> | string
+    itemId?: IntFilter<"Holdings"> | number
+    quantity?: IntFilter<"Holdings"> | number
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+  }, "userName_itemId">
+
+  export type HoldingsOrderByWithAggregationInput = {
+    userName?: SortOrder
+    itemId?: SortOrder
+    quantity?: SortOrder
+    _count?: HoldingsCountOrderByAggregateInput
+    _avg?: HoldingsAvgOrderByAggregateInput
+    _max?: HoldingsMaxOrderByAggregateInput
+    _min?: HoldingsMinOrderByAggregateInput
+    _sum?: HoldingsSumOrderByAggregateInput
+  }
+
+  export type HoldingsScalarWhereWithAggregatesInput = {
+    AND?: HoldingsScalarWhereWithAggregatesInput | HoldingsScalarWhereWithAggregatesInput[]
+    OR?: HoldingsScalarWhereWithAggregatesInput[]
+    NOT?: HoldingsScalarWhereWithAggregatesInput | HoldingsScalarWhereWithAggregatesInput[]
+    userName?: StringWithAggregatesFilter<"Holdings"> | string
+    itemId?: IntWithAggregatesFilter<"Holdings"> | number
+    quantity?: IntWithAggregatesFilter<"Holdings"> | number
+  }
+
   export type UsersCreateInput = {
     name: string
     password: string
     createdAt?: Date | string
     refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
+    holdings?: HoldingsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -3456,6 +7318,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -3463,6 +7327,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -3471,6 +7337,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -3559,6 +7427,137 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OrderbookHistoryCreateInput = {
+    price: number
+    quantity: number
+    user: UsersCreateNestedOneWithoutOrdersInput
+    item: ItemsCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderbookHistoryUncheckedCreateInput = {
+    id?: number
+    userName: string
+    price: number
+    quantity: number
+    itemId: number
+  }
+
+  export type OrderbookHistoryUpdateInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    user?: UsersUpdateOneRequiredWithoutOrdersNestedInput
+    item?: ItemsUpdateOneRequiredWithoutOrdersNestedInput
+  }
+
+  export type OrderbookHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userName?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryCreateManyInput = {
+    id?: number
+    userName: string
+    price: number
+    quantity: number
+    itemId: number
+  }
+
+  export type OrderbookHistoryUpdateManyMutationInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userName?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItemsCreateInput = {
+    itemName: string
+    holdings?: HoldingsCreateNestedManyWithoutItemInput
+    orders?: OrderbookHistoryCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUncheckedCreateInput = {
+    id?: number
+    itemName: string
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutItemInput
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUpdateInput = {
+    itemName?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUpdateManyWithoutItemNestedInput
+    orders?: OrderbookHistoryUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemName?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUncheckedUpdateManyWithoutItemNestedInput
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsCreateManyInput = {
+    id?: number
+    itemName: string
+  }
+
+  export type ItemsUpdateManyMutationInput = {
+    itemName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ItemsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HoldingsCreateInput = {
+    quantity: number
+    user: UsersCreateNestedOneWithoutHoldingsInput
+    item: ItemsCreateNestedOneWithoutHoldingsInput
+  }
+
+  export type HoldingsUncheckedCreateInput = {
+    userName: string
+    itemId: number
+    quantity: number
+  }
+
+  export type HoldingsUpdateInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    user?: UsersUpdateOneRequiredWithoutHoldingsNestedInput
+    item?: ItemsUpdateOneRequiredWithoutHoldingsNestedInput
+  }
+
+  export type HoldingsUncheckedUpdateInput = {
+    userName?: StringFieldUpdateOperationsInput | string
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsCreateManyInput = {
+    userName: string
+    itemId: number
+    quantity: number
+  }
+
+  export type HoldingsUpdateManyMutationInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsUncheckedUpdateManyInput = {
+    userName?: StringFieldUpdateOperationsInput | string
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -3602,7 +7601,27 @@ export namespace Prisma {
     none?: RefreshTokensWhereInput
   }
 
+  export type OrderbookHistoryListRelationFilter = {
+    every?: OrderbookHistoryWhereInput
+    some?: OrderbookHistoryWhereInput
+    none?: OrderbookHistoryWhereInput
+  }
+
+  export type HoldingsListRelationFilter = {
+    every?: HoldingsWhereInput
+    some?: HoldingsWhereInput
+    none?: HoldingsWhereInput
+  }
+
   export type RefreshTokensOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrderbookHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HoldingsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3764,6 +7783,105 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type ItemsScalarRelationFilter = {
+    is?: ItemsWhereInput
+    isNot?: ItemsWhereInput
+  }
+
+  export type OrderbookHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userName?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+  }
+
+  export type OrderbookHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+  }
+
+  export type OrderbookHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userName?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+  }
+
+  export type OrderbookHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userName?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+  }
+
+  export type OrderbookHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    quantity?: SortOrder
+    itemId?: SortOrder
+  }
+
+  export type ItemsCountOrderByAggregateInput = {
+    id?: SortOrder
+    itemName?: SortOrder
+  }
+
+  export type ItemsAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ItemsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    itemName?: SortOrder
+  }
+
+  export type ItemsMinOrderByAggregateInput = {
+    id?: SortOrder
+    itemName?: SortOrder
+  }
+
+  export type ItemsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type HoldingsUserNameItemIdCompoundUniqueInput = {
+    userName: string
+    itemId: number
+  }
+
+  export type HoldingsCountOrderByAggregateInput = {
+    userName?: SortOrder
+    itemId?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type HoldingsAvgOrderByAggregateInput = {
+    itemId?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type HoldingsMaxOrderByAggregateInput = {
+    userName?: SortOrder
+    itemId?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type HoldingsMinOrderByAggregateInput = {
+    userName?: SortOrder
+    itemId?: SortOrder
+    quantity?: SortOrder
+  }
+
+  export type HoldingsSumOrderByAggregateInput = {
+    itemId?: SortOrder
+    quantity?: SortOrder
+  }
+
   export type RefreshTokensCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
@@ -3771,11 +7889,39 @@ export namespace Prisma {
     connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
   }
 
+  export type OrderbookHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+  }
+
+  export type HoldingsCreateNestedManyWithoutUserInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+  }
+
   export type RefreshTokensUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokensCreateManyUserInputEnvelope
     connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+  }
+
+  export type OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+  }
+
+  export type HoldingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3800,6 +7946,34 @@ export namespace Prisma {
     deleteMany?: RefreshTokensScalarWhereInput | RefreshTokensScalarWhereInput[]
   }
 
+  export type OrderbookHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput | OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
+    set?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    disconnect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    delete?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    update?: OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput | OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderbookHistoryUpdateManyWithWhereWithoutUserInput | OrderbookHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+  }
+
+  export type HoldingsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -3822,6 +7996,34 @@ export namespace Prisma {
     deleteMany?: RefreshTokensScalarWhereInput | RefreshTokensScalarWhereInput[]
   }
 
+  export type OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput | OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
+    set?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    disconnect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    delete?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    update?: OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput | OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderbookHistoryUpdateManyWithWhereWithoutUserInput | OrderbookHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+  }
+
   export type UsersCreateNestedOneWithoutRefreshtokensInput = {
     create?: XOR<UsersCreateWithoutRefreshtokensInput, UsersUncheckedCreateWithoutRefreshtokensInput>
     connectOrCreate?: UsersCreateOrConnectWithoutRefreshtokensInput
@@ -3838,6 +8040,146 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutRefreshtokensInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutRefreshtokensInput, UsersUpdateWithoutRefreshtokensInput>, UsersUncheckedUpdateWithoutRefreshtokensInput>
+  }
+
+  export type UsersCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutOrdersInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type ItemsCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: ItemsCreateOrConnectWithoutOrdersInput
+    connect?: ItemsWhereUniqueInput
+  }
+
+  export type UsersUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutOrdersInput
+    upsert?: UsersUpsertWithoutOrdersInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutOrdersInput, UsersUpdateWithoutOrdersInput>, UsersUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type ItemsUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: ItemsCreateOrConnectWithoutOrdersInput
+    upsert?: ItemsUpsertWithoutOrdersInput
+    connect?: ItemsWhereUniqueInput
+    update?: XOR<XOR<ItemsUpdateToOneWithWhereWithoutOrdersInput, ItemsUpdateWithoutOrdersInput>, ItemsUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type HoldingsCreateNestedManyWithoutItemInput = {
+    create?: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput> | HoldingsCreateWithoutItemInput[] | HoldingsUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutItemInput | HoldingsCreateOrConnectWithoutItemInput[]
+    createMany?: HoldingsCreateManyItemInputEnvelope
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+  }
+
+  export type OrderbookHistoryCreateNestedManyWithoutItemInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput> | OrderbookHistoryCreateWithoutItemInput[] | OrderbookHistoryUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutItemInput | OrderbookHistoryCreateOrConnectWithoutItemInput[]
+    createMany?: OrderbookHistoryCreateManyItemInputEnvelope
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+  }
+
+  export type HoldingsUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput> | HoldingsCreateWithoutItemInput[] | HoldingsUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutItemInput | HoldingsCreateOrConnectWithoutItemInput[]
+    createMany?: HoldingsCreateManyItemInputEnvelope
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+  }
+
+  export type OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput> | OrderbookHistoryCreateWithoutItemInput[] | OrderbookHistoryUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutItemInput | OrderbookHistoryCreateOrConnectWithoutItemInput[]
+    createMany?: OrderbookHistoryCreateManyItemInputEnvelope
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+  }
+
+  export type HoldingsUpdateManyWithoutItemNestedInput = {
+    create?: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput> | HoldingsCreateWithoutItemInput[] | HoldingsUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutItemInput | HoldingsCreateOrConnectWithoutItemInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutItemInput | HoldingsUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: HoldingsCreateManyItemInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutItemInput | HoldingsUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutItemInput | HoldingsUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+  }
+
+  export type OrderbookHistoryUpdateManyWithoutItemNestedInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput> | OrderbookHistoryCreateWithoutItemInput[] | OrderbookHistoryUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutItemInput | OrderbookHistoryCreateOrConnectWithoutItemInput[]
+    upsert?: OrderbookHistoryUpsertWithWhereUniqueWithoutItemInput | OrderbookHistoryUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: OrderbookHistoryCreateManyItemInputEnvelope
+    set?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    disconnect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    delete?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    update?: OrderbookHistoryUpdateWithWhereUniqueWithoutItemInput | OrderbookHistoryUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: OrderbookHistoryUpdateManyWithWhereWithoutItemInput | OrderbookHistoryUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput> | HoldingsCreateWithoutItemInput[] | HoldingsUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutItemInput | HoldingsCreateOrConnectWithoutItemInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutItemInput | HoldingsUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: HoldingsCreateManyItemInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutItemInput | HoldingsUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutItemInput | HoldingsUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+  }
+
+  export type OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput> | OrderbookHistoryCreateWithoutItemInput[] | OrderbookHistoryUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutItemInput | OrderbookHistoryCreateOrConnectWithoutItemInput[]
+    upsert?: OrderbookHistoryUpsertWithWhereUniqueWithoutItemInput | OrderbookHistoryUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: OrderbookHistoryCreateManyItemInputEnvelope
+    set?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    disconnect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    delete?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+    update?: OrderbookHistoryUpdateWithWhereUniqueWithoutItemInput | OrderbookHistoryUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: OrderbookHistoryUpdateManyWithWhereWithoutItemInput | OrderbookHistoryUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+  }
+
+  export type UsersCreateNestedOneWithoutHoldingsInput = {
+    create?: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutHoldingsInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type ItemsCreateNestedOneWithoutHoldingsInput = {
+    create?: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: ItemsCreateOrConnectWithoutHoldingsInput
+    connect?: ItemsWhereUniqueInput
+  }
+
+  export type UsersUpdateOneRequiredWithoutHoldingsNestedInput = {
+    create?: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutHoldingsInput
+    upsert?: UsersUpsertWithoutHoldingsInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutHoldingsInput, UsersUpdateWithoutHoldingsInput>, UsersUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type ItemsUpdateOneRequiredWithoutHoldingsNestedInput = {
+    create?: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: ItemsCreateOrConnectWithoutHoldingsInput
+    upsert?: ItemsUpsertWithoutHoldingsInput
+    connect?: ItemsWhereUniqueInput
+    update?: XOR<XOR<ItemsUpdateToOneWithWhereWithoutHoldingsInput, ItemsUpdateWithoutHoldingsInput>, ItemsUncheckedUpdateWithoutHoldingsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4003,6 +8345,49 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OrderbookHistoryCreateWithoutUserInput = {
+    price: number
+    quantity: number
+    item: ItemsCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderbookHistoryUncheckedCreateWithoutUserInput = {
+    id?: number
+    price: number
+    quantity: number
+    itemId: number
+  }
+
+  export type OrderbookHistoryCreateOrConnectWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryCreateManyUserInputEnvelope = {
+    data: OrderbookHistoryCreateManyUserInput | OrderbookHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HoldingsCreateWithoutUserInput = {
+    quantity: number
+    item: ItemsCreateNestedOneWithoutHoldingsInput
+  }
+
+  export type HoldingsUncheckedCreateWithoutUserInput = {
+    itemId: number
+    quantity: number
+  }
+
+  export type HoldingsCreateOrConnectWithoutUserInput = {
+    where: HoldingsWhereUniqueInput
+    create: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type HoldingsCreateManyUserInputEnvelope = {
+    data: HoldingsCreateManyUserInput | HoldingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RefreshTokensUpsertWithWhereUniqueWithoutUserInput = {
     where: RefreshTokensWhereUniqueInput
     update: XOR<RefreshTokensUpdateWithoutUserInput, RefreshTokensUncheckedUpdateWithoutUserInput>
@@ -4032,10 +8417,64 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"RefreshTokens"> | Date | string
   }
 
+  export type OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    update: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    data: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: OrderbookHistoryScalarWhereInput
+    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OrderbookHistoryScalarWhereInput = {
+    AND?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+    OR?: OrderbookHistoryScalarWhereInput[]
+    NOT?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+    id?: IntFilter<"OrderbookHistory"> | number
+    userName?: StringFilter<"OrderbookHistory"> | string
+    price?: IntFilter<"OrderbookHistory"> | number
+    quantity?: IntFilter<"OrderbookHistory"> | number
+    itemId?: IntFilter<"OrderbookHistory"> | number
+  }
+
+  export type HoldingsUpsertWithWhereUniqueWithoutUserInput = {
+    where: HoldingsWhereUniqueInput
+    update: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
+    create: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type HoldingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: HoldingsWhereUniqueInput
+    data: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HoldingsUpdateManyWithWhereWithoutUserInput = {
+    where: HoldingsScalarWhereInput
+    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HoldingsScalarWhereInput = {
+    AND?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+    OR?: HoldingsScalarWhereInput[]
+    NOT?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+    userName?: StringFilter<"Holdings"> | string
+    itemId?: IntFilter<"Holdings"> | number
+    quantity?: IntFilter<"Holdings"> | number
+  }
+
   export type UsersCreateWithoutRefreshtokensInput = {
     name: string
     password: string
     createdAt?: Date | string
+    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
+    holdings?: HoldingsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutRefreshtokensInput = {
@@ -4043,6 +8482,8 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutRefreshtokensInput = {
@@ -4065,6 +8506,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutRefreshtokensInput = {
@@ -4072,6 +8515,259 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersCreateWithoutOrdersInput = {
+    name: string
+    password: string
+    createdAt?: Date | string
+    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
+    holdings?: HoldingsCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutOrdersInput = {
+    id?: number
+    name: string
+    password: string
+    createdAt?: Date | string
+    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutOrdersInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type ItemsCreateWithoutOrdersInput = {
+    itemName: string
+    holdings?: HoldingsCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUncheckedCreateWithoutOrdersInput = {
+    id?: number
+    itemName: string
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsCreateOrConnectWithoutOrdersInput = {
+    where: ItemsWhereUniqueInput
+    create: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type UsersUpsertWithoutOrdersInput = {
+    update: XOR<UsersUpdateWithoutOrdersInput, UsersUncheckedUpdateWithoutOrdersInput>
+    create: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutOrdersInput, UsersUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type UsersUpdateWithoutOrdersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutOrdersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ItemsUpsertWithoutOrdersInput = {
+    update: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
+    create: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
+    where?: ItemsWhereInput
+  }
+
+  export type ItemsUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: ItemsWhereInput
+    data: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type ItemsUpdateWithoutOrdersInput = {
+    itemName?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsUncheckedUpdateWithoutOrdersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemName?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type HoldingsCreateWithoutItemInput = {
+    quantity: number
+    user: UsersCreateNestedOneWithoutHoldingsInput
+  }
+
+  export type HoldingsUncheckedCreateWithoutItemInput = {
+    userName: string
+    quantity: number
+  }
+
+  export type HoldingsCreateOrConnectWithoutItemInput = {
+    where: HoldingsWhereUniqueInput
+    create: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput>
+  }
+
+  export type HoldingsCreateManyItemInputEnvelope = {
+    data: HoldingsCreateManyItemInput | HoldingsCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrderbookHistoryCreateWithoutItemInput = {
+    price: number
+    quantity: number
+    user: UsersCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderbookHistoryUncheckedCreateWithoutItemInput = {
+    id?: number
+    userName: string
+    price: number
+    quantity: number
+  }
+
+  export type OrderbookHistoryCreateOrConnectWithoutItemInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    create: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput>
+  }
+
+  export type OrderbookHistoryCreateManyItemInputEnvelope = {
+    data: OrderbookHistoryCreateManyItemInput | OrderbookHistoryCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HoldingsUpsertWithWhereUniqueWithoutItemInput = {
+    where: HoldingsWhereUniqueInput
+    update: XOR<HoldingsUpdateWithoutItemInput, HoldingsUncheckedUpdateWithoutItemInput>
+    create: XOR<HoldingsCreateWithoutItemInput, HoldingsUncheckedCreateWithoutItemInput>
+  }
+
+  export type HoldingsUpdateWithWhereUniqueWithoutItemInput = {
+    where: HoldingsWhereUniqueInput
+    data: XOR<HoldingsUpdateWithoutItemInput, HoldingsUncheckedUpdateWithoutItemInput>
+  }
+
+  export type HoldingsUpdateManyWithWhereWithoutItemInput = {
+    where: HoldingsScalarWhereInput
+    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type OrderbookHistoryUpsertWithWhereUniqueWithoutItemInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    update: XOR<OrderbookHistoryUpdateWithoutItemInput, OrderbookHistoryUncheckedUpdateWithoutItemInput>
+    create: XOR<OrderbookHistoryCreateWithoutItemInput, OrderbookHistoryUncheckedCreateWithoutItemInput>
+  }
+
+  export type OrderbookHistoryUpdateWithWhereUniqueWithoutItemInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    data: XOR<OrderbookHistoryUpdateWithoutItemInput, OrderbookHistoryUncheckedUpdateWithoutItemInput>
+  }
+
+  export type OrderbookHistoryUpdateManyWithWhereWithoutItemInput = {
+    where: OrderbookHistoryScalarWhereInput
+    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type UsersCreateWithoutHoldingsInput = {
+    name: string
+    password: string
+    createdAt?: Date | string
+    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutHoldingsInput = {
+    id?: number
+    name: string
+    password: string
+    createdAt?: Date | string
+    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutHoldingsInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
+  }
+
+  export type ItemsCreateWithoutHoldingsInput = {
+    itemName: string
+    orders?: OrderbookHistoryCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUncheckedCreateWithoutHoldingsInput = {
+    id?: number
+    itemName: string
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsCreateOrConnectWithoutHoldingsInput = {
+    where: ItemsWhereUniqueInput
+    create: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+  }
+
+  export type UsersUpsertWithoutHoldingsInput = {
+    update: XOR<UsersUpdateWithoutHoldingsInput, UsersUncheckedUpdateWithoutHoldingsInput>
+    create: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutHoldingsInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutHoldingsInput, UsersUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type UsersUpdateWithoutHoldingsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutHoldingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ItemsUpsertWithoutHoldingsInput = {
+    update: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
+    create: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+    where?: ItemsWhereInput
+  }
+
+  export type ItemsUpdateToOneWithWhereWithoutHoldingsInput = {
+    where?: ItemsWhereInput
+    data: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type ItemsUpdateWithoutHoldingsInput = {
+    itemName?: StringFieldUpdateOperationsInput | string
+    orders?: OrderbookHistoryUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsUncheckedUpdateWithoutHoldingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    itemName?: StringFieldUpdateOperationsInput | string
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type RefreshTokensCreateManyUserInput = {
@@ -4081,6 +8777,18 @@ export namespace Prisma {
     ipAddress?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
+  }
+
+  export type OrderbookHistoryCreateManyUserInput = {
+    id?: number
+    price: number
+    quantity: number
+    itemId: number
+  }
+
+  export type HoldingsCreateManyUserInput = {
+    itemId: number
+    quantity: number
   }
 
   export type RefreshTokensUpdateWithoutUserInput = {
@@ -4107,6 +8815,88 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrderbookHistoryUpdateWithoutUserInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    item?: ItemsUpdateOneRequiredWithoutOrdersNestedInput
+  }
+
+  export type OrderbookHistoryUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsUpdateWithoutUserInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    item?: ItemsUpdateOneRequiredWithoutHoldingsNestedInput
+  }
+
+  export type HoldingsUncheckedUpdateWithoutUserInput = {
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutUserInput = {
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsCreateManyItemInput = {
+    userName: string
+    quantity: number
+  }
+
+  export type OrderbookHistoryCreateManyItemInput = {
+    id?: number
+    userName: string
+    price: number
+    quantity: number
+  }
+
+  export type HoldingsUpdateWithoutItemInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    user?: UsersUpdateOneRequiredWithoutHoldingsNestedInput
+  }
+
+  export type HoldingsUncheckedUpdateWithoutItemInput = {
+    userName?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutItemInput = {
+    userName?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryUpdateWithoutItemInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    user?: UsersUpdateOneRequiredWithoutOrdersNestedInput
+  }
+
+  export type OrderbookHistoryUncheckedUpdateWithoutItemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userName?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryUncheckedUpdateManyWithoutItemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userName?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
 

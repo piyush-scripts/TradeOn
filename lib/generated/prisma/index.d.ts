@@ -1335,10 +1335,12 @@ export namespace Prisma {
 
   export type UsersAvgAggregateOutputType = {
     id: number | null
+    Balance: number | null
   }
 
   export type UsersSumAggregateOutputType = {
     id: number | null
+    Balance: number | null
   }
 
   export type UsersMinAggregateOutputType = {
@@ -1346,6 +1348,7 @@ export namespace Prisma {
     name: string | null
     password: string | null
     createdAt: Date | null
+    Balance: number | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -1353,6 +1356,7 @@ export namespace Prisma {
     name: string | null
     password: string | null
     createdAt: Date | null
+    Balance: number | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -1360,16 +1364,19 @@ export namespace Prisma {
     name: number
     password: number
     createdAt: number
+    Balance: number
     _all: number
   }
 
 
   export type UsersAvgAggregateInputType = {
     id?: true
+    Balance?: true
   }
 
   export type UsersSumAggregateInputType = {
     id?: true
+    Balance?: true
   }
 
   export type UsersMinAggregateInputType = {
@@ -1377,6 +1384,7 @@ export namespace Prisma {
     name?: true
     password?: true
     createdAt?: true
+    Balance?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -1384,6 +1392,7 @@ export namespace Prisma {
     name?: true
     password?: true
     createdAt?: true
+    Balance?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -1391,6 +1400,7 @@ export namespace Prisma {
     name?: true
     password?: true
     createdAt?: true
+    Balance?: true
     _all?: true
   }
 
@@ -1485,6 +1495,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt: Date
+    Balance: number
     _count: UsersCountAggregateOutputType | null
     _avg: UsersAvgAggregateOutputType | null
     _sum: UsersSumAggregateOutputType | null
@@ -1511,6 +1522,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     createdAt?: boolean
+    Balance?: boolean
     refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
     orders?: boolean | Users$ordersArgs<ExtArgs>
     holdings?: boolean | Users$holdingsArgs<ExtArgs>
@@ -1522,6 +1534,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     createdAt?: boolean
+    Balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1529,6 +1542,7 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     createdAt?: boolean
+    Balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectScalar = {
@@ -1536,9 +1550,10 @@ export namespace Prisma {
     name?: boolean
     password?: boolean
     createdAt?: boolean
+    Balance?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password" | "createdAt", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password" | "createdAt" | "Balance", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
     orders?: boolean | Users$ordersArgs<ExtArgs>
@@ -1560,6 +1575,7 @@ export namespace Prisma {
       name: string
       password: string
       createdAt: Date
+      Balance: number
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -1990,6 +2006,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
+    readonly Balance: FieldRef<"Users", 'Int'>
   }
     
 
@@ -6887,7 +6904,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     password: 'password',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    Balance: 'Balance'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -7030,6 +7048,7 @@ export namespace Prisma {
     name?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
+    Balance?: IntFilter<"Users"> | number
     refreshtokens?: RefreshTokensListRelationFilter
     orders?: OrderbookHistoryListRelationFilter
     holdings?: HoldingsListRelationFilter
@@ -7040,6 +7059,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    Balance?: SortOrder
     refreshtokens?: RefreshTokensOrderByRelationAggregateInput
     orders?: OrderbookHistoryOrderByRelationAggregateInput
     holdings?: HoldingsOrderByRelationAggregateInput
@@ -7053,6 +7073,7 @@ export namespace Prisma {
     NOT?: UsersWhereInput | UsersWhereInput[]
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
+    Balance?: IntFilter<"Users"> | number
     refreshtokens?: RefreshTokensListRelationFilter
     orders?: OrderbookHistoryListRelationFilter
     holdings?: HoldingsListRelationFilter
@@ -7063,6 +7084,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    Balance?: SortOrder
     _count?: UsersCountOrderByAggregateInput
     _avg?: UsersAvgOrderByAggregateInput
     _max?: UsersMaxOrderByAggregateInput
@@ -7078,6 +7100,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Users"> | string
     password?: StringWithAggregatesFilter<"Users"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
+    Balance?: IntWithAggregatesFilter<"Users"> | number
   }
 
   export type RefreshTokensWhereInput = {
@@ -7307,6 +7330,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
@@ -7317,6 +7341,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
@@ -7326,6 +7351,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
@@ -7336,6 +7362,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
@@ -7346,12 +7373,14 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
   }
 
   export type UsersUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
   }
 
   export type UsersUncheckedUpdateManyInput = {
@@ -7359,6 +7388,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
   }
 
   export type RefreshTokensCreateInput = {
@@ -7630,10 +7660,12 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    Balance?: SortOrder
   }
 
   export type UsersAvgOrderByAggregateInput = {
     id?: SortOrder
+    Balance?: SortOrder
   }
 
   export type UsersMaxOrderByAggregateInput = {
@@ -7641,6 +7673,7 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    Balance?: SortOrder
   }
 
   export type UsersMinOrderByAggregateInput = {
@@ -7648,10 +7681,12 @@ export namespace Prisma {
     name?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    Balance?: SortOrder
   }
 
   export type UsersSumOrderByAggregateInput = {
     id?: SortOrder
+    Balance?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7932,6 +7967,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type RefreshTokensUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
@@ -7972,14 +8015,6 @@ export namespace Prisma {
     update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type RefreshTokensUncheckedUpdateManyWithoutUserNestedInput = {
@@ -8473,6 +8508,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
   }
@@ -8482,6 +8518,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8506,6 +8543,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
   }
@@ -8515,6 +8553,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8523,6 +8562,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
   }
@@ -8532,6 +8572,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8572,6 +8613,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
   }
@@ -8581,6 +8623,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8686,6 +8729,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
   }
@@ -8695,6 +8739,7 @@ export namespace Prisma {
     name: string
     password: string
     createdAt?: Date | string
+    Balance: number
     refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8735,6 +8780,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
   }
@@ -8744,6 +8790,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Balance?: IntFieldUpdateOperationsInput | number
     refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
   }

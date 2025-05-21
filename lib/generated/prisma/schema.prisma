@@ -19,6 +19,7 @@ model Users {
   name          String             @unique
   password      String
   createdAt     DateTime           @default(now())
+  Balance       Int
   refreshtokens RefreshTokens[]
   orders        OrderbookHistory[]
   holdings      Holdings[]

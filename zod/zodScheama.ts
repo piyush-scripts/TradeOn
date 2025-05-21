@@ -12,6 +12,7 @@ export type SignupSchema = z.infer<typeof signupSchema>
 
 
 export const orderSchema = z.object({
+    itemId : number(),
     price: number(),
     quantity: number(),
     side: z.enum(["bid", "ask"]),
@@ -27,3 +28,4 @@ export const payloadSchema = z.object({
 })
 
 export type PayloadSchema = z.infer<typeof payloadSchema>
+

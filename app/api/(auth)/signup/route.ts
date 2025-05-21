@@ -26,7 +26,8 @@ export async function POST(req: Request) {
         await prisma.users.create({
             data: {
                 name : name,
-                password : hash
+                password : hash,
+                Balance : 50000
             }
         });
         } catch (error) {

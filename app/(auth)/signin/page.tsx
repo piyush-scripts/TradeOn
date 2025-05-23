@@ -1,12 +1,9 @@
-import React from "react"
+"use client";
 
-const page = () => {
-    return (
-      <div>
-        SignIN
-      </div>
-    )
-  }
-  
-  export default page
+import BasicForm from "@/components/custom/basicForm";
+
+
+export default function SignupPage () {
+    return <BasicForm heading="Sign to your Account" buttonText="Sign in"/>
+}
   

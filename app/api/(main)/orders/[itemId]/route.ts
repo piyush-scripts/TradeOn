@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from 'jsonwebtoken'
-import { OrderSchema, orderSchema, payloadSchema, PayloadSchema } from "@/zod/zodScheama";
-import { Order } from "@/types/types";
+import { Order, orderSchema, payloadSchema, PayloadSchema } from "../types";
 import sortOrderByPrice from "@/helpers/orders/sortByPrice";
 import fillOrders from "@/helpers/orders/fillOrders";
 
@@ -49,11 +48,11 @@ export async function POST(
     if(remainingQuantity > 0 ){
         if (side === "bid") {
             bids[itemId].push({name , price , quantity: remainingQuantity});
-            sortOrderByPrice(bids[itemId],"bid")
+            sortOrderByPrice(bids[itemId])
         }
         else {
             asks[itemId].push({name , price , quantity : remainingQuantity});
-            sortOrderByPrice(bids[itemId],"ask")
+            sortOrderByPrice(bids[itemId])
         }
     }
    

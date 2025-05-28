@@ -1,4 +1,4 @@
-import { signupSchema, SignupSchema } from "@/zod/zodScheama";
+import { signupSchema, SignupSchema } from "../signup/types";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
@@ -31,8 +31,8 @@ export async function POST(req: Request) {
         if (user) {
             const isValidPassword = await bcrypt.compare(password, user.password);
             if (isValidPassword) {
-                const refreshToken = await jwt.sign({ name }, "jwt_refresh_token_secret", { expiresIn: '7d' })
-                const accessToken = await jwt.sign({ name }, "jwt_access_token_secret", { expiresIn: "15m" })
+                const refreshToken =  jwt.sign({ name }, "jwt_refresh_token_secret", { expiresIn: '7d' })
+                const accessToken =  jwt.sign({ name }, "jwt_access_token_secret", { expiresIn: "15m" })
 
                 await prisma.refreshTokens.create({
                     data: {

@@ -1,9 +1,11 @@
-"use client";
+import { LoginForm } from "@/components/login-form"
 
-import BasicForm from "@/components/custom/basicForm";
-
-
-export default function SignupPage () {
-    return <BasicForm heading="Sign to your Account" buttonText="Sign in"/>
+export default function LoginPage() {
+  return (
+    <div className=" flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <LoginForm />
+      </div>
+    </div>
+  )
 }
-  

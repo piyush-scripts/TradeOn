@@ -1,6 +1,4 @@
-
-'use server'
-
+"use server"
 import { signupSchema } from "@/app/api/(auth)/signup/types";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -64,9 +62,16 @@ export default async function handleSignin(formData: FormData) {
             secure: true,
             sameSite: "strict",
         })
+        cookiestore.set("accessToken", accessToken, {
+            httpOnly: true,
+            path: "/",
+            maxAge: 15 * 60,
+            secure: true,
+            sameSite: "strict",
+        })
         
         console.log({ "accessToken": accessToken })
-        console.log("Set cookie. Redirecting...");
+        
         
 
     }

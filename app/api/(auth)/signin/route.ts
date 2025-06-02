@@ -49,7 +49,16 @@ export async function POST(req: Request) {
                     secure: true,
                     sameSite: "strict",
                 })
-                return NextResponse.json({"Refresh Token" : refreshToken,"Access Token" : accessToken})
+
+                cookiestore.set("accessToken", accessToken, {
+                    httpOnly: true,
+                    path: "/",
+                    maxAge: 15 * 60,
+                    secure: true,
+                    sameSite: "strict",
+                })
+
+                return NextResponse.json({"Refresh Token" : refreshToken,"Access Token" : accessToken} )
             }
         }
 

@@ -1,24 +1,26 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import axios from "axios";
 
 
 
 export default async function middleware(req: NextRequest) {
-    const cookieStore = await cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
   if (!accessToken) {
     return NextResponse.redirect(new URL("/signin", req.url));
   }
-
+    console.log("got access token ")
   try {
-    const decoded = jwt.verify(accessToken, "jwt_access_token_secret");    
+    console.log("verifying")
+    jwt.verify(accessToken,"jwt_access_token_secret");
+    console.log(" verified ")
     return NextResponse.next();
   } catch (err) {
+    console.log(err)
     // Maybe redirect to API route to refresh token
-    
+    console.log("didn't verified")
     return NextResponse.redirect(new URL("/", req.url));
   }
 }

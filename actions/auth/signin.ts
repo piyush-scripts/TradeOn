@@ -2,10 +2,11 @@
 import { signupSchema } from "@/app/api/(auth)/signup/types";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose'
 import { cookies } from "next/headers";
-
-
+import { NextResponse } from "next/server";
+import { JWTsecret } from "@/constants/constants";
+import { alg } from "@/constants/constants";
 
 export default async function handleSignin(formData: FormData) {
     const cookiestore = await cookies();
@@ -42,8 +43,10 @@ export default async function handleSignin(formData: FormData) {
 
         console.log("Password valid, generating tokens");
 
-        const refreshToken = jwt.sign({ name }, "jwt_refresh_token_secret", { expiresIn: '7d' })
-        const accessToken = jwt.sign({ name }, "jwt_access_token_secret", { expiresIn: "15m" })
+        const refreshToken = await new jose.SignJWT({ name }).setExpirationTime('7d').setProtectedHeader({alg}).sign(JWTsecret)
+        const accessToken = await new jose.SignJWT({ name }).setExpirationTime('15min').setProtectedHeader({alg}).sign(JWTsecret)
+
+        if(!accessToken || !refreshToken) return NextResponse.json({message :"Token cannot be generated"})
 
         await prisma.refreshTokens.create({
             data: {
@@ -72,8 +75,6 @@ export default async function handleSignin(formData: FormData) {
         
         console.log({ "accessToken": accessToken })
         
-        
-
     }
 
 

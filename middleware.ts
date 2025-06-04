@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-
-
+import * as jose from 'jose'
+import { JWTsecret } from "@/constants/constants";
 
 export default async function middleware(req: NextRequest) {
   const cookieStore = await cookies();
@@ -14,7 +13,7 @@ export default async function middleware(req: NextRequest) {
     console.log("got access token ")
   try {
     console.log("verifying")
-    jwt.verify(accessToken,"jwt_access_token_secret");
+    jose.jwtVerify(accessToken,JWTsecret);
     console.log(" verified ")
     return NextResponse.next();
   } catch (err) {

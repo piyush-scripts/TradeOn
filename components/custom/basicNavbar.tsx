@@ -52,7 +52,7 @@ const handleClick = async () => {
             <IconButton
               label = "Profile"
               icon={<SquareUserRound size={38} strokeWidth={1}  />}
-              onClick={() => alert("house")}
+              onClick={() => router.push("/profile")}
             />
 
             {isLoggedIn ? (

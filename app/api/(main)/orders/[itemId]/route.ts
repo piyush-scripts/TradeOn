@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 import { Order, orderSchema, payloadSchema, PayloadSchema } from "../types";
 import sortOrderByPrice from "@/helpers/orders/sortByPrice";
 import fillOrders from "@/helpers/orders/fillOrders";
+import { cookies } from "next/headers";
+import updateBalance from "@/helpers/orders/updateBalance";
 
 export const bids: { [itemId: number]: Order[] } = [];
 export const asks: { [itemId: number]: Order[] } = [];
@@ -10,8 +12,8 @@ export const asks: { [itemId: number]: Order[] } = [];
 export async function POST(
     request: NextRequest
 ) {
-
-    const accessToken = request.headers.get('Authorization')?.split(" ")[1]
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
     if (!accessToken) {
         return NextResponse.json({ error: "auth key not found" }, { status: 409 })
     }
@@ -41,25 +43,23 @@ export async function POST(
     const { name } = parsedPayload;
     const { itemId, price, quantity, side } = parsedBody.data;
 
-    // Main logic
-    const  remainingQuantity :number = await fillOrders(name ,{itemId, price, quantity , side});
+    // deductions at the time of placing order
+    updateBalance(name,side,price,quantity,itemId);
+    
+    // Filling order before going to the order book
+    const remainingQuantity: number = await fillOrders(name, { itemId, price, quantity, side });
 
+    // pushing left quantities to the orderbook
 
-    if(remainingQuantity > 0 ){
+    if (remainingQuantity > 0) {
         if (side === "bid") {
-            bids[itemId].push({name , price , quantity: remainingQuantity});
+            bids[itemId].push({ name, price, quantity: remainingQuantity });
             sortOrderByPrice(bids[itemId])
         }
         else {
-            asks[itemId].push({name , price , quantity : remainingQuantity});
+            asks[itemId].push({ name, price, quantity: remainingQuantity });
             sortOrderByPrice(bids[itemId])
         }
     }
-   
-
-
-
-
-
     return NextResponse.json({ message: "Order received" }, { status: 200 });
 }

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as jose from 'jose'
 import { JWTsecret } from "@/constants/constants";
 
+
 export default async function middleware(req: NextRequest) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -19,6 +20,7 @@ export default async function middleware(req: NextRequest) {
   } catch (err) {
     console.log(err)
     // Maybe redirect to API route to refresh token
+    
     console.log("didn't verified")
     return NextResponse.redirect(new URL("/", req.url));
   }

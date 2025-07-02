@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -15,51 +9,53 @@ datasource db {
 }
 
 model Users {
-  id Int @id @default(autoincrement())
-  name String @unique
-  password String
-  createdAt DateTime @default(now())
-  Balance Int
+  id            Int                @id @default(autoincrement())
+  name          String             @unique
+  password      String
+  createdAt     DateTime           @default(now())
+  Balance       Int
+  holdings      Holdings[]
+  orders        OrderbookHistory[]
   refreshtokens RefreshTokens[]
-  orders OrderbookHistory[]
-  holdings Holdings[]
-
 }
 
 model RefreshTokens {
-  id Int @id @default(autoincrement())
-  userName String
-  user Users @relation(fields: [userName], references: [name],onDelete: Cascade)
-  token String @unique
+  id        Int      @id @default(autoincrement())
+  userName  String
+  token     String   @unique
   userAgent String?
   ipAddress String?
   createdAt DateTime @default(now())
   expiresAt DateTime
+  user      Users    @relation(fields: [userName], references: [name], onDelete: Cascade)
 }
 
 model OrderbookHistory {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   userName String
-  user Users @relation(fields: [userName] , references: [name] , onDelete: Cascade)
-  price Int
+  price    Int
   quantity Int
-  itemId Int
-  item Items @relation(fields: [itemId],references: [id])
+  itemId   Int
+  item     Items  @relation(fields: [itemId], references: [id])
+  user     Users  @relation(fields: [userName], references: [name], onDelete: Cascade)
 }
 
 model Items {
-  id Int @id @default(autoincrement()) @unique
-  itemName String
+  id       Int                @id @unique @default(autoincrement())
+  heading  String
+  text     String?
+  imageUri String
   holdings Holdings[]
-  orders OrderbookHistory[]
+  orders   OrderbookHistory[]
 }
 
 model Holdings {
-  userName String
-  user Users @relation(fields: [userName],references: [name])
-  itemId Int
-  item Items @relation(fields: [itemId],references: [id])
-  quantity Int
+  userName       String
+  itemId         Int
+  quantity       Int
+  itemSupporting String
+  item           Items  @relation(fields: [itemId], references: [id])
+  user           Users  @relation(fields: [userName], references: [name])
 
-  @@id([userName,itemId])
+  @@id([userName, itemId])
 }

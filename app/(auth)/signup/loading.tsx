@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const LoadingFormPage = () => {
   return (
     <div className="min-h-screen flex bg-gradient-to-b from-gray-950 to-gray-700 justify-center items-center p-4">
-      <div className="w-full max-w-md bg-gray-400 p-6 rounded-3xl space-y-4 shadow-lg">
+      <div className="w-full max-w-md bg-stone-300 p-6 rounded-3xl space-y-4 shadow-lg">
         {/* Title */}
         <Skeleton className="h-6 w-40 mx-auto" />
 

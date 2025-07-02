@@ -271,8 +271,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.10.1
+   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
    */
   export type PrismaVersion = {
     client: string
@@ -1233,15 +1233,15 @@ export namespace Prisma {
    */
 
   export type UsersCountOutputType = {
-    refreshtokens: number
-    orders: number
     holdings: number
+    orders: number
+    refreshtokens: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    refreshtokens?: boolean | UsersCountOutputTypeCountRefreshtokensArgs
-    orders?: boolean | UsersCountOutputTypeCountOrdersArgs
     holdings?: boolean | UsersCountOutputTypeCountHoldingsArgs
+    orders?: boolean | UsersCountOutputTypeCountOrdersArgs
+    refreshtokens?: boolean | UsersCountOutputTypeCountRefreshtokensArgs
   }
 
   // Custom InputTypes
@@ -1258,8 +1258,8 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountRefreshtokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RefreshTokensWhereInput
+  export type UsersCountOutputTypeCountHoldingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HoldingsWhereInput
   }
 
   /**
@@ -1272,8 +1272,8 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountHoldingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HoldingsWhereInput
+  export type UsersCountOutputTypeCountRefreshtokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokensWhereInput
   }
 
 
@@ -1523,9 +1523,9 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     Balance?: boolean
-    refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
-    orders?: boolean | Users$ordersArgs<ExtArgs>
     holdings?: boolean | Users$holdingsArgs<ExtArgs>
+    orders?: boolean | Users$ordersArgs<ExtArgs>
+    refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1555,9 +1555,9 @@ export namespace Prisma {
 
   export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password" | "createdAt" | "Balance", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
-    orders?: boolean | Users$ordersArgs<ExtArgs>
     holdings?: boolean | Users$holdingsArgs<ExtArgs>
+    orders?: boolean | Users$ordersArgs<ExtArgs>
+    refreshtokens?: boolean | Users$refreshtokensArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1566,9 +1566,9 @@ export namespace Prisma {
   export type $UsersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Users"
     objects: {
-      refreshtokens: Prisma.$RefreshTokensPayload<ExtArgs>[]
-      orders: Prisma.$OrderbookHistoryPayload<ExtArgs>[]
       holdings: Prisma.$HoldingsPayload<ExtArgs>[]
+      orders: Prisma.$OrderbookHistoryPayload<ExtArgs>[]
+      refreshtokens: Prisma.$RefreshTokensPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1970,9 +1970,9 @@ export namespace Prisma {
    */
   export interface Prisma__UsersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    refreshtokens<T extends Users$refreshtokensArgs<ExtArgs> = {}>(args?: Subset<T, Users$refreshtokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders<T extends Users$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Users$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     holdings<T extends Users$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, Users$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Users$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Users$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderbookHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    refreshtokens<T extends Users$refreshtokensArgs<ExtArgs> = {}>(args?: Subset<T, Users$refreshtokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2395,27 +2395,27 @@ export namespace Prisma {
   }
 
   /**
-   * Users.refreshtokens
+   * Users.holdings
    */
-  export type Users$refreshtokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Users$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RefreshTokens
+     * Select specific fields to fetch from the Holdings
      */
-    select?: RefreshTokensSelect<ExtArgs> | null
+    select?: HoldingsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RefreshTokens
+     * Omit specific fields from the Holdings
      */
-    omit?: RefreshTokensOmit<ExtArgs> | null
+    omit?: HoldingsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RefreshTokensInclude<ExtArgs> | null
-    where?: RefreshTokensWhereInput
-    orderBy?: RefreshTokensOrderByWithRelationInput | RefreshTokensOrderByWithRelationInput[]
-    cursor?: RefreshTokensWhereUniqueInput
+    include?: HoldingsInclude<ExtArgs> | null
+    where?: HoldingsWhereInput
+    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
+    cursor?: HoldingsWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RefreshTokensScalarFieldEnum | RefreshTokensScalarFieldEnum[]
+    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
   }
 
   /**
@@ -2443,27 +2443,27 @@ export namespace Prisma {
   }
 
   /**
-   * Users.holdings
+   * Users.refreshtokens
    */
-  export type Users$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Users$refreshtokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Holdings
+     * Select specific fields to fetch from the RefreshTokens
      */
-    select?: HoldingsSelect<ExtArgs> | null
+    select?: RefreshTokensSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Holdings
+     * Omit specific fields from the RefreshTokens
      */
-    omit?: HoldingsOmit<ExtArgs> | null
+    omit?: RefreshTokensOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: HoldingsInclude<ExtArgs> | null
-    where?: HoldingsWhereInput
-    orderBy?: HoldingsOrderByWithRelationInput | HoldingsOrderByWithRelationInput[]
-    cursor?: HoldingsWhereUniqueInput
+    include?: RefreshTokensInclude<ExtArgs> | null
+    where?: RefreshTokensWhereInput
+    orderBy?: RefreshTokensOrderByWithRelationInput | RefreshTokensOrderByWithRelationInput[]
+    cursor?: RefreshTokensWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: HoldingsScalarFieldEnum | HoldingsScalarFieldEnum[]
+    distinct?: RefreshTokensScalarFieldEnum | RefreshTokensScalarFieldEnum[]
   }
 
   /**
@@ -3813,8 +3813,8 @@ export namespace Prisma {
     price?: boolean
     quantity?: boolean
     itemId?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderbookHistory"]>
 
   export type OrderbookHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3823,8 +3823,8 @@ export namespace Prisma {
     price?: boolean
     quantity?: boolean
     itemId?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderbookHistory"]>
 
   export type OrderbookHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3833,8 +3833,8 @@ export namespace Prisma {
     price?: boolean
     quantity?: boolean
     itemId?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderbookHistory"]>
 
   export type OrderbookHistorySelectScalar = {
@@ -3847,23 +3847,23 @@ export namespace Prisma {
 
   export type OrderbookHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userName" | "price" | "quantity" | "itemId", ExtArgs["result"]["orderbookHistory"]>
   export type OrderbookHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type OrderbookHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type OrderbookHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
 
   export type $OrderbookHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrderbookHistory"
     objects: {
-      user: Prisma.$UsersPayload<ExtArgs>
       item: Prisma.$ItemsPayload<ExtArgs>
+      user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4265,8 +4265,8 @@ export namespace Prisma {
    */
   export interface Prisma__OrderbookHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     item<T extends ItemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemsDefaultArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4737,17 +4737,23 @@ export namespace Prisma {
 
   export type ItemsMinAggregateOutputType = {
     id: number | null
-    itemName: string | null
+    heading: string | null
+    text: string | null
+    imageUri: string | null
   }
 
   export type ItemsMaxAggregateOutputType = {
     id: number | null
-    itemName: string | null
+    heading: string | null
+    text: string | null
+    imageUri: string | null
   }
 
   export type ItemsCountAggregateOutputType = {
     id: number
-    itemName: number
+    heading: number
+    text: number
+    imageUri: number
     _all: number
   }
 
@@ -4762,17 +4768,23 @@ export namespace Prisma {
 
   export type ItemsMinAggregateInputType = {
     id?: true
-    itemName?: true
+    heading?: true
+    text?: true
+    imageUri?: true
   }
 
   export type ItemsMaxAggregateInputType = {
     id?: true
-    itemName?: true
+    heading?: true
+    text?: true
+    imageUri?: true
   }
 
   export type ItemsCountAggregateInputType = {
     id?: true
-    itemName?: true
+    heading?: true
+    text?: true
+    imageUri?: true
     _all?: true
   }
 
@@ -4864,7 +4876,9 @@ export namespace Prisma {
 
   export type ItemsGroupByOutputType = {
     id: number
-    itemName: string
+    heading: string
+    text: string | null
+    imageUri: string
     _count: ItemsCountAggregateOutputType | null
     _avg: ItemsAvgAggregateOutputType | null
     _sum: ItemsSumAggregateOutputType | null
@@ -4888,7 +4902,9 @@ export namespace Prisma {
 
   export type ItemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    itemName?: boolean
+    heading?: boolean
+    text?: boolean
+    imageUri?: boolean
     holdings?: boolean | Items$holdingsArgs<ExtArgs>
     orders?: boolean | Items$ordersArgs<ExtArgs>
     _count?: boolean | ItemsCountOutputTypeDefaultArgs<ExtArgs>
@@ -4896,20 +4912,26 @@ export namespace Prisma {
 
   export type ItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    itemName?: boolean
+    heading?: boolean
+    text?: boolean
+    imageUri?: boolean
   }, ExtArgs["result"]["items"]>
 
   export type ItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    itemName?: boolean
+    heading?: boolean
+    text?: boolean
+    imageUri?: boolean
   }, ExtArgs["result"]["items"]>
 
   export type ItemsSelectScalar = {
     id?: boolean
-    itemName?: boolean
+    heading?: boolean
+    text?: boolean
+    imageUri?: boolean
   }
 
-  export type ItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemName", ExtArgs["result"]["items"]>
+  export type ItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heading" | "text" | "imageUri", ExtArgs["result"]["items"]>
   export type ItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     holdings?: boolean | Items$holdingsArgs<ExtArgs>
     orders?: boolean | Items$ordersArgs<ExtArgs>
@@ -4926,7 +4948,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      itemName: string
+      heading: string
+      text: string | null
+      imageUri: string
     }, ExtArgs["result"]["items"]>
     composites: {}
   }
@@ -5353,7 +5377,9 @@ export namespace Prisma {
    */
   interface ItemsFieldRefs {
     readonly id: FieldRef<"Items", 'Int'>
-    readonly itemName: FieldRef<"Items", 'String'>
+    readonly heading: FieldRef<"Items", 'String'>
+    readonly text: FieldRef<"Items", 'String'>
+    readonly imageUri: FieldRef<"Items", 'String'>
   }
     
 
@@ -5834,18 +5860,21 @@ export namespace Prisma {
     userName: string | null
     itemId: number | null
     quantity: number | null
+    itemSupporting: string | null
   }
 
   export type HoldingsMaxAggregateOutputType = {
     userName: string | null
     itemId: number | null
     quantity: number | null
+    itemSupporting: string | null
   }
 
   export type HoldingsCountAggregateOutputType = {
     userName: number
     itemId: number
     quantity: number
+    itemSupporting: number
     _all: number
   }
 
@@ -5864,18 +5893,21 @@ export namespace Prisma {
     userName?: true
     itemId?: true
     quantity?: true
+    itemSupporting?: true
   }
 
   export type HoldingsMaxAggregateInputType = {
     userName?: true
     itemId?: true
     quantity?: true
+    itemSupporting?: true
   }
 
   export type HoldingsCountAggregateInputType = {
     userName?: true
     itemId?: true
     quantity?: true
+    itemSupporting?: true
     _all?: true
   }
 
@@ -5969,6 +6001,7 @@ export namespace Prisma {
     userName: string
     itemId: number
     quantity: number
+    itemSupporting: string
     _count: HoldingsCountAggregateOutputType | null
     _avg: HoldingsAvgAggregateOutputType | null
     _sum: HoldingsSumAggregateOutputType | null
@@ -5994,56 +6027,61 @@ export namespace Prisma {
     userName?: boolean
     itemId?: boolean
     quantity?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
+    itemSupporting?: boolean
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holdings"]>
 
   export type HoldingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userName?: boolean
     itemId?: boolean
     quantity?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
+    itemSupporting?: boolean
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holdings"]>
 
   export type HoldingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userName?: boolean
     itemId?: boolean
     quantity?: boolean
-    user?: boolean | UsersDefaultArgs<ExtArgs>
+    itemSupporting?: boolean
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holdings"]>
 
   export type HoldingsSelectScalar = {
     userName?: boolean
     itemId?: boolean
     quantity?: boolean
+    itemSupporting?: boolean
   }
 
-  export type HoldingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userName" | "itemId" | "quantity", ExtArgs["result"]["holdings"]>
+  export type HoldingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userName" | "itemId" | "quantity" | "itemSupporting", ExtArgs["result"]["holdings"]>
   export type HoldingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type HoldingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type HoldingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UsersDefaultArgs<ExtArgs>
     item?: boolean | ItemsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
   }
 
   export type $HoldingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Holdings"
     objects: {
-      user: Prisma.$UsersPayload<ExtArgs>
       item: Prisma.$ItemsPayload<ExtArgs>
+      user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       userName: string
       itemId: number
       quantity: number
+      itemSupporting: string
     }, ExtArgs["result"]["holdings"]>
     composites: {}
   }
@@ -6438,8 +6476,8 @@ export namespace Prisma {
    */
   export interface Prisma__HoldingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     item<T extends ItemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemsDefaultArgs<ExtArgs>>): Prisma__ItemsClient<$Result.GetResult<Prisma.$ItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6472,6 +6510,7 @@ export namespace Prisma {
     readonly userName: FieldRef<"Holdings", 'String'>
     readonly itemId: FieldRef<"Holdings", 'Int'>
     readonly quantity: FieldRef<"Holdings", 'Int'>
+    readonly itemSupporting: FieldRef<"Holdings", 'String'>
   }
     
 
@@ -6937,7 +6976,9 @@ export namespace Prisma {
 
   export const ItemsScalarFieldEnum: {
     id: 'id',
-    itemName: 'itemName'
+    heading: 'heading',
+    text: 'text',
+    imageUri: 'imageUri'
   };
 
   export type ItemsScalarFieldEnum = (typeof ItemsScalarFieldEnum)[keyof typeof ItemsScalarFieldEnum]
@@ -6946,7 +6987,8 @@ export namespace Prisma {
   export const HoldingsScalarFieldEnum: {
     userName: 'userName',
     itemId: 'itemId',
-    quantity: 'quantity'
+    quantity: 'quantity',
+    itemSupporting: 'itemSupporting'
   };
 
   export type HoldingsScalarFieldEnum = (typeof HoldingsScalarFieldEnum)[keyof typeof HoldingsScalarFieldEnum]
@@ -7049,9 +7091,9 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     Balance?: IntFilter<"Users"> | number
-    refreshtokens?: RefreshTokensListRelationFilter
-    orders?: OrderbookHistoryListRelationFilter
     holdings?: HoldingsListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+    refreshtokens?: RefreshTokensListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -7060,9 +7102,9 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     Balance?: SortOrder
-    refreshtokens?: RefreshTokensOrderByRelationAggregateInput
-    orders?: OrderbookHistoryOrderByRelationAggregateInput
     holdings?: HoldingsOrderByRelationAggregateInput
+    orders?: OrderbookHistoryOrderByRelationAggregateInput
+    refreshtokens?: RefreshTokensOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -7074,9 +7116,9 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     Balance?: IntFilter<"Users"> | number
-    refreshtokens?: RefreshTokensListRelationFilter
-    orders?: OrderbookHistoryListRelationFilter
     holdings?: HoldingsListRelationFilter
+    orders?: OrderbookHistoryListRelationFilter
+    refreshtokens?: RefreshTokensListRelationFilter
   }, "id" | "name">
 
   export type UsersOrderByWithAggregationInput = {
@@ -7179,8 +7221,8 @@ export namespace Prisma {
     price?: IntFilter<"OrderbookHistory"> | number
     quantity?: IntFilter<"OrderbookHistory"> | number
     itemId?: IntFilter<"OrderbookHistory"> | number
-    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }
 
   export type OrderbookHistoryOrderByWithRelationInput = {
@@ -7189,8 +7231,8 @@ export namespace Prisma {
     price?: SortOrder
     quantity?: SortOrder
     itemId?: SortOrder
-    user?: UsersOrderByWithRelationInput
     item?: ItemsOrderByWithRelationInput
+    user?: UsersOrderByWithRelationInput
   }
 
   export type OrderbookHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -7202,8 +7244,8 @@ export namespace Prisma {
     price?: IntFilter<"OrderbookHistory"> | number
     quantity?: IntFilter<"OrderbookHistory"> | number
     itemId?: IntFilter<"OrderbookHistory"> | number
-    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }, "id">
 
   export type OrderbookHistoryOrderByWithAggregationInput = {
@@ -7235,14 +7277,18 @@ export namespace Prisma {
     OR?: ItemsWhereInput[]
     NOT?: ItemsWhereInput | ItemsWhereInput[]
     id?: IntFilter<"Items"> | number
-    itemName?: StringFilter<"Items"> | string
+    heading?: StringFilter<"Items"> | string
+    text?: StringNullableFilter<"Items"> | string | null
+    imageUri?: StringFilter<"Items"> | string
     holdings?: HoldingsListRelationFilter
     orders?: OrderbookHistoryListRelationFilter
   }
 
   export type ItemsOrderByWithRelationInput = {
     id?: SortOrder
-    itemName?: SortOrder
+    heading?: SortOrder
+    text?: SortOrderInput | SortOrder
+    imageUri?: SortOrder
     holdings?: HoldingsOrderByRelationAggregateInput
     orders?: OrderbookHistoryOrderByRelationAggregateInput
   }
@@ -7252,14 +7298,18 @@ export namespace Prisma {
     AND?: ItemsWhereInput | ItemsWhereInput[]
     OR?: ItemsWhereInput[]
     NOT?: ItemsWhereInput | ItemsWhereInput[]
-    itemName?: StringFilter<"Items"> | string
+    heading?: StringFilter<"Items"> | string
+    text?: StringNullableFilter<"Items"> | string | null
+    imageUri?: StringFilter<"Items"> | string
     holdings?: HoldingsListRelationFilter
     orders?: OrderbookHistoryListRelationFilter
   }, "id" | "id">
 
   export type ItemsOrderByWithAggregationInput = {
     id?: SortOrder
-    itemName?: SortOrder
+    heading?: SortOrder
+    text?: SortOrderInput | SortOrder
+    imageUri?: SortOrder
     _count?: ItemsCountOrderByAggregateInput
     _avg?: ItemsAvgOrderByAggregateInput
     _max?: ItemsMaxOrderByAggregateInput
@@ -7272,7 +7322,9 @@ export namespace Prisma {
     OR?: ItemsScalarWhereWithAggregatesInput[]
     NOT?: ItemsScalarWhereWithAggregatesInput | ItemsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Items"> | number
-    itemName?: StringWithAggregatesFilter<"Items"> | string
+    heading?: StringWithAggregatesFilter<"Items"> | string
+    text?: StringNullableWithAggregatesFilter<"Items"> | string | null
+    imageUri?: StringWithAggregatesFilter<"Items"> | string
   }
 
   export type HoldingsWhereInput = {
@@ -7282,16 +7334,18 @@ export namespace Prisma {
     userName?: StringFilter<"Holdings"> | string
     itemId?: IntFilter<"Holdings"> | number
     quantity?: IntFilter<"Holdings"> | number
-    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    itemSupporting?: StringFilter<"Holdings"> | string
     item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }
 
   export type HoldingsOrderByWithRelationInput = {
     userName?: SortOrder
     itemId?: SortOrder
     quantity?: SortOrder
-    user?: UsersOrderByWithRelationInput
+    itemSupporting?: SortOrder
     item?: ItemsOrderByWithRelationInput
+    user?: UsersOrderByWithRelationInput
   }
 
   export type HoldingsWhereUniqueInput = Prisma.AtLeast<{
@@ -7302,14 +7356,16 @@ export namespace Prisma {
     userName?: StringFilter<"Holdings"> | string
     itemId?: IntFilter<"Holdings"> | number
     quantity?: IntFilter<"Holdings"> | number
-    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    itemSupporting?: StringFilter<"Holdings"> | string
     item?: XOR<ItemsScalarRelationFilter, ItemsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }, "userName_itemId">
 
   export type HoldingsOrderByWithAggregationInput = {
     userName?: SortOrder
     itemId?: SortOrder
     quantity?: SortOrder
+    itemSupporting?: SortOrder
     _count?: HoldingsCountOrderByAggregateInput
     _avg?: HoldingsAvgOrderByAggregateInput
     _max?: HoldingsMaxOrderByAggregateInput
@@ -7324,6 +7380,7 @@ export namespace Prisma {
     userName?: StringWithAggregatesFilter<"Holdings"> | string
     itemId?: IntWithAggregatesFilter<"Holdings"> | number
     quantity?: IntWithAggregatesFilter<"Holdings"> | number
+    itemSupporting?: StringWithAggregatesFilter<"Holdings"> | string
   }
 
   export type UsersCreateInput = {
@@ -7331,9 +7388,9 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
-    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -7342,9 +7399,9 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -7352,9 +7409,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
-    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
+    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -7363,9 +7420,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -7460,8 +7517,8 @@ export namespace Prisma {
   export type OrderbookHistoryCreateInput = {
     price: number
     quantity: number
-    user: UsersCreateNestedOneWithoutOrdersInput
     item: ItemsCreateNestedOneWithoutOrdersInput
+    user: UsersCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderbookHistoryUncheckedCreateInput = {
@@ -7475,8 +7532,8 @@ export namespace Prisma {
   export type OrderbookHistoryUpdateInput = {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    user?: UsersUpdateOneRequiredWithoutOrdersNestedInput
     item?: ItemsUpdateOneRequiredWithoutOrdersNestedInput
+    user?: UsersUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderbookHistoryUncheckedUpdateInput = {
@@ -7509,83 +7566,104 @@ export namespace Prisma {
   }
 
   export type ItemsCreateInput = {
-    itemName: string
+    heading: string
+    text?: string | null
+    imageUri: string
     holdings?: HoldingsCreateNestedManyWithoutItemInput
     orders?: OrderbookHistoryCreateNestedManyWithoutItemInput
   }
 
   export type ItemsUncheckedCreateInput = {
     id?: number
-    itemName: string
+    heading: string
+    text?: string | null
+    imageUri: string
     holdings?: HoldingsUncheckedCreateNestedManyWithoutItemInput
     orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemsUpdateInput = {
-    itemName?: StringFieldUpdateOperationsInput | string
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
     holdings?: HoldingsUpdateManyWithoutItemNestedInput
     orders?: OrderbookHistoryUpdateManyWithoutItemNestedInput
   }
 
   export type ItemsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
     holdings?: HoldingsUncheckedUpdateManyWithoutItemNestedInput
     orders?: OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemsCreateManyInput = {
     id?: number
-    itemName: string
+    heading: string
+    text?: string | null
+    imageUri: string
   }
 
   export type ItemsUpdateManyMutationInput = {
-    itemName?: StringFieldUpdateOperationsInput | string
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
   }
 
   export type ItemsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
   }
 
   export type HoldingsCreateInput = {
     quantity: number
-    user: UsersCreateNestedOneWithoutHoldingsInput
+    itemSupporting: string
     item: ItemsCreateNestedOneWithoutHoldingsInput
+    user: UsersCreateNestedOneWithoutHoldingsInput
   }
 
   export type HoldingsUncheckedCreateInput = {
     userName: string
     itemId: number
     quantity: number
+    itemSupporting: string
   }
 
   export type HoldingsUpdateInput = {
     quantity?: IntFieldUpdateOperationsInput | number
-    user?: UsersUpdateOneRequiredWithoutHoldingsNestedInput
+    itemSupporting?: StringFieldUpdateOperationsInput | string
     item?: ItemsUpdateOneRequiredWithoutHoldingsNestedInput
+    user?: UsersUpdateOneRequiredWithoutHoldingsNestedInput
   }
 
   export type HoldingsUncheckedUpdateInput = {
     userName?: StringFieldUpdateOperationsInput | string
     itemId?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
   }
 
   export type HoldingsCreateManyInput = {
     userName: string
     itemId: number
     quantity: number
+    itemSupporting: string
   }
 
   export type HoldingsUpdateManyMutationInput = {
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
   }
 
   export type HoldingsUncheckedUpdateManyInput = {
     userName?: StringFieldUpdateOperationsInput | string
     itemId?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7625,10 +7703,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type RefreshTokensListRelationFilter = {
-    every?: RefreshTokensWhereInput
-    some?: RefreshTokensWhereInput
-    none?: RefreshTokensWhereInput
+  export type HoldingsListRelationFilter = {
+    every?: HoldingsWhereInput
+    some?: HoldingsWhereInput
+    none?: HoldingsWhereInput
   }
 
   export type OrderbookHistoryListRelationFilter = {
@@ -7637,13 +7715,13 @@ export namespace Prisma {
     none?: OrderbookHistoryWhereInput
   }
 
-  export type HoldingsListRelationFilter = {
-    every?: HoldingsWhereInput
-    some?: HoldingsWhereInput
-    none?: HoldingsWhereInput
+  export type RefreshTokensListRelationFilter = {
+    every?: RefreshTokensWhereInput
+    some?: RefreshTokensWhereInput
+    none?: RefreshTokensWhereInput
   }
 
-  export type RefreshTokensOrderByRelationAggregateInput = {
+  export type HoldingsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7651,7 +7729,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type HoldingsOrderByRelationAggregateInput = {
+  export type RefreshTokensOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7863,7 +7941,9 @@ export namespace Prisma {
 
   export type ItemsCountOrderByAggregateInput = {
     id?: SortOrder
-    itemName?: SortOrder
+    heading?: SortOrder
+    text?: SortOrder
+    imageUri?: SortOrder
   }
 
   export type ItemsAvgOrderByAggregateInput = {
@@ -7872,12 +7952,16 @@ export namespace Prisma {
 
   export type ItemsMaxOrderByAggregateInput = {
     id?: SortOrder
-    itemName?: SortOrder
+    heading?: SortOrder
+    text?: SortOrder
+    imageUri?: SortOrder
   }
 
   export type ItemsMinOrderByAggregateInput = {
     id?: SortOrder
-    itemName?: SortOrder
+    heading?: SortOrder
+    text?: SortOrder
+    imageUri?: SortOrder
   }
 
   export type ItemsSumOrderByAggregateInput = {
@@ -7893,6 +7977,7 @@ export namespace Prisma {
     userName?: SortOrder
     itemId?: SortOrder
     quantity?: SortOrder
+    itemSupporting?: SortOrder
   }
 
   export type HoldingsAvgOrderByAggregateInput = {
@@ -7904,31 +7989,19 @@ export namespace Prisma {
     userName?: SortOrder
     itemId?: SortOrder
     quantity?: SortOrder
+    itemSupporting?: SortOrder
   }
 
   export type HoldingsMinOrderByAggregateInput = {
     userName?: SortOrder
     itemId?: SortOrder
     quantity?: SortOrder
+    itemSupporting?: SortOrder
   }
 
   export type HoldingsSumOrderByAggregateInput = {
     itemId?: SortOrder
     quantity?: SortOrder
-  }
-
-  export type RefreshTokensCreateNestedManyWithoutUserInput = {
-    create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
-    createMany?: RefreshTokensCreateManyUserInputEnvelope
-    connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
-  }
-
-  export type OrderbookHistoryCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
-    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
-    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
   }
 
   export type HoldingsCreateNestedManyWithoutUserInput = {
@@ -7938,11 +8011,25 @@ export namespace Prisma {
     connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
   }
 
-  export type RefreshTokensUncheckedCreateNestedManyWithoutUserInput = {
+  export type OrderbookHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput> | OrderbookHistoryCreateWithoutUserInput[] | OrderbookHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderbookHistoryCreateOrConnectWithoutUserInput | OrderbookHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: OrderbookHistoryCreateManyUserInputEnvelope
+    connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
+  }
+
+  export type RefreshTokensCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokensCreateManyUserInputEnvelope
     connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+  }
+
+  export type HoldingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
   }
 
   export type OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput = {
@@ -7952,11 +8039,11 @@ export namespace Prisma {
     connect?: OrderbookHistoryWhereUniqueInput | OrderbookHistoryWhereUniqueInput[]
   }
 
-  export type HoldingsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
-    createMany?: HoldingsCreateManyUserInputEnvelope
-    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+  export type RefreshTokensUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
+    createMany?: RefreshTokensCreateManyUserInputEnvelope
+    connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7975,18 +8062,18 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type RefreshTokensUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
-    upsert?: RefreshTokensUpsertWithWhereUniqueWithoutUserInput | RefreshTokensUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RefreshTokensCreateManyUserInputEnvelope
-    set?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
-    disconnect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
-    delete?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
-    connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
-    update?: RefreshTokensUpdateWithWhereUniqueWithoutUserInput | RefreshTokensUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RefreshTokensUpdateManyWithWhereWithoutUserInput | RefreshTokensUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RefreshTokensScalarWhereInput | RefreshTokensScalarWhereInput[]
+  export type HoldingsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
   }
 
   export type OrderbookHistoryUpdateManyWithoutUserNestedInput = {
@@ -8003,21 +8090,7 @@ export namespace Prisma {
     deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
   }
 
-  export type HoldingsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
-    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HoldingsCreateManyUserInputEnvelope
-    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
-  }
-
-  export type RefreshTokensUncheckedUpdateManyWithoutUserNestedInput = {
+  export type RefreshTokensUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
     upsert?: RefreshTokensUpsertWithWhereUniqueWithoutUserInput | RefreshTokensUpsertWithWhereUniqueWithoutUserInput[]
@@ -8029,6 +8102,20 @@ export namespace Prisma {
     update?: RefreshTokensUpdateWithWhereUniqueWithoutUserInput | RefreshTokensUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RefreshTokensUpdateManyWithWhereWithoutUserInput | RefreshTokensUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RefreshTokensScalarWhereInput | RefreshTokensScalarWhereInput[]
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingsCreateManyUserInputEnvelope
+    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
+    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
   }
 
   export type OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput = {
@@ -8045,18 +8132,18 @@ export namespace Prisma {
     deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
   }
 
-  export type HoldingsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput> | HoldingsCreateWithoutUserInput[] | HoldingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingsCreateOrConnectWithoutUserInput | HoldingsCreateOrConnectWithoutUserInput[]
-    upsert?: HoldingsUpsertWithWhereUniqueWithoutUserInput | HoldingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HoldingsCreateManyUserInputEnvelope
-    set?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    disconnect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    delete?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    connect?: HoldingsWhereUniqueInput | HoldingsWhereUniqueInput[]
-    update?: HoldingsUpdateWithWhereUniqueWithoutUserInput | HoldingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HoldingsUpdateManyWithWhereWithoutUserInput | HoldingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+  export type RefreshTokensUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RefreshTokensCreateWithoutUserInput, RefreshTokensUncheckedCreateWithoutUserInput> | RefreshTokensCreateWithoutUserInput[] | RefreshTokensUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokensCreateOrConnectWithoutUserInput | RefreshTokensCreateOrConnectWithoutUserInput[]
+    upsert?: RefreshTokensUpsertWithWhereUniqueWithoutUserInput | RefreshTokensUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RefreshTokensCreateManyUserInputEnvelope
+    set?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+    disconnect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+    delete?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+    connect?: RefreshTokensWhereUniqueInput | RefreshTokensWhereUniqueInput[]
+    update?: RefreshTokensUpdateWithWhereUniqueWithoutUserInput | RefreshTokensUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RefreshTokensUpdateManyWithWhereWithoutUserInput | RefreshTokensUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RefreshTokensScalarWhereInput | RefreshTokensScalarWhereInput[]
   }
 
   export type UsersCreateNestedOneWithoutRefreshtokensInput = {
@@ -8077,24 +8164,16 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutRefreshtokensInput, UsersUpdateWithoutRefreshtokensInput>, UsersUncheckedUpdateWithoutRefreshtokensInput>
   }
 
-  export type UsersCreateNestedOneWithoutOrdersInput = {
-    create?: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: UsersCreateOrConnectWithoutOrdersInput
-    connect?: UsersWhereUniqueInput
-  }
-
   export type ItemsCreateNestedOneWithoutOrdersInput = {
     create?: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: ItemsCreateOrConnectWithoutOrdersInput
     connect?: ItemsWhereUniqueInput
   }
 
-  export type UsersUpdateOneRequiredWithoutOrdersNestedInput = {
+  export type UsersCreateNestedOneWithoutOrdersInput = {
     create?: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: UsersCreateOrConnectWithoutOrdersInput
-    upsert?: UsersUpsertWithoutOrdersInput
     connect?: UsersWhereUniqueInput
-    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutOrdersInput, UsersUpdateWithoutOrdersInput>, UsersUncheckedUpdateWithoutOrdersInput>
   }
 
   export type ItemsUpdateOneRequiredWithoutOrdersNestedInput = {
@@ -8103,6 +8182,14 @@ export namespace Prisma {
     upsert?: ItemsUpsertWithoutOrdersInput
     connect?: ItemsWhereUniqueInput
     update?: XOR<XOR<ItemsUpdateToOneWithWhereWithoutOrdersInput, ItemsUpdateWithoutOrdersInput>, ItemsUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type UsersUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutOrdersInput
+    upsert?: UsersUpsertWithoutOrdersInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutOrdersInput, UsersUpdateWithoutOrdersInput>, UsersUncheckedUpdateWithoutOrdersInput>
   }
 
   export type HoldingsCreateNestedManyWithoutItemInput = {
@@ -8189,24 +8276,16 @@ export namespace Prisma {
     deleteMany?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
   }
 
-  export type UsersCreateNestedOneWithoutHoldingsInput = {
-    create?: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
-    connectOrCreate?: UsersCreateOrConnectWithoutHoldingsInput
-    connect?: UsersWhereUniqueInput
-  }
-
   export type ItemsCreateNestedOneWithoutHoldingsInput = {
     create?: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
     connectOrCreate?: ItemsCreateOrConnectWithoutHoldingsInput
     connect?: ItemsWhereUniqueInput
   }
 
-  export type UsersUpdateOneRequiredWithoutHoldingsNestedInput = {
+  export type UsersCreateNestedOneWithoutHoldingsInput = {
     create?: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
     connectOrCreate?: UsersCreateOrConnectWithoutHoldingsInput
-    upsert?: UsersUpsertWithoutHoldingsInput
     connect?: UsersWhereUniqueInput
-    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutHoldingsInput, UsersUpdateWithoutHoldingsInput>, UsersUncheckedUpdateWithoutHoldingsInput>
   }
 
   export type ItemsUpdateOneRequiredWithoutHoldingsNestedInput = {
@@ -8215,6 +8294,14 @@ export namespace Prisma {
     upsert?: ItemsUpsertWithoutHoldingsInput
     connect?: ItemsWhereUniqueInput
     update?: XOR<XOR<ItemsUpdateToOneWithWhereWithoutHoldingsInput, ItemsUpdateWithoutHoldingsInput>, ItemsUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type UsersUpdateOneRequiredWithoutHoldingsNestedInput = {
+    create?: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutHoldingsInput
+    upsert?: UsersUpsertWithoutHoldingsInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutHoldingsInput, UsersUpdateWithoutHoldingsInput>, UsersUncheckedUpdateWithoutHoldingsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8353,6 +8440,51 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type HoldingsCreateWithoutUserInput = {
+    quantity: number
+    itemSupporting: string
+    item: ItemsCreateNestedOneWithoutHoldingsInput
+  }
+
+  export type HoldingsUncheckedCreateWithoutUserInput = {
+    itemId: number
+    quantity: number
+    itemSupporting: string
+  }
+
+  export type HoldingsCreateOrConnectWithoutUserInput = {
+    where: HoldingsWhereUniqueInput
+    create: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type HoldingsCreateManyUserInputEnvelope = {
+    data: HoldingsCreateManyUserInput | HoldingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrderbookHistoryCreateWithoutUserInput = {
+    price: number
+    quantity: number
+    item: ItemsCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderbookHistoryUncheckedCreateWithoutUserInput = {
+    id?: number
+    price: number
+    quantity: number
+    itemId: number
+  }
+
+  export type OrderbookHistoryCreateOrConnectWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryCreateManyUserInputEnvelope = {
+    data: OrderbookHistoryCreateManyUserInput | OrderbookHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RefreshTokensCreateWithoutUserInput = {
     token: string
     userAgent?: string | null
@@ -8380,47 +8512,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type OrderbookHistoryCreateWithoutUserInput = {
-    price: number
-    quantity: number
-    item: ItemsCreateNestedOneWithoutOrdersInput
-  }
-
-  export type OrderbookHistoryUncheckedCreateWithoutUserInput = {
-    id?: number
-    price: number
-    quantity: number
-    itemId: number
-  }
-
-  export type OrderbookHistoryCreateOrConnectWithoutUserInput = {
-    where: OrderbookHistoryWhereUniqueInput
-    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderbookHistoryCreateManyUserInputEnvelope = {
-    data: OrderbookHistoryCreateManyUserInput | OrderbookHistoryCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type HoldingsCreateWithoutUserInput = {
-    quantity: number
-    item: ItemsCreateNestedOneWithoutHoldingsInput
-  }
-
-  export type HoldingsUncheckedCreateWithoutUserInput = {
-    itemId: number
-    quantity: number
-  }
-
-  export type HoldingsCreateOrConnectWithoutUserInput = {
+  export type HoldingsUpsertWithWhereUniqueWithoutUserInput = {
     where: HoldingsWhereUniqueInput
+    update: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
     create: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput>
   }
 
-  export type HoldingsCreateManyUserInputEnvelope = {
-    data: HoldingsCreateManyUserInput | HoldingsCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type HoldingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: HoldingsWhereUniqueInput
+    data: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type HoldingsUpdateManyWithWhereWithoutUserInput = {
+    where: HoldingsScalarWhereInput
+    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type HoldingsScalarWhereInput = {
+    AND?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+    OR?: HoldingsScalarWhereInput[]
+    NOT?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
+    userName?: StringFilter<"Holdings"> | string
+    itemId?: IntFilter<"Holdings"> | number
+    quantity?: IntFilter<"Holdings"> | number
+    itemSupporting?: StringFilter<"Holdings"> | string
+  }
+
+  export type OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    update: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: OrderbookHistoryWhereUniqueInput
+    data: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OrderbookHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: OrderbookHistoryScalarWhereInput
+    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OrderbookHistoryScalarWhereInput = {
+    AND?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+    OR?: OrderbookHistoryScalarWhereInput[]
+    NOT?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
+    id?: IntFilter<"OrderbookHistory"> | number
+    userName?: StringFilter<"OrderbookHistory"> | string
+    price?: IntFilter<"OrderbookHistory"> | number
+    quantity?: IntFilter<"OrderbookHistory"> | number
+    itemId?: IntFilter<"OrderbookHistory"> | number
   }
 
   export type RefreshTokensUpsertWithWhereUniqueWithoutUserInput = {
@@ -8452,65 +8594,13 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"RefreshTokens"> | Date | string
   }
 
-  export type OrderbookHistoryUpsertWithWhereUniqueWithoutUserInput = {
-    where: OrderbookHistoryWhereUniqueInput
-    update: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
-    create: XOR<OrderbookHistoryCreateWithoutUserInput, OrderbookHistoryUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderbookHistoryUpdateWithWhereUniqueWithoutUserInput = {
-    where: OrderbookHistoryWhereUniqueInput
-    data: XOR<OrderbookHistoryUpdateWithoutUserInput, OrderbookHistoryUncheckedUpdateWithoutUserInput>
-  }
-
-  export type OrderbookHistoryUpdateManyWithWhereWithoutUserInput = {
-    where: OrderbookHistoryScalarWhereInput
-    data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type OrderbookHistoryScalarWhereInput = {
-    AND?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
-    OR?: OrderbookHistoryScalarWhereInput[]
-    NOT?: OrderbookHistoryScalarWhereInput | OrderbookHistoryScalarWhereInput[]
-    id?: IntFilter<"OrderbookHistory"> | number
-    userName?: StringFilter<"OrderbookHistory"> | string
-    price?: IntFilter<"OrderbookHistory"> | number
-    quantity?: IntFilter<"OrderbookHistory"> | number
-    itemId?: IntFilter<"OrderbookHistory"> | number
-  }
-
-  export type HoldingsUpsertWithWhereUniqueWithoutUserInput = {
-    where: HoldingsWhereUniqueInput
-    update: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
-    create: XOR<HoldingsCreateWithoutUserInput, HoldingsUncheckedCreateWithoutUserInput>
-  }
-
-  export type HoldingsUpdateWithWhereUniqueWithoutUserInput = {
-    where: HoldingsWhereUniqueInput
-    data: XOR<HoldingsUpdateWithoutUserInput, HoldingsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type HoldingsUpdateManyWithWhereWithoutUserInput = {
-    where: HoldingsScalarWhereInput
-    data: XOR<HoldingsUpdateManyMutationInput, HoldingsUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type HoldingsScalarWhereInput = {
-    AND?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
-    OR?: HoldingsScalarWhereInput[]
-    NOT?: HoldingsScalarWhereInput | HoldingsScalarWhereInput[]
-    userName?: StringFilter<"Holdings"> | string
-    itemId?: IntFilter<"Holdings"> | number
-    quantity?: IntFilter<"Holdings"> | number
-  }
-
   export type UsersCreateWithoutRefreshtokensInput = {
     name: string
     password: string
     createdAt?: Date | string
     Balance: number
-    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutRefreshtokensInput = {
@@ -8519,8 +8609,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutRefreshtokensInput = {
@@ -8544,8 +8634,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutRefreshtokensInput = {
@@ -8554,8 +8644,28 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ItemsCreateWithoutOrdersInput = {
+    heading: string
+    text?: string | null
+    imageUri: string
+    holdings?: HoldingsCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUncheckedCreateWithoutOrdersInput = {
+    id?: number
+    heading: string
+    text?: string | null
+    imageUri: string
+    holdings?: HoldingsUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsCreateOrConnectWithoutOrdersInput = {
+    where: ItemsWhereUniqueInput
+    create: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
   }
 
   export type UsersCreateWithoutOrdersInput = {
@@ -8563,8 +8673,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
     holdings?: HoldingsCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutOrdersInput = {
@@ -8573,8 +8683,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingsUncheckedCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutOrdersInput = {
@@ -8582,20 +8692,30 @@ export namespace Prisma {
     create: XOR<UsersCreateWithoutOrdersInput, UsersUncheckedCreateWithoutOrdersInput>
   }
 
-  export type ItemsCreateWithoutOrdersInput = {
-    itemName: string
-    holdings?: HoldingsCreateNestedManyWithoutItemInput
-  }
-
-  export type ItemsUncheckedCreateWithoutOrdersInput = {
-    id?: number
-    itemName: string
-    holdings?: HoldingsUncheckedCreateNestedManyWithoutItemInput
-  }
-
-  export type ItemsCreateOrConnectWithoutOrdersInput = {
-    where: ItemsWhereUniqueInput
+  export type ItemsUpsertWithoutOrdersInput = {
+    update: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
     create: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
+    where?: ItemsWhereInput
+  }
+
+  export type ItemsUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: ItemsWhereInput
+    data: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type ItemsUpdateWithoutOrdersInput = {
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsUncheckedUpdateWithoutOrdersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
+    holdings?: HoldingsUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type UsersUpsertWithoutOrdersInput = {
@@ -8614,8 +8734,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUpdateManyWithoutUserNestedInput
+    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutOrdersInput = {
@@ -8624,40 +8744,20 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingsUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type ItemsUpsertWithoutOrdersInput = {
-    update: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
-    create: XOR<ItemsCreateWithoutOrdersInput, ItemsUncheckedCreateWithoutOrdersInput>
-    where?: ItemsWhereInput
-  }
-
-  export type ItemsUpdateToOneWithWhereWithoutOrdersInput = {
-    where?: ItemsWhereInput
-    data: XOR<ItemsUpdateWithoutOrdersInput, ItemsUncheckedUpdateWithoutOrdersInput>
-  }
-
-  export type ItemsUpdateWithoutOrdersInput = {
-    itemName?: StringFieldUpdateOperationsInput | string
-    holdings?: HoldingsUpdateManyWithoutItemNestedInput
-  }
-
-  export type ItemsUncheckedUpdateWithoutOrdersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    holdings?: HoldingsUncheckedUpdateManyWithoutItemNestedInput
+    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type HoldingsCreateWithoutItemInput = {
     quantity: number
+    itemSupporting: string
     user: UsersCreateNestedOneWithoutHoldingsInput
   }
 
   export type HoldingsUncheckedCreateWithoutItemInput = {
     userName: string
     quantity: number
+    itemSupporting: string
   }
 
   export type HoldingsCreateOrConnectWithoutItemInput = {
@@ -8725,13 +8825,33 @@ export namespace Prisma {
     data: XOR<OrderbookHistoryUpdateManyMutationInput, OrderbookHistoryUncheckedUpdateManyWithoutItemInput>
   }
 
+  export type ItemsCreateWithoutHoldingsInput = {
+    heading: string
+    text?: string | null
+    imageUri: string
+    orders?: OrderbookHistoryCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsUncheckedCreateWithoutHoldingsInput = {
+    id?: number
+    heading: string
+    text?: string | null
+    imageUri: string
+    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemsCreateOrConnectWithoutHoldingsInput = {
+    where: ItemsWhereUniqueInput
+    create: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+  }
+
   export type UsersCreateWithoutHoldingsInput = {
     name: string
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutHoldingsInput = {
@@ -8740,8 +8860,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     Balance: number
-    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutUserInput
+    refreshtokens?: RefreshTokensUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutHoldingsInput = {
@@ -8749,20 +8869,30 @@ export namespace Prisma {
     create: XOR<UsersCreateWithoutHoldingsInput, UsersUncheckedCreateWithoutHoldingsInput>
   }
 
-  export type ItemsCreateWithoutHoldingsInput = {
-    itemName: string
-    orders?: OrderbookHistoryCreateNestedManyWithoutItemInput
-  }
-
-  export type ItemsUncheckedCreateWithoutHoldingsInput = {
-    id?: number
-    itemName: string
-    orders?: OrderbookHistoryUncheckedCreateNestedManyWithoutItemInput
-  }
-
-  export type ItemsCreateOrConnectWithoutHoldingsInput = {
-    where: ItemsWhereUniqueInput
+  export type ItemsUpsertWithoutHoldingsInput = {
+    update: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
     create: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
+    where?: ItemsWhereInput
+  }
+
+  export type ItemsUpdateToOneWithWhereWithoutHoldingsInput = {
+    where?: ItemsWhereInput
+    data: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type ItemsUpdateWithoutHoldingsInput = {
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
+    orders?: OrderbookHistoryUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemsUncheckedUpdateWithoutHoldingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    heading?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUri?: StringFieldUpdateOperationsInput | string
+    orders?: OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type UsersUpsertWithoutHoldingsInput = {
@@ -8781,8 +8911,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUpdateManyWithoutUserNestedInput
+    refreshtokens?: RefreshTokensUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutHoldingsInput = {
@@ -8791,30 +8921,21 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Balance?: IntFieldUpdateOperationsInput | number
-    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderbookHistoryUncheckedUpdateManyWithoutUserNestedInput
+    refreshtokens?: RefreshTokensUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ItemsUpsertWithoutHoldingsInput = {
-    update: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
-    create: XOR<ItemsCreateWithoutHoldingsInput, ItemsUncheckedCreateWithoutHoldingsInput>
-    where?: ItemsWhereInput
+  export type HoldingsCreateManyUserInput = {
+    itemId: number
+    quantity: number
+    itemSupporting: string
   }
 
-  export type ItemsUpdateToOneWithWhereWithoutHoldingsInput = {
-    where?: ItemsWhereInput
-    data: XOR<ItemsUpdateWithoutHoldingsInput, ItemsUncheckedUpdateWithoutHoldingsInput>
-  }
-
-  export type ItemsUpdateWithoutHoldingsInput = {
-    itemName?: StringFieldUpdateOperationsInput | string
-    orders?: OrderbookHistoryUpdateManyWithoutItemNestedInput
-  }
-
-  export type ItemsUncheckedUpdateWithoutHoldingsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    orders?: OrderbookHistoryUncheckedUpdateManyWithoutItemNestedInput
+  export type OrderbookHistoryCreateManyUserInput = {
+    id?: number
+    price: number
+    quantity: number
+    itemId: number
   }
 
   export type RefreshTokensCreateManyUserInput = {
@@ -8826,16 +8947,42 @@ export namespace Prisma {
     expiresAt: Date | string
   }
 
-  export type OrderbookHistoryCreateManyUserInput = {
-    id?: number
-    price: number
-    quantity: number
-    itemId: number
+  export type HoldingsUpdateWithoutUserInput = {
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
+    item?: ItemsUpdateOneRequiredWithoutHoldingsNestedInput
   }
 
-  export type HoldingsCreateManyUserInput = {
-    itemId: number
-    quantity: number
+  export type HoldingsUncheckedUpdateWithoutUserInput = {
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HoldingsUncheckedUpdateManyWithoutUserInput = {
+    itemId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderbookHistoryUpdateWithoutUserInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    item?: ItemsUpdateOneRequiredWithoutOrdersNestedInput
+  }
+
+  export type OrderbookHistoryUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrderbookHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    itemId?: IntFieldUpdateOperationsInput | number
   }
 
   export type RefreshTokensUpdateWithoutUserInput = {
@@ -8864,44 +9011,10 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OrderbookHistoryUpdateWithoutUserInput = {
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    item?: ItemsUpdateOneRequiredWithoutOrdersNestedInput
-  }
-
-  export type OrderbookHistoryUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    itemId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type OrderbookHistoryUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    itemId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type HoldingsUpdateWithoutUserInput = {
-    quantity?: IntFieldUpdateOperationsInput | number
-    item?: ItemsUpdateOneRequiredWithoutHoldingsNestedInput
-  }
-
-  export type HoldingsUncheckedUpdateWithoutUserInput = {
-    itemId?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type HoldingsUncheckedUpdateManyWithoutUserInput = {
-    itemId?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-  }
-
   export type HoldingsCreateManyItemInput = {
     userName: string
     quantity: number
+    itemSupporting: string
   }
 
   export type OrderbookHistoryCreateManyItemInput = {
@@ -8913,17 +9026,20 @@ export namespace Prisma {
 
   export type HoldingsUpdateWithoutItemInput = {
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutHoldingsNestedInput
   }
 
   export type HoldingsUncheckedUpdateWithoutItemInput = {
     userName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
   }
 
   export type HoldingsUncheckedUpdateManyWithoutItemInput = {
     userName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    itemSupporting?: StringFieldUpdateOperationsInput | string
   }
 
   export type OrderbookHistoryUpdateWithoutItemInput = {

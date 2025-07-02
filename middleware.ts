@@ -11,18 +11,18 @@ export default async function middleware(req: NextRequest) {
   if (!accessToken) {
     return NextResponse.redirect(new URL("/signin", req.url));
   }
-    console.log("got access token ")
+  console.log("got access token ")
   try {
     console.log("verifying")
-    jose.jwtVerify(accessToken,JWTsecret);
+    jose.jwtVerify(accessToken, JWTsecret);
     console.log(" verified ")
+    NextResponse.redirect(new URL("/", req.url));
     return NextResponse.next();
   } catch (err) {
     console.log(err)
     // Maybe redirect to API route to refresh token
-    
+
     console.log("didn't verified")
-    return NextResponse.redirect(new URL("/", req.url));
   }
 }
 

@@ -1,4 +1,4 @@
-import { Order } from "@/app/api/(main)/orders/types";
+import { Order } from "@/app/api/(main)/placeOrder/types";
 
 export default function sortOrderByPrice(
     orders: Order[],

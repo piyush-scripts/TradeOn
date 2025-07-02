@@ -42,12 +42,12 @@ const handleClick = async () => {
             <IconButton
               label = "Trades"
               icon={<BriefcaseBusiness size={38} strokeWidth={1}  />}
-              onClick={() => alert("house")}
+              onClick={() => router.push("/trades")}
             />
             <IconButton
               label = "Funds"
               icon={<Wallet size={38} strokeWidth={1}  />}
-              onClick={() => alert("house")}
+              onClick={() => router.push("/funds")}
             />
             <IconButton
               label = "Profile"
@@ -61,7 +61,7 @@ const handleClick = async () => {
               icon={<LogOut size={38} strokeWidth={1}  />}
                 onClick={async () => {
                   await handleClick()
-                  await router.push("/signin")
+                  router.push("/signin")
                   logout()}
                 }
               />

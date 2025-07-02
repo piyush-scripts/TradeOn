@@ -1,19 +1,21 @@
 import prisma from "@/lib/prisma";
-export default async function flipBalance(buyer: string, seller: string, itemId: number, price: number, quantity: number) {
-
-    const buyerEntryFound = await prisma.holdings.findUnique({
+export default async function flipBalance(orderrer: string, nonorderrer: string, itemId: number,quantity: number,side:"ask"|"bid") {
+//bidder = yes = orderrer
+    const orderrerEntryFound = await prisma.holdings.findUnique({
         where: {
             userName_itemId: {
-                userName: buyer,
+                userName: orderrer,
                 itemId: itemId
             }
         }
     })
-    if (buyerEntryFound) {
+    console.info(orderrerEntryFound)
+
+    if (orderrerEntryFound) {
         await prisma.holdings.update({
             where: {
                 userName_itemId: {
-                    userName: buyer,
+                    userName: orderrer,
                     itemId: itemId
                 }
             },
@@ -23,26 +25,55 @@ export default async function flipBalance(buyer: string, seller: string, itemId:
                 }
             }
         })
-
     }
     else {
         await prisma.holdings.create({
             data: {
-                userName: buyer,
+                userName: orderrer,
                 itemId: itemId,
-                quantity: quantity
+                quantity: quantity,
+                itemSupporting:side 
             }
 
         })
     }
-
-    await prisma.users.update({
-        where: { name: seller },
-        data: {
-            Balance: {
-                increment: quantity * price
+// Non orderrer changes
+// asker = no = nonorderrer
+        const nonorderrerEntryFound = await prisma.holdings.findUnique({
+        where: {
+            userName_itemId: {
+                userName: nonorderrer,
+                itemId: itemId
             }
         }
     })
+    console.info(nonorderrerEntryFound)
+        if (nonorderrerEntryFound) {
+        await prisma.holdings.update({
+            where: {
+                userName_itemId: {
+                    userName: nonorderrer,
+                    itemId: itemId
+                }
+            },
+            data: {
+                quantity: {
+                    increment: quantity
+                }
+            }
+        })
+    }
+    else {
+        await prisma.holdings.create({
+            data: {
+                userName: orderrer,
+                itemId: itemId,
+                quantity: quantity,
+                itemSupporting:side 
+            }
+
+        })
+    }
+    console.info("seller updated")
 }
 

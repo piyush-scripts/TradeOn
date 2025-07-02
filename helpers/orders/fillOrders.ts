@@ -1,7 +1,6 @@
 "use server"
-import { bids , asks } from "@/app/api/(main)/orders/[itemId]/route"
-import prisma from "@/lib/prisma"
-import { OrderSchema } from "@/app/api/(main)/orders/types";
+import { asks ,bids} from "@/constants/constants";
+import { OrderSchema } from "@/app/api/(main)/placeOrder/types";
 import flipBalance from "./flipBalance";
 
 
@@ -11,17 +10,18 @@ export default async function fillOrders(name : string , {itemId , price , quant
     if ( side === "bid") {
         for(let i = 0 ; i < asks[itemId].length ; i++ ){
             let currentItem = asks[itemId][i];
-            if(currentItem.price > price || remainingQuantity == 0){
+            if(104 > price + currentItem.price || remainingQuantity == 0){
                 break;
             }
             else if(currentItem.quantity > remainingQuantity){
+                await flipBalance(name,currentItem.name,itemId,remainingQuantity,side)
                 currentItem.quantity -= remainingQuantity;
                 remainingQuantity -= remainingQuantity;
-                flipBalance(name,currentItem.name,itemId,currentItem.price,remainingQuantity)
+                
             }
             else{
                 remainingQuantity -= currentItem.quantity
-                flipBalance(name,currentItem.name,itemId,currentItem.price,currentItem.quantity)
+                await flipBalance(name,currentItem.name,itemId,currentItem.quantity,side)
                 asks[itemId].splice(i,1)
             }   
         }
@@ -30,17 +30,17 @@ export default async function fillOrders(name : string , {itemId , price , quant
     else{
         for(let i = 0 ; i < bids[itemId].length ; i++ ){
              let currentItem = bids[itemId][i];
-            if(currentItem.price < price || remainingQuantity == 0){
+            if(104 > price + currentItem.price || remainingQuantity == 0){
                 break;
             }
             else if(currentItem.quantity > remainingQuantity){
+                await flipBalance(currentItem.name,name,itemId,remainingQuantity,side)
                 currentItem.quantity -= remainingQuantity;
                 remainingQuantity -= remainingQuantity;
-                flipBalance(currentItem.name,name,itemId,currentItem.price,remainingQuantity)
             }
             else{
                 remainingQuantity -= currentItem.quantity
-                flipBalance(currentItem.name,name,itemId,currentItem.price,currentItem.quantity)
+                await flipBalance(currentItem.name,name,itemId,currentItem.quantity,side)
                 bids[itemId].splice(i,1)
             }   
         }

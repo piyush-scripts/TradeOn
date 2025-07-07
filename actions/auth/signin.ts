@@ -45,7 +45,7 @@ export default async function handleSignin(formData: FormData) {
         const refreshToken = await new jose.SignJWT({ name }).setExpirationTime('7d').setProtectedHeader({alg}).sign(JWTsecret)
         const accessToken = await new jose.SignJWT({ name }).setExpirationTime('15min').setProtectedHeader({alg}).sign(JWTsecret)
 
-        if(!accessToken || !refreshToken) return NextResponse.json({message :"Token cannot be generated"})
+        if(!accessToken || !refreshToken) return 
 
         await prisma.refreshTokens.create({
             data: {

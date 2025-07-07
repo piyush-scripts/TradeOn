@@ -23,7 +23,7 @@ export default function BasicForm({ heading, buttonText }: basicFormType) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/api/signup", {
+      const res = await axios.post("/api/signup", {
         name,
         password,
       });
@@ -97,7 +97,7 @@ export default function BasicForm({ heading, buttonText }: basicFormType) {
             You can now{" "}
             <a
               className=" text-black underline underline-offset-4"
-              href="http://localhost:3000/signin"
+              href="/signin"
             >
               {" "}
               login{" "}

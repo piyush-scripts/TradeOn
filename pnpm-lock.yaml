@@ -136,7 +136,7 @@ importers:
         specifier: ^11.4.0
         version: 11.4.2
       prisma:
-        specifier: ^6.8.2
+        specifier: ^6.10.1
         version: 6.11.1(typescript@5.8.3)
       tailwindcss:
         specifier: ^4

@@ -5,8 +5,7 @@ import bcrypt from "bcryptjs";
 import * as jose from 'jose'
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { JWTsecret } from "@/constants/constants";
-import { alg } from "@/constants/constants";
+import { JWTsecret ,alg } from "@/constants/constants";
 
 export default async function handleSignin(formData: FormData) {
     const cookiestore = await cookies();

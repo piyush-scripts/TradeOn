@@ -9,7 +9,7 @@ import { LogOut } from "lucide-react";
 import { IconButton } from "@/components/customUI/basicButton";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { useAuthStore } from "../../states/zustand";
+import { useAuthStore } from "@/states/zustand";
 import axios from "axios";
 
 export default function Navbar() {
@@ -33,7 +33,7 @@ const handleClick = async () => {
         transition={{ duration: 0.6 }}
       >
         <nav>
-          <div className="flex justify-around items-center p-2">
+          <div className="flex h-16 justify-around items-center p-2">
             <IconButton
               label = "Home"
               icon={<House size={38} strokeWidth={1}   />}
@@ -41,7 +41,7 @@ const handleClick = async () => {
             />
             <IconButton
               label = "Trades"
-              icon={<BriefcaseBusiness size={38} strokeWidth={1}  />}
+              icon={<BriefcaseBusiness size={38} strokeWidth={1} />}
               onClick={() => router.push("/trades")}
             />
             <IconButton

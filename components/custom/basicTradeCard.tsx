@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
-
 import { Slider } from "../ui/slider";
 import axios from "axios";
 import { motion } from "motion/react";
-
+import { useRouter } from "next/navigation";
 
 interface TradeCardProps {
   itemId: number;
@@ -19,6 +18,7 @@ export default function TradeCard({
   heading,
   text,
 }: TradeCardProps) {
+  const router = useRouter();
   const [slideBar, setSlideBar] = useState(false);
   const [selected, setSelected] = useState<"YES" | "NO" | null>(null);
   const [side, setSide] = useState<"ask" | "bid" | null>(null);
@@ -28,7 +28,7 @@ export default function TradeCard({
   const [price, setPrice] = useState([currentPrice]);
 
   //fetch Price handler
-
+  
   const fetchPrice = async (itemId: number, side: "ask" | "bid" | null) => {
     try {
       const response = await axios.get("/api/price", {
@@ -73,14 +73,18 @@ export default function TradeCard({
         <>
           <div className="flex gap-x-4">
             <img
-              className="flex rounded-md  "
               src={src}
               alt="img"
               height={64}
               width={64}
             />
             <div className="flex flex-col">
-              <label className=" h-12 overflow-auto font-medium text-shadow-gray-800">
+              <label
+                onClick={() => {
+                  router.push(`/items/${itemId}`);
+                }}
+                className=" h-12 cursor-pointer overflow-auto font-medium font-roboto text-shadow-gray-800"
+              >
                 {heading}
               </label>
             </div>

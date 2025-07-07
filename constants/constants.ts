@@ -70,6 +70,6 @@ export const eventsDataWithItems = [
   },
 ]
 //asks = no
-export let asks: { [itemId: number]: Order[] } = { "1": [{ name: "master", price: 34, quantity: 1 }], "2": [{ name: "master", price: 52, quantity: 1 }], "3": [{ name: "master", price: 52, quantity: 1 }], "4": [{ name: "master", price: 52, quantity: 1 }], "5": [{ name: "master", price: 52, quantity: 1 }], "6": [{ name: "master", price: 52, quantity: 1 }], "7": [{ name: "master", price: 52, quantity: 1 }], "8": [{ name: "master", price: 52, quantity: 1 }] };
+export let asks: { [itemId: number]: Order[] } = { "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [] };
 //bids = yes
-export let bids: { [itemId: number]: Order[] } = { "1": [{ name: "master", price: 67, quantity: 1 }], "2": [{ name: "master", price: 52, quantity: 1 }], "3": [{ name: "master", price: 52, quantity: 1 }], "4": [{ name: "master", price: 52, quantity: 1 }], "5": [{ name: "master", price: 52, quantity: 1 }], "6": [{ name: "master", price: 52, quantity: 1 }], "7": [{ name: "master", price: 52, quantity: 1 }], "8": [{ name: "master", price: 52, quantity: 1 }] };
+export let bids: { [itemId: number]: Order[] } = { "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [] };

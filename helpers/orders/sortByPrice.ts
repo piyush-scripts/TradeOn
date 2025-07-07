@@ -4,5 +4,5 @@ export default function sortOrderByPrice(
     orders: Order[],
     
 ): Order[] {
-    return orders.sort((a,b) => a.price - b.price) 
+    return orders.sort((a,b) => b.price - a.price) 
 }

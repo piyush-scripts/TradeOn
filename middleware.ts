@@ -1,31 +1,38 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import * as jose from 'jose'
-import { JWTsecret } from "@/constants/constants";
-
+import { cookies } from "next/headers";
+import * as jose from "jose";
+import { JWTsecret } from "@/constants/constants"; // Ensure this is a `Uint8Array` or string key
 
 export default async function middleware(req: NextRequest) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
+  // If no token, redirect to /api/refresh with callback
   if (!accessToken) {
-    return NextResponse.redirect(new URL("/signin", req.url));
+    console.log("No access token, redirecting to /api/refresh");
+    return redirectToRefresh(req);
   }
-  console.log("got access token ")
+
   try {
-    console.log("verifying")
-    jose.jwtVerify(accessToken, JWTsecret);
-    console.log(" verified ")
-    NextResponse.redirect(new URL("/", req.url));
+    // Verify token
+    await jose.jwtVerify(accessToken, JWTsecret);
     return NextResponse.next();
   } catch (err) {
-    console.log(err)
-    // Maybe redirect to API route to refresh token
-
-    console.log("didn't verified")
+    console.log("Invalid access token:", err);
+    return redirectToRefresh(req);
   }
 }
 
+function redirectToRefresh(req: NextRequest) {
+  const currentUrl = req.nextUrl.clone();
+  const refreshUrl = new URL("/api/refresh", req.url);
+
+  // Optional: pass current path as callback
+  refreshUrl.searchParams.set("callback", currentUrl.pathname);
+
+  return NextResponse.redirect(refreshUrl);
+}
+
 export const config = {
-  matcher: ["/profile/:path*"],
+  matcher: ["/profile/:path*", "/funds/:path*", "/trades/:path*"],
 };

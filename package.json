@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@prisma/client": "^6.10.1",
+    "@prisma/client": "^6.11.1",
     "@tailwindcss/postcss": "^4",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
@@ -53,16 +53,10 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "i": "^0.3.7",
-    "npm": "^11.4.0",
-    "prisma": "^6.10.1",
+    "npm": "^11.4.2",
+    "prisma": "^6.11.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.9",
     "typescript": "^5"
-  },
-  "prisma": {
-    "binaryTargets": [
-      "native",
-      "rhel-openssl-3.0.x"
-    ]
   }
 }

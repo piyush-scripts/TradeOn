@@ -23,8 +23,8 @@ export default function TradeCard({
   const [selected, setSelected] = useState<"YES" | "NO" | null>(null);
   const [side, setSide] = useState<"ask" | "bid" | null>(null);
   const [quantity, setQuantity] = useState([1]);
-  const [currentPrice, setCurrentPrice] = useState(50);
-  const [quantities, setQuantities] = useState(176);
+  const [currentPrice, setCurrentPrice] = useState<number>(0);
+  const [quantities, setQuantities] = useState(0);
   const [price, setPrice] = useState([currentPrice]);
 
   //fetch Price handler

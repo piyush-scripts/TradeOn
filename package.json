@@ -14,6 +14,7 @@
     "@heroui/react": "^2.7.11",
     "@hookform/resolvers": "^5.0.1",
     "@next/env": "^15.3.2",
+    "@prisma/adapter-pg": "^6.11.1",
     "@radix-ui/react-checkbox": "^1.3.2",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slider": "^1.3.5",
@@ -58,9 +59,5 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.9",
     "typescript": "^5"
-  },
-  "pkg": {
-    "assets": ["node_modules/.prisma/client/*.node"]
   }
 }
-

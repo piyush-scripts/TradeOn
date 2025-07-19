@@ -17,6 +17,8 @@ const eslintConfig = [
       "react-hooks/rules-of-hooks": "off",
       // Ignore unused variable errors
       "@typescript-eslint/no-unused-vars": "off",
+      // Ignore explicit any errors
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];

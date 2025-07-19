@@ -8,4 +8,5 @@ export default async function updateBalance(name: string, price: number, quantit
     await db.update(users)
     .set({balance : sql`${users.balance} - ${quantity*price}`})
     .where(eq(users.name,name))
+    console.info("done")
 }

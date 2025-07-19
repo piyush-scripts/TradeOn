@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate --no-engine && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prisma:generate": "prisma generate --no-engine"
+    "lint": "next lint"
   },
   "dependencies": {
     "@heroui/navbar": "^2.2.20",

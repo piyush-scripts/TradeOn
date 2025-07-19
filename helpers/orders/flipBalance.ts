@@ -1,76 +1,43 @@
-import prisma from "@/lib/prisma";
-export default async function flipBalance(orderrer: string, nonorderrer: string, itemId: number,quantity: number,side:"ask"|"bid") {
-//bidder = yes = orderrer
-    const orderrerEntryFound = await prisma.holdings.findUnique({
-        where: {
-            userName_itemId: {
-                userName: orderrer,
-                itemId: itemId
-            }
-        }
-    })
-    console.info(orderrerEntryFound)
+import db from "@/db/client";
+import { Holdings } from "@/db/schema";
+import { eq, and, sql } from "drizzle-orm";
+export default async function flipBalance(orderrer: string, nonorderrer: string, itemId: number, quantity: number, side: "ask" | "bid") {
+    //bidder = yes = orderrer
+    const orderrerEntryFound = await db.select().from(Holdings).where(and(eq(Holdings.userName, orderrer), eq(Holdings.itemId, itemId)))
 
     if (orderrerEntryFound) {
-        await prisma.holdings.update({
-            where: {
-                userName_itemId: {
-                    userName: orderrer,
-                    itemId: itemId
-                }
-            },
-            data: {
-                quantity: {
-                    increment: quantity
-                }
-            }
-        })
+        await db.update(Holdings)
+            .set({ quantity: quantity, itemSupporting: side })
+            .where(and(eq(Holdings.userName, orderrer), eq(Holdings.itemId, itemId)))
     }
     else {
-        await prisma.holdings.create({
-            data: {
-                userName: orderrer,
-                itemId: itemId,
-                quantity: quantity,
-                itemSupporting:side 
-            }
+        await db.insert(Holdings).values({
+
+            userName: orderrer,
+            itemId: itemId,
+            quantity: quantity,
+            itemSupporting: side
 
         })
     }
-// Non orderrer changes
-// asker = no = nonorderrer
-        const nonorderrerEntryFound = await prisma.holdings.findUnique({
-        where: {
-            userName_itemId: {
-                userName: nonorderrer,
-                itemId: itemId
-            }
-        }
-    })
+    // Non orderrer changes
+    // asker = no = nonorderrer
+    const nonorderrerEntryFound = await db.select().from(Holdings).where(and(eq(Holdings.userName, nonorderrer), eq(Holdings.itemId, itemId)))
+        
     console.info(nonorderrerEntryFound)
-        if (nonorderrerEntryFound) {
-        await prisma.holdings.update({
-            where: {
-                userName_itemId: {
-                    userName: nonorderrer,
-                    itemId: itemId
-                }
-            },
-            data: {
-                quantity: {
-                    increment: quantity
-                }
-            }
-        })
+    if (nonorderrerEntryFound) {
+        await db.update(Holdings)
+            .set({ quantity: sql`${Holdings.quantity} + ${quantity}` , itemSupporting: side })
+            .where(and(eq(Holdings.userName, nonorderrer), eq(Holdings.itemId, itemId)))
+    
     }
     else {
-        await prisma.holdings.create({
-            data: {
-                userName: orderrer,
-                itemId: itemId,
-                quantity: quantity,
-                itemSupporting:side 
-            }
+        await db.insert(Holdings).values({
+
+            userName: nonorderrer,
+            itemId: itemId,
+            quantity: quantity,
+            itemSupporting: side
 
         })
     }

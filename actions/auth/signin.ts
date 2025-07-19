@@ -1,11 +1,12 @@
 "use server"
 import { signupSchema } from "@/app/api/(auth)/signup/types";
-import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import * as jose from 'jose'
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 import { JWTsecret ,alg } from "@/constants/constants";
+import { RefreshTokens, users } from "@/db/schema";
+import db from "@/db/client"; 
+import { eq } from "drizzle-orm";
 
 export default async function handleSignin(formData: FormData) {
     const cookiestore = await cookies();
@@ -26,7 +27,8 @@ export default async function handleSignin(formData: FormData) {
 
     const { name, password } = result.data;
     try {
-        const user = await prisma.users.findUnique({ where: { name } })
+        const userArr = await db.select().from(users).where(eq(users.name, name));
+        const user = userArr[0];
         if (!user) {
             console.log("User not found");
             return;
@@ -47,12 +49,13 @@ export default async function handleSignin(formData: FormData) {
 
         if(!accessToken || !refreshToken) return 
 
-        await prisma.refreshTokens.create({
-            data: {
+        await db.insert(RefreshTokens).values({
                 token: refreshToken,
                 userName: user.name,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            },
+
+                userAgent: formData.get("userAgent") as string || "",
+                userIp: formData.get("userIp") as string || "",
+
         })
 
         console.log("Refresh token inserted:");

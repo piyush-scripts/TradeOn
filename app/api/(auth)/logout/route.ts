@@ -1,4 +1,6 @@
-import prisma from "@/lib/prisma";
+import db from "@/db/client";
+import { eq } from "drizzle-orm";
+import { RefreshTokens } from "@/db/schema";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -8,7 +10,8 @@ export async function POST() {
 
     if (token) {
         try {
-            await prisma.refreshTokens.delete({ where: { token } });
+            await db.delete(RefreshTokens)
+            .where(eq(RefreshTokens.token,token));
         } catch (err) {
             console.error('Failed to logout', err);
         }
@@ -26,6 +29,3 @@ export async function POST() {
     return res;
 }
 
-export async function GET() {
-    return NextResponse.json({ message: 'Logged out' });
-}

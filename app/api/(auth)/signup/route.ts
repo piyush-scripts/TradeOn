@@ -1,7 +1,7 @@
 import { signupSchema, SignupSchema } from "./types";
 import bcrypt from "bcryptjs";
-import prisma from "@/lib/prisma";
-
+import db from "@/db/client";
+import { users } from "@/db/schema";
 
 
 export async function POST(req: Request) {
@@ -23,13 +23,12 @@ export async function POST(req: Request) {
 
         try {
             // db reg logic here
-        await prisma.users.create({
-            data: {
-                name : name,
-                password : hash,
-                Balance : 50000
-            }
-        });
+        await db.insert(users).values({
+                name: name,
+                password: hash,
+                balance: 50000,
+            })
+            
         } catch (error) {
             console.log(error)
             return new Response(JSON.stringify({error : 'users already exists'}),{

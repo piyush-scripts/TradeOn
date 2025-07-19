@@ -1,9 +1,11 @@
 // app/api/refresh-token/route.ts
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import db from "@/db/client";
 import * as jose from "jose";
 import { JWTsecret, alg } from "@/constants/constants";
+import { RefreshTokens, users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function GET(req: Request) {
   const cookieStore = await cookies();
@@ -18,13 +20,12 @@ export async function GET(req: Request) {
   }
 
   // Check if refresh token is valid in DB
-  const tokenMatch = await prisma.refreshTokens.findFirst({
-    where: { token: refreshToken },
-  });
+  const tokenMatchArr = await db.select().from(RefreshTokens).where(eq(RefreshTokens.token,refreshToken))
 
-  if (!tokenMatch) {
+  if (!tokenMatchArr) {
     return NextResponse.redirect(new URL("/signin", req.url));
   }
+  const tokenMatch = tokenMatchArr[0];
 
   const name = tokenMatch.userName;
 

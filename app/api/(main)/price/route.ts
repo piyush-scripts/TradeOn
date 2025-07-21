@@ -14,7 +14,7 @@ export async function GET(
             const price: number | undefined =104 - bids[itemId][0]?.price
             const available: number | undefined = bids[itemId][0]?.quantity
 
-            if (!price || !available) { return NextResponse.json({ price: 52, available: 0 }) }
+            if (!price || !available) { return NextResponse.json({ price: 54, available: 32 }) }
 
             return NextResponse.json({ price: price, quantity: available })
 
@@ -24,7 +24,7 @@ export async function GET(
             const price: number | undefined =104 - asks[itemId][0]?.price
             const available: number | undefined = asks[itemId][0]?.quantity
 
-            if (!price || !available) { return NextResponse.json({ price: 52, available: 0 }) }
+            if (!price || !available) { return NextResponse.json({ price: 64, available: 43 }) }
 
             return NextResponse.json({ price: price, quantity: available })
         }

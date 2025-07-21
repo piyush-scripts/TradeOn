@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Slider } from "../ui/slider";
 import axios from "axios";
 import { motion } from "motion/react";
@@ -23,12 +23,12 @@ export default function TradeCard({
   const [selected, setSelected] = useState<"YES" | "NO" | null>(null);
   const [side, setSide] = useState<"ask" | "bid" | null>(null);
   const [quantity, setQuantity] = useState([1]);
-  const [currentPrice, setCurrentPrice] = useState<number>(0);
-  const [quantities, setQuantities] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState<number>(52);
+  const [quantities, setQuantities] = useState<number>(1);
   const [price, setPrice] = useState([currentPrice]);
 
+
   //fetch Price handler
-  
   const fetchPrice = async (itemId: number, side: "ask" | "bid" | null) => {
     try {
       const response = await axios.get("/api/price", {
@@ -39,9 +39,8 @@ export default function TradeCard({
       });
       const price = response.data.price;
       const available = response.data.quantity;
-      setCurrentPrice(price);
-      setQuantities(available);
-      console.log(price);
+       setCurrentPrice(price);
+       setQuantities(available);
     } catch (error) {
       console.error(error);
     }

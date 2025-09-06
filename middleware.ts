@@ -34,5 +34,5 @@ function redirectToRefresh(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/funds/:path*", "/trades/:path*"],
+  matcher: ["/profile/:path*", "/funds/:path*", "/trades/:path*","/api/placeOrder"],
 };

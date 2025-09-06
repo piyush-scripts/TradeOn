@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres:16
+    container_name: satta-app-db
+    environment:
+      POSTGRES_USER: master
+      POSTGRES_PASSWORD: "#29GGvu2oq"
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - satta-app-db-volume:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      target: dev
+    container_name: satta-app-dev
+    depends_on:
+      - database
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://master:%2329GGvu2oq@database:5432/postgres"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    profiles: ["dev"]
+
+  web-prod:
+    build:
+      context: .
+      target: prod
+    container_name: satta-app-prod
+    depends_on:
+      - database
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://master:%2329GGvu2oq@database:5432/postgres"
+    command: sh -c "npx drizzle-kit push && npx next start"
+    profiles: ["prod"]
+
+volumes:
+  satta-app-db-volume:

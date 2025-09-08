@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
     if (isServer) config.plugins = [...config.plugins, new PrismaPlugin()];
     return config;
   },
+  transpilePackages:['recharts'],
 };
 
 export default nextConfig;

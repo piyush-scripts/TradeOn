@@ -12,6 +12,18 @@ services:
       - "5432:5432"
     volumes:
       - satta-app-db-volume:/var/lib/postgresql/data
+    networks:
+      - satta-app-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: satta-app-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - satta-app-redis-volume:/data
+    networks:
+      - satta-app-net
 
   web:
     build:
@@ -24,11 +36,14 @@ services:
       - "3000:3000"
     environment:
       DATABASE_URL: "postgresql://master:%2329GGvu2oq@database:5432/postgres"
+      NEXT_PUBLIC_JWT_SECRET: "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
+    command: sh -c "npx drizzle-kit push && npm run dev"
     profiles: ["dev"]
+    networks:
+      - satta-app-net
 
   web-prod:
     build:
@@ -43,6 +58,12 @@ services:
       DATABASE_URL: "postgresql://master:%2329GGvu2oq@database:5432/postgres"
     command: sh -c "npx drizzle-kit push && npx next start"
     profiles: ["prod"]
+    networks:
+      - satta-app-net
 
 volumes:
   satta-app-db-volume:
+  satta-app-redis-volume:
+
+networks:
+  satta-app-net:

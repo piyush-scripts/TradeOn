@@ -40,6 +40,7 @@ export const Holdings = pgTable("holdings", {
     itemId: integer().notNull(),
     userName: varchar({length:255}).notNull(),
     quantity: integer().notNull(),
+    status:varchar({length:10}),
     itemSupporting: varchar().notNull(),
 });
 

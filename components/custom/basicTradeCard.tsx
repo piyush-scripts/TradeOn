@@ -27,7 +27,6 @@ export default function TradeCard({
   const [quantities, setQuantities] = useState<number>(1);
   const [price, setPrice] = useState([currentPrice]);
 
-
   //fetch Price handler
   const fetchPrice = async (itemId: number, side: "ask" | "bid" | null) => {
     try {
@@ -39,8 +38,8 @@ export default function TradeCard({
       });
       const price = response.data.price;
       const available = response.data.quantity;
-       setCurrentPrice(price);
-       setQuantities(available);
+      setCurrentPrice(price);
+      setQuantities(available);
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +50,10 @@ export default function TradeCard({
     quantity: number,
     itemId: number
   ) => {
+    try {
+      
+    } catch {}
+
     try {
       axios.post("/api/placeOrder", {
         data: {
@@ -71,12 +74,7 @@ export default function TradeCard({
       {!slideBar ? (
         <>
           <div className="flex gap-x-4">
-            <img
-              src={src}
-              alt="img"
-              height={64}
-              width={64}
-            />
+            <img src={src} alt="img" height={64} width={64} />
             <div className="flex flex-col">
               <label
                 onClick={() => {

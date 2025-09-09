@@ -14,14 +14,14 @@ export default async function fillOrders(name : string , {itemId , price , quant
                 break;
             }
             else if(currentItem.quantity > remainingQuantity){
-                await flipBalance(name,currentItem.name,itemId,remainingQuantity,side)
+                await flipBalance(name,currentItem.name,itemId,remainingQuantity,side,currentItem.price)
                 currentItem.quantity -= remainingQuantity;
                 remainingQuantity -= remainingQuantity;
                 
             }
             else{
                 remainingQuantity -= currentItem.quantity
-                await flipBalance(name,currentItem.name,itemId,currentItem.quantity,side)
+                await flipBalance(name,currentItem.name,itemId,currentItem.quantity,side,currentItem.price)
                 asks[itemId].splice(i,1)
             }   
         }
@@ -34,13 +34,13 @@ export default async function fillOrders(name : string , {itemId , price , quant
                 break;
             }
             else if(currentItem.quantity > remainingQuantity){
-                await flipBalance(currentItem.name,name,itemId,remainingQuantity,side)
+                await flipBalance(currentItem.name,name,itemId,remainingQuantity,side,currentItem.price)
                 currentItem.quantity -= remainingQuantity;
                 remainingQuantity -= remainingQuantity;
             }
             else{
                 remainingQuantity -= currentItem.quantity
-                await flipBalance(currentItem.name,name,itemId,currentItem.quantity,side)
+                await flipBalance(currentItem.name,name,itemId,currentItem.quantity,side,currentItem.price)
                 bids[itemId].splice(i,1)
             }   
         }

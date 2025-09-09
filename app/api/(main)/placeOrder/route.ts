@@ -7,6 +7,7 @@ import fillOrders from "@/helpers/orders/fillOrders";
 import { cookies } from "next/headers";
 import updateBalance from "@/helpers/orders/updateBalance";
 import { asks , bids } from "@/constants/constants";
+import client from "@/redis/client"
 
 export async function POST(
     request: NextRequest
@@ -46,9 +47,6 @@ export async function POST(
     // const itemId = context.params.itemId
     const { name } = parsedPayload;
     const { itemId, price, quantity, side } = parsedBody.data;
-
-    // deductions at the time of placing order
-    updateBalance(name,price,quantity);
     
     // Filling order before going to the order book
     const remainingQuantity: number = await fillOrders(name, { itemId, price, quantity, side });

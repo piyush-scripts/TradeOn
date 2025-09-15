@@ -67,3 +67,4 @@ volumes:
 
 networks:
   satta-app-net:
+    name: satta-app-net

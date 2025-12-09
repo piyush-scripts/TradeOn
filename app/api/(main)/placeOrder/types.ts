@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 
 export type Order = {
-    name: string,
+    userID: string,
     price: number,
     quantity: number,
 }

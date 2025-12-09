@@ -4,8 +4,7 @@ import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 255 }).notNull().unique(),
-  password: varchar({ length: 512 }).notNull(),
+  userid: varchar().notNull().unique(),
   balance: integer("balance").notNull().default(50000),
   email: varchar({ length: 255 }).unique(),
   createdAt: timestamp({ withTimezone: true, mode: "string" }).defaultNow()
@@ -29,7 +28,7 @@ export const RefreshTokens = pgTable("user_refresh_tokens", {
 export const refreshTokensRelations = relations(RefreshTokens, ({ one }) => ({
   user: one(users, {
     fields: [RefreshTokens.userName],
-    references: [users.name],
+    references: [users.userid],
   }),
 }));
 
@@ -59,7 +58,7 @@ export const holdingsRelations = relations(Holdings, ({ one }) => ({
   }),
   user: one(users, {
     fields: [Holdings.userName],
-    references: [users.name],
+    references: [users.userid],
   }),
 }));
 

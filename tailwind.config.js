@@ -1,14 +1,16 @@
-// tailwind.config.js
-const {heroui} = require("@heroui/theme");
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    "./node_modules/@heroui/theme/dist/components/(navbar|table|checkbox|form|spacer).js",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
+    },
   },
-  darkMode: "class",
-  plugins: [heroui()],
-};
+  plugins: [],
+}

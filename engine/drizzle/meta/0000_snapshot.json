@@ -1,5 +1,5 @@
 {
-  "id": "09e80b76-7d64-45d0-b43b-9e7a752a4001",
+  "id": "48e2f20f-214a-4fa0-bbc4-94596f5aad4f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -67,20 +67,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "varchar(255)",
           "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "orders_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
@@ -245,6 +234,38 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.processed_offsets": {
+      "name": "processed_offsets",
+      "schema": "",
+      "columns": {
+        "service_name": {
+          "name": "service_name",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "last_seen_id": {
+          "name": "last_seen_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.transactions": {
       "name": "transactions",
       "schema": "",
@@ -268,7 +289,7 @@
         },
         "order_id": {
           "name": "order_id",
-          "type": "integer",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
         },
@@ -355,8 +376,8 @@
             "cycle": false
           }
         },
-        "clerk_id": {
-          "name": "clerk_id",
+        "userid": {
+          "name": "userid",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -367,15 +388,22 @@
           "primaryKey": false,
           "notNull": false
         },
-        "balance_cents": {
-          "name": "balance_cents",
+        "balance": {
+          "name": "balance",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "default": 5000000
         },
-        "created_at": {
-          "name": "created_at",
+        "reserved_balance": {
+          "name": "reserved_balance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
@@ -386,11 +414,11 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_clerk_id_unique": {
-          "name": "users_clerk_id_unique",
+        "users_userid_unique": {
+          "name": "users_userid_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "clerk_id"
+            "userid"
           ]
         },
         "users_email_unique": {

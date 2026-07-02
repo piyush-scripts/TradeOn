@@ -1,8 +1,0 @@
-t=2026-07-01T19:34:44+0530 lvl=info msg="no configuration paths supplied"
-t=2026-07-01T19:34:44+0530 lvl=info msg="using configuration at default config path" path=/home/piyush/snap/ngrok/280/.config/ngrok/ngrok.yml
-t=2026-07-01T19:34:44+0530 lvl=info msg="open config file" path=/home/piyush/snap/ngrok/280/.config/ngrok/ngrok.yml err=nil
-t=2026-07-01T19:34:44+0530 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040 allow_hosts=[]
-t=2026-07-01T19:34:46+0530 lvl=info msg="update available" obj=updater
-t=2026-07-01T19:34:47+0530 lvl=info msg="client session established" obj=tunnels.session
-t=2026-07-01T19:34:47+0530 lvl=info msg="tunnel session started" obj=tunnels.session
-t=2026-07-01T19:34:47+0530 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://localhost:3000 url=https://9074-223-235-98-54.ngrok-free.app

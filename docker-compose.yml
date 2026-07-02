@@ -12,8 +12,15 @@ services:
       - "5432:5432"
     volumes:
       - satta-app-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U master -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - satta-app-net
+    logging:
+      driver: "none" # Turn off Postgres container logs
 
   redis:
     image: redis:7-alpine
@@ -26,11 +33,139 @@ services:
       - satta-app-redis-volume:/data
     networks:
       - satta-app-net
+    logging:
+      driver: "none" # Turn off Redis container logs
+
+  db-migration:
+    build:
+      context: .
+      dockerfile: engine/Dockerfile
+    container_name: tradeon-db-migration
+    command: yarn db:migrate
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/engine/node_modules
+      - /app/engine/dist
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://master:%2329GGvu2oq@database:5432/postgres
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - satta-app-net
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: engine/Dockerfile
+    container_name: tradeon-api-gateway
+    command: yarn dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/engine/node_modules
+      - /app/engine/dist
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://master:%2329GGvu2oq@database:5432/postgres
+      - REDIS_URL=redis://redis:6379
+      - ENGINE_PORT=4000
+      - FRONTEND_URL=http://localhost:3000
+      - CLERK_PUBLISHABLE_KEY=pk_test_Y29uY2lzZS1yYXB0b3ItMzAuY2xlcmsuYWNjb3VudHMuZGV2JA
+      - CLERK_SECRET_KEY=sk_test_yTRx1EhR57OUfXYyiQDOBl6tF32GHYX0Cypso5YHzK
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      db-migration:
+        condition: service_completed_successfully
+    networks:
+      - satta-app-net
+
+  match-engine:
+    build:
+      context: .
+      dockerfile: engine/Dockerfile
+    container_name: tradeon-match-engine
+    command: yarn engine
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/engine/node_modules
+      - /app/engine/dist
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://master:%2329GGvu2oq@database:5432/postgres
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_started
+      db-migration:
+        condition: service_completed_successfully
+    networks:
+      - satta-app-net
+
+  persistence-worker:
+    build:
+      context: .
+      dockerfile: engine/Dockerfile
+    container_name: tradeon-persistence-worker
+    command: yarn persistence
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/engine/node_modules
+      - /app/engine/dist
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://master:%2329GGvu2oq@database:5432/postgres
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      db-migration:
+        condition: service_completed_successfully
+    networks:
+      - satta-app-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: tradeon-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://master:%2329GGvu2oq@database:5432/postgres
+      - ENGINE_PORT=4000
+      - FRONTEND_URL=http://localhost:3000
+      - REDIS_URL=redis://redis:6379
+      - CLERK_PUBLISHABLE_KEY=pk_test_Y29uY2lzZS1yYXB0b3ItMzAuY2xlcmsuYWNjb3VudHMuZGV2JA
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y29uY2lzZS1yYXB0b3ItMzAuY2xlcmsuYWNjb3VudHMuZGV2JA
+      - CLERK_SECRET_KEY=sk_test_yTRx1EhR57OUfXYyiQDOBl6tF32GHYX0Cypso5YHzK
+      - NEXT_PUBLIC_ENGINE_URL=http://localhost:4000
+      - CLERK_WEBHOOK_SIGNING_SECRET
+    depends_on:
+      - api-gateway
+    networks:
+      - satta-app-net
 
 volumes:
   satta-app-db-volume:
   satta-app-redis-volume:
-
 
 networks:
   satta-app-net:

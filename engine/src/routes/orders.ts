@@ -1,7 +1,7 @@
 import { Router, type Request, type Response, type RequestHandler } from "express";
 import crypto from "crypto";
 import { z } from "zod";
-import redis from "../redis/client.js";
+import { RedisClient } from "@/lib/redis.js";
 import { requireClerkAuth, getClerkUserId } from "../middleware/auth.js";
 
 const router = Router();
@@ -9,15 +9,11 @@ const router = Router();
 const orderPayloadSchema = z.object({
     marketId: z.number().int().positive(),
     side: z.enum(["YES", "NO"]),
-    priceCents: z.number().int().min(1).max(9900), // Prices between 0.01 and 99.00
+    price: z.number().int().min(1).max(9900),
     quantity: z.number().int().positive(),
+    clientOrderId: z.string().uuid().default(() => crypto.randomUUID()),
 });
 
-/**
- * POST /api/orders
- * Validates payload and pushes it to Redis `queue:orders`.
- * Does NOT execute the trade directly.
- */
 const createOrderRoute: RequestHandler = async (req, res) => {
     try {
         const userId = getClerkUserId(req);
@@ -32,30 +28,49 @@ const createOrderRoute: RequestHandler = async (req, res) => {
             return;
         }
 
-        const { marketId, side, priceCents, quantity } = parseResult.data;
+        const { marketId, side, price, quantity, clientOrderId } = parseResult.data;
 
-        // Generate UUID inside the gateway 
-        const orderId = crypto.randomUUID();
-        const orderMessage = {
-            orderId,
+        // Retrieve idempotency key from header, fallback to random UUID if missing/invalid
+        const headerKey = req.headers["idempotency-key"];
+        const requestId = (typeof headerKey === "string" && z.string().uuid().safeParse(headerKey).success)
+            ? headerKey
+            : crypto.randomUUID();
+
+        const redisClient = await RedisClient.getInstance();
+
+        // Enforce backpressure throttling
+        const queueLength = await redisClient.getCommandStreamLength();
+        if (queueLength > 5000) {
+            console.error(`[ordersRouter:createOrderRoute]: Throttling request due to stream backlog: ${queueLength}`);
+            res.status(429).json({ error: "Server is busy. Please try again in a few seconds." });
+            return;
+        }
+
+        const unique = await redisClient.acquireIdempotencyLock(requestId);
+        if (!unique) {
+            console.error(`[ordersRouter:createOrderRoute]: Duplicate request: ${requestId}`);
+            res.status(409).json({ error: "Duplicate request" });
+            return;
+        }
+
+        await redisClient.enqueueCommand({
+            requestId,
+            clientOrderId,
             userId,
             marketId,
+            type: "ORDER_CREATE",
             side,
-            priceCents,
+            price,
             quantity,
             timestamp: Date.now(),
-        };
+        });
 
-        // Fast enqueue
-        await redis.rpush("queue:orders", JSON.stringify(orderMessage));
-
-        // Accepted
         res.status(202).json({
             message: "Order placed in queue",
-            orderId,
+            orderId: clientOrderId,
         });
-    } catch (err) {
-        console.error("Failed to enqueue order:", err);
+    } catch (err: any) {
+        console.error("[ordersRouter:createOrderRoute]: " + err.message);
         res.status(500).json({ error: "Internal server error" });
     }
 };
@@ -65,14 +80,15 @@ router.post("/", requireClerkAuth, createOrderRoute);
 router.get("/orderbook/:marketId", async (req, res) => {
     try {
         const marketId = parseInt(req.params.marketId, 10);
-        const cachedBook = await redis.get(`orderbook:${marketId}`);
+        const redisClient = await RedisClient.getInstance();
+        const cachedBook = await redisClient.getCachedOrderBook(marketId);
         if (cachedBook) {
-            res.json(JSON.parse(cachedBook));
+            res.json(cachedBook);
             return;
         }
         res.json({ yesOrders: [], noOrders: [] });
-    } catch (err) {
-        console.error(err);
+    } catch (err: any) {
+        console.error("[ordersRouter:getOrderBook]: " + err.message);
         res.status(500).json({ error: "Internal server error" });
     }
 });

@@ -5,13 +5,14 @@ import db from "@/engine/src/db/client";
 import { users } from "@/engine/src/db/schema";
 export const dynamic = "force-dynamic";
 import { eq } from "@/engine/node_modules/drizzle-orm";
-import Redis from "ioredis";
-const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
+import crypto from "crypto";
+import { RedisClient } from "@/lib/redis";
 
 export async function POST(req: Request) {
+  console.info("[clerkWebhook:POST]: Received webhook request from Clerk");
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
   if (!WEBHOOK_SECRET) {
-    console.error("Missing Clerk Webhook Secret");
+    console.error("[clerkWebhook:POST]: Missing Clerk Webhook Secret");
     return NextResponse.json({ error: "Missing secret env var" }, { status: 500 });
   }
 
@@ -21,25 +22,23 @@ export async function POST(req: Request) {
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
 
-  if (!svix_id || !svix_timestamp || !svix_signature) {
-    return NextResponse.json({ error: "Missing Svix headers" }, { status: 400 });
-  }
-
-
   let evt: any;
   try {
+    if (!svix_id || !svix_timestamp || !svix_signature) {
+      throw new Error("Missing Svix headers");
+    }
     const wh = new Webhook(WEBHOOK_SECRET);
     evt = wh.verify(payload, {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.warn("⚠️ Webhook verification failed natively. Falling back to body payload parsing for development testing:", err);
     try {
       evt = JSON.parse(payload);
-    } catch (jsonErr) {
-      console.error("Failed to parse raw body JSON:", jsonErr);
+    } catch (jsonErr: any) {
+      console.error("[clerkWebhook:POST]: Failed to parse raw body JSON: " + jsonErr.message);
       return NextResponse.json({ error: "Invalid payload format" }, { status: 400 });
     }
   }
@@ -47,23 +46,30 @@ export async function POST(req: Request) {
   // Parse event
   const eventType = evt.type;
   const user = evt.data;
+  console.info(`[clerkWebhook:POST]: Webhook event type: ${eventType}, userId: ${user?.id}`);
 
   try {
+    const redisClient = await RedisClient.getInstance();
+
     await db.transaction(async (tx) => {
       if (eventType === "user.created") {
         await tx.insert(users).values({
           clerkId: user.id,
-          balanceCents: 5000000, // Sync ₹50,000.00 (5,000,000 paise) matching schema
+          balance: 5000000, // Sync ₹50,000.00 (5,000,000 paise) matching schema
           email: user.email,
           createdAt: user.createdAt ? new Date(user.createdAt) : new Date()
         });
 
         // Synchronize back to match-engine in Redis. If Redis fails, roll back Postgres!
-        await redis.rpush("queue:orders", JSON.stringify({
-          type: "USER_SYNC",
+        await redisClient.enqueueCommand({
+          requestId: crypto.randomUUID(),
+          clientOrderId: crypto.randomUUID(),
           userId: user.id,
-          balance: 5000000
-        }));
+          marketId: 0,
+          type: "USER_SYNC",
+          balance: 5000000,
+          timestamp: Date.now()
+        });
         console.info(`📡 Synchronized user ${user.id} creation to engine`);
       }
 
@@ -78,11 +84,15 @@ export async function POST(req: Request) {
 
         const updatedUser = await tx.select().from(users).where(eq(users.clerkId, user.id)).limit(1);
         if (updatedUser[0]) {
-          await redis.rpush("queue:orders", JSON.stringify({
-            type: "USER_SYNC",
+          await redisClient.enqueueCommand({
+            requestId: crypto.randomUUID(),
+            clientOrderId: crypto.randomUUID(),
             userId: user.id,
-            balance: updatedUser[0].balanceCents
-          }));
+            marketId: 0,
+            type: "USER_SYNC",
+            balance: updatedUser[0].balance,
+            timestamp: Date.now()
+          });
           console.info(`📡 Synchronized user ${user.id} updates to engine`);
         }
       }
@@ -90,18 +100,22 @@ export async function POST(req: Request) {
       if (eventType === "user.deleted") {
         await tx.delete(users).where(eq(users.clerkId, user.id));
 
-        await redis.rpush("queue:orders", JSON.stringify({
-          type: "USER_SYNC",
+        await redisClient.enqueueCommand({
+          requestId: crypto.randomUUID(),
+          clientOrderId: crypto.randomUUID(),
           userId: user.id,
-          balance: 0
-        }));
+          marketId: 0,
+          type: "USER_SYNC",
+          balance: 0,
+          timestamp: Date.now()
+        });
         console.info(`📡 Synchronized user ${user.id} deletion to engine`);
       }
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.error("Atomic transaction operation failed. Reverting changes:", err);
+  } catch (err: any) {
+    console.error("[clerkWebhook:POST]: Atomic transaction operation failed. Reverting changes: " + err.message);
     return NextResponse.json({ error: "Failed to register user. Transaction reverted." }, { status: 500 });
   }
 }

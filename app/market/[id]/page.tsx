@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { LiveOrderBook } from "@/components/LiveOrderBook";
 import { Activity, Info, Trophy, Link as LinkIcon, DollarSign } from "lucide-react";
+import { ENGINE_URL } from "@/lib/config";
 
 export default function MarketDetailPage() {
     const { id } = useParams();
@@ -16,9 +17,10 @@ export default function MarketDetailPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [book, setBook] = useState<{ yesOrders: any[], noOrders: any[] }>({ yesOrders: [], noOrders: [] });
+    const [idempotencyKey, setIdempotencyKey] = useState<string | null>(null);
 
     // Calculate dynamic probability percentage based on best YES price (default to 65%)
-    const bestYesPrice = book.yesOrders && book.yesOrders.length > 0 ? (book.yesOrders[0].priceCents / 100) : 65;
+    const bestYesPrice = book.yesOrders && book.yesOrders.length > 0 ? (book.yesOrders[0].price / 100) : 65;
     const probability = Math.round(bestYesPrice);
 
     const handleTrade = async (e: React.FormEvent) => {
@@ -26,17 +28,24 @@ export default function MarketDetailPage() {
         setLoading(true);
         setError(null);
 
+        let currentKey = idempotencyKey;
+        if (!currentKey) {
+            currentKey = window.crypto.randomUUID();
+            setIdempotencyKey(currentKey);
+        }
+
         try {
             const token = await getToken();
-            const res = await fetch("http://localhost:4000/api/orders", {
+            const res = await fetch(`${ENGINE_URL}/api/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,
+                    "Idempotency-Key": currentKey
                 },
                 body: JSON.stringify({
                     marketId: marketId,
-                    priceCents: parseInt(price, 10),
+                    price: parseInt(price, 10) * 100,
                     quantity: parseInt(shares, 10),
                     side: side,
                 })
@@ -47,6 +56,7 @@ export default function MarketDetailPage() {
                 throw new Error(content.error || "Failed to submit order");
             }
 
+            setIdempotencyKey(null); // Clear key on successful order receipt
             alert("Order placed successfully!");
             setShares("");
             // Dispatch event to trigger navbar balance update

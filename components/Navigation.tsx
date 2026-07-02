@@ -4,6 +4,7 @@ import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { Search, Home, BarChart2, Briefcase, TrendingUp } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { ENGINE_URL } from "@/lib/config";
 
 import { useState, useEffect } from "react";
 
@@ -14,7 +15,7 @@ export function TopNav() {
     const refetchBalance = async () => {
         try {
             const token = await getToken();
-            const res = await fetch("http://localhost:4000/api/users/me", {
+            const res = await fetch(`${ENGINE_URL}/api/users/me`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

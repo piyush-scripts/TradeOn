@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
+import { ENGINE_URL } from "@/lib/config";
 
 interface OrderRecord {
     orderId: string;
     userId: string;
-    priceCents: number;
+    price: number;
     quantity: number;
     timestamp: number;
 }
@@ -22,7 +23,7 @@ export function LiveOrderBook({ marketId, onBookUpdate }: { marketId: number; on
 
     useEffect(() => {
         // Fetch current initial order book state
-        fetch(`http://localhost:4000/api/orders/orderbook/${marketId}`)
+        fetch(`${ENGINE_URL}/api/orders/orderbook/${marketId}`)
             .then(res => res.json())
             .then(data => {
                 if (data && !data.error) {
@@ -33,7 +34,7 @@ export function LiveOrderBook({ marketId, onBookUpdate }: { marketId: number; on
             .catch(err => console.error("Failed to load initial orderbook:", err));
 
         // Connect to the TradeOn Express Gateway
-        const socket: Socket = io("http://localhost:4000", {
+        const socket: Socket = io(ENGINE_URL, {
             withCredentials: true,
         });
 
@@ -84,7 +85,7 @@ export function LiveOrderBook({ marketId, onBookUpdate }: { marketId: number; on
                         ) : (
                             book.yesOrders.map((o) => (
                                 <div key={o.orderId} className="flex justify-between items-center bg-blue-500/5 hover:bg-blue-500/10 transition-colors px-2 py-1 rounded">
-                                    <span className="text-blue-300 font-medium">₹{(o.priceCents / 100).toFixed(2)}</span>
+                                    <span className="text-blue-300 font-medium">₹{(o.price / 100).toFixed(2)}</span>
                                     <span className="text-white/80">{o.quantity}</span>
                                 </div>
                             ))
@@ -105,7 +106,7 @@ export function LiveOrderBook({ marketId, onBookUpdate }: { marketId: number; on
                         ) : (
                             book.noOrders.map((o) => (
                                 <div key={o.orderId} className="flex justify-between items-center bg-red-500/5 hover:bg-red-500/10 transition-colors px-2 py-1 rounded">
-                                    <span className="text-red-300 font-medium">₹{(o.priceCents / 100).toFixed(2)}</span>
+                                    <span className="text-red-300 font-medium">₹{(o.price / 100).toFixed(2)}</span>
                                     <span className="text-white/80">{o.quantity}</span>
                                 </div>
                             ))

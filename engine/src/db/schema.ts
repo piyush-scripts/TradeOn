@@ -26,7 +26,8 @@ export const users = pgTable("users", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     clerkId: varchar("userid", { length: 255 }).notNull().unique(),
     email: varchar("email", { length: 255 }).unique(),
-    balanceCents: integer("balance").notNull().default(5000000), // Default 50k
+    balance: integer("balance").notNull().default(5000000), // Default 50k (available)
+    reservedBalance: integer("reserved_balance").notNull().default(0), // Locked in orders
     createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow(),
 });
 
@@ -54,11 +55,11 @@ export const marketsRelations = relations(markets, ({ many }) => ({
 // ─── Orders ──────────────────────────────────────────────
 
 export const orders = pgTable("orders", {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    id: varchar("id", { length: 255 }).primaryKey(),
     userId: integer("user_id").notNull().references(() => users.id),
     marketId: integer("market_id").notNull().references(() => markets.id),
     side: orderSideEnum("side").notNull(),
-    priceCents: integer("price_cents").notNull(), // 0-10000 (0.00 to 100.00)
+    price: integer("price_cents").notNull(), // 0-10000 (0.00 to 100.00)
     quantity: integer("quantity").notNull(),
     filledQty: integer("filled_qty").notNull().default(0),
     status: orderStatusEnum("status").notNull().default("pending"),
@@ -75,9 +76,9 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
 
 export const transactions = pgTable("transactions", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    orderId: integer("order_id").references(() => orders.id),
+    orderId: varchar("order_id", { length: 255 }).references(() => orders.id),
     userId: integer("user_id").notNull().references(() => users.id),
-    amountChangeCents: integer("amount_change_cents").notNull(),
+    amountChange: integer("amount_change_cents").notNull(),
     type: txTypeEnum("type").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
@@ -117,3 +118,9 @@ export const positionsRelations = relations(positions, ({ one }) => ({
         references: [markets.id],
     }),
 }));
+
+export const processedOffsets = pgTable("processed_offsets", {
+    serviceName: varchar("service_name", { length: 255 }).primaryKey(),
+    lastSeenId: varchar("last_seen_id", { length: 255 }).notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});

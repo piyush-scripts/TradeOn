@@ -11,7 +11,7 @@ CREATE TABLE "markets" (
 );
 --> statement-breakpoint
 CREATE TABLE "orders" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "orders_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"id" varchar(255) PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"market_id" integer NOT NULL,
 	"side" "order_side" NOT NULL,
@@ -30,9 +30,15 @@ CREATE TABLE "positions" (
 	CONSTRAINT "positions_user_id_market_id_pk" PRIMARY KEY("user_id","market_id")
 );
 --> statement-breakpoint
+CREATE TABLE "processed_offsets" (
+	"service_name" varchar(255) PRIMARY KEY NOT NULL,
+	"last_seen_id" varchar(255) NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE "transactions" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "transactions_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
-	"order_id" integer,
+	"order_id" varchar(255),
 	"user_id" integer NOT NULL,
 	"amount_change_cents" integer NOT NULL,
 	"type" "tx_type" NOT NULL,
@@ -41,11 +47,12 @@ CREATE TABLE "transactions" (
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
-	"clerk_id" varchar(255) NOT NULL,
+	"userid" varchar(255) NOT NULL,
 	"email" varchar(255),
-	"balance_cents" integer DEFAULT 5000000 NOT NULL,
-	"created_at" timestamp with time zone DEFAULT now(),
-	CONSTRAINT "users_clerk_id_unique" UNIQUE("clerk_id"),
+	"balance" integer DEFAULT 5000000 NOT NULL,
+	"reserved_balance" integer DEFAULT 0 NOT NULL,
+	"createdAt" timestamp with time zone DEFAULT now(),
+	CONSTRAINT "users_userid_unique" UNIQUE("userid"),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint

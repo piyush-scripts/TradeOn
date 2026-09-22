@@ -59,7 +59,7 @@ export const orders = pgTable("orders", {
     userId: integer("user_id").notNull().references(() => users.id),
     marketId: integer("market_id").notNull().references(() => markets.id),
     side: orderSideEnum("side").notNull(),
-    price: integer("price_cents").notNull(), // 0-10000 (0.00 to 100.00)
+    price: integer("price_cents").notNull(), // paise: 1-99, winning share pays ₹1.00
     quantity: integer("quantity").notNull(),
     filledQty: integer("filled_qty").notNull().default(0),
     status: orderStatusEnum("status").notNull().default("pending"),

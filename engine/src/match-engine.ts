@@ -9,6 +9,8 @@ import type { TradingCommand } from "@/lib/types/commands.js";
 import type { EngineSnapshot, UserBalance } from "@/lib/types/snapshot.js";
 import type { ExecutionRecord } from "@/lib/types/executions.js";
 
+const CONTRACT_PAYOUT = 100; // paise: a winning share pays ₹1.00
+
 export type { ExecutionRecord }; // Export for compatibility with other engine modules
 
 class MatchEngine {
@@ -162,8 +164,30 @@ class MatchEngine {
     const quantity = command.quantity!;
     const clientOrderId = command.clientOrderId;
 
-    const userBal = this.balances.get(userId) || { available: 0, reserved: 0 };
+    if (!this.orderBooks.has(marketId)) {
+      this.orderBooks.set(marketId, { yesOrders: [], noOrders: [] });
+    }
+
+    const marketBook = this.orderBooks.get(marketId)!;
+
+    // Check if the user already has resting orders on the opposite side
+    const oppositeBookRef = side === "YES" ? marketBook.noOrders : marketBook.yesOrders;
+    const hasOppositeRestingOrder = oppositeBookRef.some(o => o.userId === userId);
+    if (hasOppositeRestingOrder) {
+      console.error(`[MatchEngine:processOrder]: Order ${clientOrderId} rejected: User has active resting orders on the opposite side (${side === "YES" ? "NO" : "YES"})`);
+      return;
+    }
+
     const orderCost = price * quantity;
+    let userBal = this.balances.get(userId);
+    if (!userBal || (userId.startsWith("bot_") && userBal.available < orderCost)) {
+      if (userId.startsWith("bot_")) {
+        userBal = { available: 100000000, reserved: userBal?.reserved || 0 };
+        this.balances.set(userId, userBal);
+      } else {
+        userBal = userBal || { available: 0, reserved: 0 };
+      }
+    }
 
     if (userBal.available < orderCost) {
       console.error(`[MatchEngine:processOrder]: Order ${clientOrderId} rejected: Insufficient balance`);
@@ -177,18 +201,12 @@ class MatchEngine {
     const affectedUserIds = new Set<string>([userId]);
     let remainingQty = quantity;
     const executions: ExecutionRecord[] = [];
-
-    if (!this.orderBooks.has(marketId)) {
-      this.orderBooks.set(marketId, { yesOrders: [], noOrders: [] });
-    }
-
-    const marketBook = this.orderBooks.get(marketId)!;
     const restingBookRef = side === "YES" ? marketBook.noOrders : marketBook.yesOrders;
 
     while (remainingQty > 0 && restingBookRef.length > 0) {
       const bestMaker = restingBookRef[0];
 
-      if (price + bestMaker.price < 105) {
+      if (price + bestMaker.price < CONTRACT_PAYOUT) {
         break;
       }
 
@@ -196,7 +214,7 @@ class MatchEngine {
       const tradeId = crypto.randomUUID();
 
       const makerPrice = bestMaker.price;
-      const takerPrice = 105 - bestMaker.price;
+      const takerPrice = CONTRACT_PAYOUT - bestMaker.price;
 
       const makerBal = this.balances.get(bestMaker.userId) || { available: 0, reserved: 0 };
       makerBal.reserved -= matchQty * makerPrice;

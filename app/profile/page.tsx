@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { Calendar, Mail, User as UserIcon, Wallet } from "lucide-react";
 import { ENGINE_URL } from "@/lib/config";
-import { Mail, User as UserIcon, Calendar, DollarSign } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProfilePage() {
   const { isLoaded: authLoaded, isSignedIn, getToken } = useAuth();
@@ -16,15 +20,11 @@ export default function ProfilePage() {
       try {
         const token = await getToken();
         const res = await fetch(`${ENGINE_URL}/api/users/me`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
           const data = await res.json();
-          if (data && typeof data.balance === 'number') {
-            setBalance(data.balance);
-          }
+          if (data && typeof data.balance === "number") setBalance(data.balance);
         }
       } catch (err) {
         console.error("Error fetching balance:", err);
@@ -33,100 +33,92 @@ export default function ProfilePage() {
       }
     }
 
-    if (authLoaded && isSignedIn) {
-      fetchBalance();
-    } else if (authLoaded && !isSignedIn) {
-      setLoading(false);
-    }
+    if (authLoaded && isSignedIn) fetchBalance();
+    else if (authLoaded && !isSignedIn) setLoading(false);
   }, [authLoaded, isSignedIn, getToken]);
 
   if (loading || !userLoaded || !authLoaded) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] text-white">
-        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 font-medium">Loading profile...</p>
+      <div className="mx-auto grid max-w-xl gap-6 pb-8">
+        <Card>
+          <CardHeader className="items-center text-center">
+            <Skeleton className="size-24 rounded-full" />
+            <div className="space-y-2 mt-2 flex flex-col items-center">
+              <Skeleton className="h-6 w-36" />
+              <Skeleton className="h-5 w-24" />
+            </div>
+          </CardHeader>
+          <CardContent className="grid gap-3">
+            <Skeleton className="h-14 w-full" />
+            <Skeleton className="h-14 w-full" />
+            <Skeleton className="h-14 w-full" />
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   if (!isSignedIn || !user) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] bg-slate-900 border border-white/10 rounded-2xl p-8 text-center text-white">
-        <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-          <UserIcon className="w-8 h-8 text-slate-400" />
-        </div>
-        <h2 className="text-2xl font-bold mb-2">Access Profile</h2>
-        <p className="text-slate-400 max-w-sm mb-6">Please sign in to view your profile settings and trade balance.</p>
-      </div>
-    );
+    return <CenteredState title="Access profile" description="Please sign in to view your profile settings and trade balance." />;
   }
 
   const emailAddress = user.primaryEmailAddress?.emailAddress || "N/A";
   const fullName = user.fullName || user.username || "Trader";
-  const memberSince = user.createdAt ? new Date(user.createdAt).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }) : "N/A";
-
+  const memberSince = user.createdAt
+    ? new Date(user.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })
+    : "N/A";
   const displayBalance = balance !== null ? `₹${(balance / 100).toFixed(2)}` : "₹0.00";
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[500px] pb-12 animate-in fade-in duration-500 text-white">
-      <div className="w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-        {/* Decorative ambient background glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 blur-[80px] pointer-events-none" />
-
-        {/* Profile Details */}
-        <div className="flex flex-col items-center text-center relative z-10">
-          {/* Avatar Image */}
+    <div className="mx-auto grid max-w-xl gap-6 pb-8">
+      <Card>
+        <CardHeader className="items-center text-center">
           {user.imageUrl ? (
-            <img
-              src={user.imageUrl}
-              alt="Profile Avatar"
-              className="w-24 h-24 rounded-full border-2 border-blue-500 shadow-md mb-6"
-            />
+            <Image src={user.imageUrl} alt="Profile avatar" width={96} height={96} className="rounded-full border" />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-slate-800 border-2 border-slate-700 flex items-center justify-center mb-6">
-              <UserIcon className="w-12 h-12 text-slate-500" />
+            <div className="flex size-24 items-center justify-center rounded-full border bg-muted">
+              <UserIcon className="size-10 text-muted-foreground" />
             </div>
           )}
-
-          <h1 className="text-2xl sm:text-3xl font-bold font-serif leading-tight mb-2">
-            {fullName}
-          </h1>
-          <span className="text-xs uppercase font-bold tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full mb-8">
-            Verified Trader
-          </span>
-
-          {/* User Fields */}
-          <div className="w-full space-y-4 text-left border-t border-white/5 pt-6">
-            <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-4">
-              <Mail className="w-5 h-5 text-slate-400" />
-              <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Email Address</span>
-                <span className="text-sm font-medium text-white/90">{emailAddress}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-4">
-              <DollarSign className="w-5 h-5 text-emerald-400" />
-              <div className="flex flex-col flex-1">
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Available Balance</span>
-                <span className="text-lg font-bold text-emerald-400">{displayBalance}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-2xl p-4">
-              <Calendar className="w-5 h-5 text-slate-400" />
-              <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Member Since</span>
-                <span className="text-sm font-medium text-white/90">{memberSince}</span>
-              </div>
-            </div>
+          <div className="space-y-2">
+            <CardTitle className="text-2xl">{fullName}</CardTitle>
+            <Badge variant="outline" appearance="outline">Verified trader</Badge>
           </div>
-        </div>
+        </CardHeader>
+        <CardContent className="grid gap-3">
+          <ProfileRow icon={<Mail />} label="Email address" value={emailAddress} />
+          <ProfileRow icon={<Wallet />} label="Available balance" value={displayBalance} />
+          <ProfileRow icon={<Calendar />} label="Member since" value={memberSince} />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function ProfileRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-md border p-3">
+      <span className="text-muted-foreground [&_svg]:size-4">{icon}</span>
+      <div className="min-w-0">
+        <div className="text-xs text-muted-foreground">{label}</div>
+        <div className="truncate text-sm font-medium">{value}</div>
       </div>
     </div>
+  );
+}
+
+function CenteredState({ title, description }: { title: string; description?: string }) {
+  return (
+    <Card className="mx-auto mt-10 max-w-md">
+      <CardContent className="flex min-h-[260px] flex-col items-center justify-center gap-3 text-center">
+        <div className="flex size-12 items-center justify-center rounded-full border bg-muted">
+          <UserIcon className="size-6 text-muted-foreground" />
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

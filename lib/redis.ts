@@ -52,10 +52,10 @@ export class RedisClient {
       [{ key: this.commandStream, id: lastSeenId }],
       options
     );
-    // @ts-ignore
+    // @ts-expect-error Redis xRead runtime shape
     if (!result || result.length === 0) return [];
 
-    // @ts-ignore
+    // @ts-expect-error Redis xRead runtime shape
     return result[0].messages.map((msg) => ({
       id: msg.id,
       command: JSON.parse(msg.message.payload),
@@ -91,10 +91,10 @@ export class RedisClient {
       [{ key: this.eventStream, id: lastSeenId }],
       options
     );
-    // @ts-ignore
+    // @ts-expect-error Redis xRead runtime shape
     if (!result || result.length === 0) return [];
 
-    // @ts-ignore
+    // @ts-expect-error Redis xRead runtime shape
     return result[0].messages.map((msg) => {
       const sequenceNumber = parseInt(msg.message.sequenceNumber, 10);
       const executions = JSON.parse(msg.message.executions);

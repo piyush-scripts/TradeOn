@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav, BottomNav } from "@/components/Navigation";
 
 const geistSans = Geist({
@@ -19,6 +19,20 @@ export const metadata: Metadata = {
   description: "High-performance opinion trading platform",
 };
 
+const themeScript = `
+(function() {
+  try {
+    var theme = localStorage.getItem('tradeon-theme');
+    if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.style.colorScheme = theme;
+  } catch (_) {
+    document.documentElement.classList.add('dark');
+    document.documentElement.style.colorScheme = 'dark';
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,19 +40,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-950 text-slate-50 selection:bg-blue-500/30 overflow-x-hidden`}
-        >
-          {/* subtle background glow effects */}
-          <div className="fixed inset-0 z-0 pointer-events-none">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px]" />
-          </div>
-
-          <div className="relative z-10 flex min-h-screen flex-col">
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        </head>
+        <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans text-foreground antialiased`}>
+          <div className="flex min-h-screen flex-col">
             <TopNav />
-            <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 pb-24 md:pb-8">
+            <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 pb-24 sm:px-6 md:px-8 md:pb-8">
               {children}
             </main>
             <BottomNav />

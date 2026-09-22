@@ -1,119 +1,178 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import { ENGINE_URL } from "@/lib/config";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardToolbar } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface OrderRecord {
-    orderId: string;
-    userId: string;
-    price: number;
-    quantity: number;
-    timestamp: number;
+  orderId: string;
+  userId: string;
+  price: number;
+  quantity: number;
+  timestamp: number;
 }
 
 interface OrderBookData {
-    yesOrders: OrderRecord[];
-    noOrders: OrderRecord[];
+  yesOrders: OrderRecord[];
+  noOrders: OrderRecord[];
 }
 
 export function LiveOrderBook({ marketId, onBookUpdate }: { marketId: number; onBookUpdate?: (book: OrderBookData) => void }) {
-    const [book, setBook] = useState<OrderBookData>({ yesOrders: [], noOrders: [] });
-    const [connected, setConnected] = useState(false);
+  const [book, setBook] = useState<OrderBookData>({ yesOrders: [], noOrders: [] });
+  const [connected, setConnected] = useState(false);
+  const onBookUpdateRef = useRef(onBookUpdate);
 
-    useEffect(() => {
-        // Fetch current initial order book state
-        fetch(`${ENGINE_URL}/api/orders/orderbook/${marketId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data && !data.error) {
-                    setBook(data);
-                    if (onBookUpdate) onBookUpdate(data);
-                }
-            })
-            .catch(err => console.error("Failed to load initial orderbook:", err));
+  useEffect(() => {
+    onBookUpdateRef.current = onBookUpdate;
+  }, [onBookUpdate]);
 
-        // Connect to the TradeOn Express Gateway
-        const socket: Socket = io(ENGINE_URL, {
-            withCredentials: true,
-        });
+  useEffect(() => {
+    fetch(`${ENGINE_URL}/api/orders/orderbook/${marketId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && !data.error) {
+          setBook(data);
+          onBookUpdateRef.current?.(data);
+        }
+      })
+      .catch((err) => console.error("Failed to load initial orderbook:", err));
 
-        socket.on("connect", () => {
-            setConnected(true);
-            // Subscribe to the specific market ID room
-            socket.emit("subscribe", marketId);
-        });
+    const socket: Socket = io(ENGINE_URL, {
+      withCredentials: true,
+      transports: ["websocket", "polling"],
+    });
 
-        socket.on("disconnect", () => {
-            setConnected(false);
-        });
+    socket.on("connect", () => {
+      setConnected(true);
+      socket.emit("subscribe", marketId);
+    });
 
-        socket.on("orderbook_update", (updatedBook: OrderBookData) => {
-            setBook(updatedBook);
-            if (onBookUpdate) onBookUpdate(updatedBook);
-        });
+    socket.on("disconnect", () => setConnected(false));
 
-        return () => {
-            socket.off("connect");
-            socket.off("disconnect");
-            socket.off("orderbook_update");
-            socket.close();
-        };
-    }, [marketId, onBookUpdate]);
+    socket.on("orderbook_update", (updatedBook: OrderBookData) => {
+      setBook(updatedBook);
+      onBookUpdateRef.current?.(updatedBook);
+    });
 
-    return (
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-6 w-full text-sm">
-            <div className="flex items-center justify-between mb-4 pb-2 border-b border-white/10">
-                <h3 className="text-xl font-bold font-serif text-white/90">Live Orderbook</h3>
-                <span className={`flex items-center gap-2 text-xs font-medium uppercase tracking-wider ${connected ? 'text-green-400' : 'text-red-400'}`}>
-                    <div className={`w-2 h-2 rounded-full ${connected ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
-                    {connected ? 'Live' : 'Disconnected'}
-                </span>
-            </div>
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("orderbook_update");
+      socket.close();
+    };
+  }, [marketId]);
 
-            <div className="grid grid-cols-2 gap-6 w-full">
-                {/* === YES SIDE (BIDS) === */}
-                <div>
-                    <h4 className="text-blue-400 font-bold mb-2 pb-1 border-b border-blue-500/20">Buy YES</h4>
-                    <div className="flex justify-between text-xs text-white/50 mb-1 px-1">
-                        <span>Price (₹)</span>
-                        <span>Qty</span>
-                    </div>
-                    <div className="space-y-1">
-                        {book.yesOrders.length === 0 ? (
-                            <div className="text-white/30 text-xs py-2 italic text-center">No open orders</div>
-                        ) : (
-                            book.yesOrders.map((o) => (
-                                <div key={o.orderId} className="flex justify-between items-center bg-blue-500/5 hover:bg-blue-500/10 transition-colors px-2 py-1 rounded">
-                                    <span className="text-blue-300 font-medium">₹{(o.price / 100).toFixed(2)}</span>
-                                    <span className="text-white/80">{o.quantity}</span>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
+  const topYes = book.yesOrders[0]?.price;
+  const topNo = book.noOrders[0]?.price;
+  const spreadPaise = topYes && topNo ? Math.max(0, 100 - (topYes + topNo)) : null;
 
-                {/* === NO SIDE (ASKS) === */}
-                <div>
-                    <h4 className="text-red-400 font-bold mb-2 pb-1 border-b border-red-500/20">Buy NO</h4>
-                    <div className="flex justify-between text-xs text-white/50 mb-1 px-1">
-                        <span>Price (₹)</span>
-                        <span>Qty</span>
-                    </div>
-                    <div className="space-y-1">
-                        {book.noOrders.length === 0 ? (
-                            <div className="text-white/30 text-xs py-2 italic text-center">No open orders</div>
-                        ) : (
-                            book.noOrders.map((o) => (
-                                <div key={o.orderId} className="flex justify-between items-center bg-red-500/5 hover:bg-red-500/10 transition-colors px-2 py-1 rounded">
-                                    <span className="text-red-300 font-medium">₹{(o.price / 100).toFixed(2)}</span>
-                                    <span className="text-white/80">{o.quantity}</span>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            </div>
+  return (
+    <Card className="overflow-hidden border shadow-sm">
+      <CardHeader className="py-4 border-b">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <CardTitle className="text-base font-semibold flex items-center gap-2">
+              Order Book Depth
+            </CardTitle>
+            <CardDescription className="text-xs">
+              Live resting bids streaming from the matching engine.
+            </CardDescription>
+          </div>
+          <CardToolbar className="flex items-center gap-2">
+            {spreadPaise !== null && (
+              <span className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                Spread: {spreadPaise}¢
+              </span>
+            )}
+            <Badge 
+              variant="outline" 
+              className={connected ? "border-emerald-500/30 text-emerald-500 bg-emerald-500/10" : "border-destructive/30 text-destructive bg-destructive/10"}
+            >
+              {connected ? "🟢 Live" : "Offline"}
+            </Badge>
+          </CardToolbar>
         </div>
-    );
+      </CardHeader>
+      <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x">
+        <OrderBookSide 
+          type="YES" 
+          orders={book.yesOrders} 
+        />
+        <OrderBookSide 
+          type="NO" 
+          orders={book.noOrders} 
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
+function OrderBookSide({ type, orders }: { type: "YES" | "NO"; orders: OrderRecord[] }) {
+  const isYes = type === "YES";
+  const maxQty = Math.max(...orders.map((o) => o.quantity), 1);
+  const displayOrders = orders.slice(0, 8);
+
+  return (
+    <div className="flex flex-col">
+      <div className={`px-4 py-2 text-xs font-semibold flex items-center justify-between border-b ${
+        isYes ? "bg-emerald-500/5 text-emerald-600 dark:text-emerald-400" : "bg-rose-500/5 text-rose-600 dark:text-rose-400"
+      }`}>
+        <span>{type} Bids ({orders.length})</span>
+        <span className="font-mono text-[11px] font-normal text-muted-foreground">
+          Top: {orders[0] ? `₹${(orders[0].price / 100).toFixed(2)}` : "—"}
+        </span>
+      </div>
+
+      <div className="overflow-x-auto">
+        <Table className="w-full text-xs">
+          <TableHeader>
+            <TableRow className="hover:bg-transparent border-b text-[11px] text-muted-foreground">
+              <TableHead className="h-8 pl-4">PRICE</TableHead>
+              <TableHead className="h-8 text-right">SHARES</TableHead>
+              <TableHead className="h-8 text-right pr-4">TOTAL</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {displayOrders.length === 0 ? (
+              <TableRow className="hover:bg-transparent">
+                <TableCell colSpan={3} className="h-20 text-center text-muted-foreground text-xs font-normal">
+                  No open {type} bids
+                </TableCell>
+              </TableRow>
+            ) : (
+              displayOrders.map((order) => {
+                const totalRupees = ((order.price * order.quantity) / 100).toFixed(2);
+                const depthPercent = Math.min(100, Math.max(5, (order.quantity / maxQty) * 100));
+
+                return (
+                  <TableRow key={order.orderId} className="relative hover:bg-muted/40 transition-colors group">
+                    <TableCell className="pl-4 py-1.5 font-mono font-semibold relative z-10">
+                      <div 
+                        className={`absolute inset-y-0 left-0 -z-10 transition-all ${
+                          isYes ? "bg-emerald-500/15" : "bg-rose-500/15"
+                        }`} 
+                        style={{ width: `${depthPercent}%` }}
+                      />
+                      <span className={isYes ? "text-emerald-500" : "text-rose-500"}>
+                        ₹{(order.price / 100).toFixed(2)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right py-1.5 font-mono relative z-10 text-muted-foreground group-hover:text-foreground">
+                      {order.quantity}
+                    </TableCell>
+                    <TableCell className="text-right pr-4 py-1.5 font-mono relative z-10 text-muted-foreground">
+                      ₹{totalRupees}
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
 }

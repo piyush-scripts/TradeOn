@@ -6,6 +6,8 @@ import { Server as SocketIOServer } from "socket.io";
 import { clerkAuth } from "./middleware/auth.js";
 import ordersRouter from "./routes/orders.js";
 import usersRouter from "./routes/users.js";
+import botsRouter from "./routes/bots.js";
+import marketsRouter from "./routes/markets.js";
 import { RedisClient } from "@/lib/redis.js";
 import { createClient } from "redis";
 
@@ -109,6 +111,8 @@ app.get("/health", (_req, res) => {
 // ─── Routes ──────────────────────────────────────────────
 app.use("/api/orders", ordersRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/bots", botsRouter);
+app.use("/api/markets", marketsRouter);
 
 // ─── Boot Server ─────────────────────────────────────────
 startServer().catch((err) => {

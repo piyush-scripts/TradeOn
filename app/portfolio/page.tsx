@@ -1,234 +1,233 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import { Briefcase, Clock, CreditCard, PieChart, User } from "lucide-react";
 import { ENGINE_URL } from "@/lib/config";
-import { Briefcase, CreditCard, PieChart, Clock, ArrowUpRight, ArrowDownRight, User } from "lucide-react";
-
-interface Position {
-    marketId: number;
-    sharesYes: number;
-    sharesNo: number;
-    question: string;
-}
-
-interface OpenOrder {
-    id: string;
-    marketId: number;
-    side: "YES" | "NO";
-    price: number;
-    quantity: number;
-    filledQty: number;
-    status: string;
-    question: string;
-    createdAt: string;
-}
-
-interface PortfolioData {
-    balance: number;
-    reservedBalance: number;
-    positions: Position[];
-}
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUserPortfolio } from "@/hooks/useUserPortfolio";
 
 export default function PortfolioPage() {
-    const { isLoaded, isSignedIn, getToken } = useAuth();
-    const [data, setData] = useState<PortfolioData | null>(null);
-    const [openOrders, setOpenOrders] = useState<OpenOrder[]>([]);
-    const [loading, setLoading] = useState(true);
+  const { isSignedIn, getToken } = useAuth();
+  const { balance, reservedBalance, positions, openOrders, isLoading } = useUserPortfolio();
+  const [cancelingId, setCancelingId] = useState<number | string | null>(null);
 
-    useEffect(() => {
-        async function loadPortfolio() {
-            try {
-                const token = await getToken();
-                const [portRes, ordRes] = await Promise.all([
-                    fetch(`${ENGINE_URL}/api/users/me/portfolio`, {
-                        headers: { "Authorization": `Bearer ${token}` }
-                    }),
-                    fetch(`${ENGINE_URL}/api/users/me/orders`, {
-                        headers: { "Authorization": `Bearer ${token}` }
-                    })
-                ]);
-
-                if (portRes.ok && ordRes.ok) {
-                    const portData = await portRes.json();
-                    const ordData = await ordRes.json();
-                    setData(portData);
-                    setOpenOrders(ordData);
-                }
-            } catch (err) {
-                console.error("Failed to load portfolio:", err);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        if (isLoaded && isSignedIn) {
-            loadPortfolio();
-        } else if (isLoaded && !isSignedIn) {
-            setLoading(false);
-        }
-    }, [isLoaded, isSignedIn, getToken]);
-
-    if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] text-white">
-                <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-                <p className="text-slate-400 font-medium">Loading portfolio...</p>
-            </div>
-        );
-    }
-
-    if (!isSignedIn) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] bg-slate-900 border border-white/10 rounded-2xl p-8 text-center text-white">
-                <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-                    <User className="w-8 h-8 text-slate-400" />
-                </div>
-                <h2 className="text-2xl font-bold mb-2">Access Portfolio</h2>
-                <p className="text-slate-400 max-w-sm mb-6">Please sign in to view your holdings, active positions, and open orders.</p>
-            </div>
-        );
-    }
-
-    const availableCash = data ? data.balance / 100 : 0;
-    const investedCash = data ? data.reservedBalance / 100 : 0;
-    const totalValue = availableCash + investedCash;
-
-    // Filter positions to only show ones where the user actually holds shares
-    const activePositions = data
-        ? data.positions.filter(p => p.sharesYes > 0 || p.sharesNo > 0)
-        : [];
-
+  if (isLoading && balance === null) {
     return (
-        <div className="flex flex-col gap-8 pb-12 animate-in fade-in duration-500 text-white">
-            <h1 className="text-3xl font-bold font-serif tracking-tight">Portfolio Overview</h1>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="bg-slate-900 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-white/10 transition-colors">
-                    <div className="flex justify-between items-start mb-4">
-                        <span className="text-sm font-medium text-slate-400">Total Portfolio Value</span>
-                        <div className="text-blue-500/50 bg-blue-500/10 p-2 rounded-lg"><Briefcase className="w-5 h-5" /></div>
-                    </div>
-                    <div className="text-3xl font-bold tracking-tight">₹{totalValue.toFixed(2)}</div>
-                </div>
-
-                <div className="bg-slate-900 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-white/10 transition-colors">
-                    <div className="flex justify-between items-start mb-4">
-                        <span className="text-sm font-medium text-slate-400">Available Cash</span>
-                        <div className="text-emerald-500/50 bg-emerald-500/10 p-2 rounded-lg"><CreditCard className="w-5 h-5" /></div>
-                    </div>
-                    <div className="text-3xl font-bold tracking-tight">₹{availableCash.toFixed(2)}</div>
-                </div>
-
-                <div className="bg-slate-900 border border-white/5 rounded-2xl p-6 relative overflow-hidden group hover:border-white/10 transition-colors">
-                    <div className="flex justify-between items-start mb-4">
-                        <span className="text-sm font-medium text-slate-400">Reserved in Orders</span>
-                        <div className="text-purple-500/50 bg-purple-500/10 p-2 rounded-lg"><PieChart className="w-5 h-5" /></div>
-                    </div>
-                    <div className="text-3xl font-bold tracking-tight">₹{investedCash.toFixed(2)}</div>
-                </div>
-            </div>
-
-            {/* Active Positions Table */}
-            <section className="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden shadow-xl mt-4">
-                <div className="p-6 border-b border-white/5 flex items-center justify-between">
-                    <h2 className="text-xl font-bold flex items-center gap-2">
-                        <PieChart className="w-5 h-5 text-blue-400" />
-                        Active Positions
-                    </h2>
-                </div>
-
-                <div className="overflow-x-auto">
-                    {activePositions.length === 0 ? (
-                        <div className="p-8 text-center text-slate-400 font-medium italic">
-                            You do not own any contract shares right now.
-                        </div>
-                    ) : (
-                        <table className="w-full text-left text-sm whitespace-nowrap">
-                            <thead className="bg-black/20 text-slate-400 uppercase text-[10px] tracking-wider">
-                                <tr>
-                                    <th className="px-6 py-4 font-semibold">Market / Question</th>
-                                    <th className="px-6 py-4 font-semibold text-center">Outcome Side</th>
-                                    <th className="px-6 py-4 font-semibold text-right font-mono">Shares Owned</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5 text-slate-300 font-medium">
-                                {activePositions.map((pos) => {
-                                    const side = pos.sharesYes > 0 ? "YES" : "NO";
-                                    const count = pos.sharesYes > 0 ? pos.sharesYes : pos.sharesNo;
-                                    return (
-                                        <tr key={pos.marketId} className="hover:bg-white/5 transition-colors group cursor-pointer">
-                                            <td className="px-6 py-4 text-white border-l-2 border-transparent group-hover:border-blue-500 transition-colors">
-                                                {pos.question}
-                                            </td>
-                                            <td className="px-6 py-4 text-center">
-                                                <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider ${side === "YES" ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                                                    {side}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4 text-right font-mono text-white">{count}</td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    )}
-                </div>
-            </section>
-
-            {/* Open Orders */}
-            <section className="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden shadow-xl mt-4">
-                <div className="p-6 border-b border-white/5 flex items-center justify-between">
-                    <h2 className="text-xl font-bold flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-slate-400" />
-                        Open Orders
-                    </h2>
-                </div>
-                {openOrders.length === 0 ? (
-                    <div className="p-8 text-center flex flex-col items-center justify-center">
-                        <div className="w-16 h-16 rounded-full bg-black/20 flex items-center justify-center mb-4">
-                            <Clock className="w-8 h-8 text-slate-500" />
-                        </div>
-                        <p className="text-slate-400 font-medium">You have no open orders right now.</p>
-                    </div>
-                ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm whitespace-nowrap">
-                            <thead className="bg-black/20 text-slate-400 uppercase text-[10px] tracking-wider">
-                                <tr>
-                                    <th className="px-6 py-4 font-semibold">Market / Question</th>
-                                    <th className="px-6 py-4 font-semibold text-center">Side</th>
-                                    <th className="px-6 py-4 font-semibold text-right font-mono">Limit Price</th>
-                                    <th className="px-6 py-4 font-semibold text-right font-mono">Quantity</th>
-                                    <th className="px-6 py-4 font-semibold text-right font-mono">Filled Qty</th>
-                                    <th className="px-6 py-4 font-semibold text-center">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5 text-slate-300 font-medium">
-                                {openOrders.map((ord) => (
-                                    <tr key={ord.id} className="hover:bg-white/5 transition-colors">
-                                        <td className="px-6 py-4 text-white">{ord.question}</td>
-                                        <td className="px-6 py-4 text-center">
-                                            <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider ${ord.side === "YES" ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                                                {ord.side}
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 text-right font-mono">₹{(ord.price / 100).toFixed(2)}</td>
-                                        <td className="px-6 py-4 text-right font-mono">{ord.quantity}</td>
-                                        <td className="px-6 py-4 text-right font-mono">{ord.filledQty}</td>
-                                        <td className="px-6 py-4 text-center">
-                                            <span className="text-xs uppercase font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">
-                                                {ord.status}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-            </section>
+      <div className="grid gap-6 pb-8">
+        <div className="space-y-2">
+          <Skeleton className="h-9 w-40" />
+          <Skeleton className="h-5 w-64" />
         </div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Card key={i}>
+              <CardContent className="flex items-start justify-between gap-4 p-5">
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-8 w-28" />
+                </div>
+                <Skeleton className="size-5 rounded-full" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="space-y-4 mt-4">
+          <div className="border-b pb-2">
+            <Skeleton className="h-6 w-32" />
+            <Skeleton className="h-4 w-48 mt-1" />
+          </div>
+          <div className="space-y-2">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        </div>
+      </div>
     );
+  }
+
+  if (!isSignedIn) return <CenteredState title="Access portfolio" description="Please sign in to view holdings, active positions, and open orders." />;
+
+  const availableCash = (balance || 0) / 100;
+  const reservedCash = (reservedBalance || 0) / 100;
+  const totalValue = availableCash + reservedCash;
+
+  const positionList = Object.values(positions);
+  const activePositions = positionList.filter((p) => p.sharesYes > 0 || p.sharesNo > 0);
+
+  const handleCancelOrder = async (marketId: number, orderId: number | string) => {
+    setCancelingId(orderId);
+    try {
+      const token = await getToken();
+      const res = await fetch(`${ENGINE_URL}/api/orders/cancel`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ marketId, orderId }),
+      });
+      if (res.ok) {
+        window.dispatchEvent(new Event("balance-update"));
+      }
+    } catch (e) {
+      console.error("Failed to cancel order:", e);
+    } finally {
+      setCancelingId(null);
+    }
+  };
+
+  return (
+    <div className="grid gap-6 pb-8">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight">Portfolio</h1>
+        <p className="text-muted-foreground">Balances, positions, and open limit orders.</p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <StatCard icon={<Briefcase />} label="Total value" value={`₹${totalValue.toFixed(2)}`} />
+        <StatCard icon={<CreditCard />} label="Available cash" value={`₹${availableCash.toFixed(2)}`} />
+        <StatCard icon={<PieChart />} label="Reserved" value={`₹${reservedCash.toFixed(2)}`} />
+      </div>
+
+      <div className="space-y-3">
+        <div className="border-b pb-2">
+          <h2 className="text-xl font-semibold tracking-tight">Active Positions</h2>
+          <p className="text-sm text-muted-foreground">Shares currently held by outcome.</p>
+        </div>
+        <div>
+          {activePositions.length === 0 ? (
+            <EmptyState text="You do not own any contract shares right now." />
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Market</TableHead>
+                  <TableHead>Side</TableHead>
+                  <TableHead className="text-right">Shares</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {activePositions.map((pos) => {
+                  const side = pos.sharesYes > 0 ? "YES" : "NO";
+                  const count = pos.sharesYes > 0 ? pos.sharesYes : pos.sharesNo;
+                  return (
+                    <TableRow key={pos.marketId}>
+                      <TableCell className="font-medium">{pos.question || `Market #${pos.marketId}`}</TableCell>
+                      <TableCell>
+                        <Badge 
+                          variant="outline" 
+                          className={side === "YES" ? "border-emerald-500/30 text-emerald-500 bg-emerald-500/10" : "border-rose-500/30 text-rose-500 bg-rose-500/10"}
+                        >
+                          {side}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right font-mono font-semibold">{count}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          )}
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <div className="border-b pb-2">
+          <h2 className="text-xl font-semibold tracking-tight">Open Orders</h2>
+          <p className="text-sm text-muted-foreground">Unfilled or partially filled limit orders. Cancel to release reserved funds.</p>
+        </div>
+        <div>
+          {openOrders.length === 0 ? (
+            <EmptyState text="You have no open orders right now." />
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Market</TableHead>
+                  <TableHead>Side</TableHead>
+                  <TableHead className="text-right">Price</TableHead>
+                  <TableHead className="text-right">Qty</TableHead>
+                  <TableHead className="text-right">Filled</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {openOrders.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell className="font-medium">{order.question}</TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant="outline" 
+                        className={order.side === "YES" ? "border-emerald-500/30 text-emerald-500 bg-emerald-500/10" : "border-rose-500/30 text-rose-500 bg-rose-500/10"}
+                      >
+                        {order.side}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right font-mono">₹{(order.price / 100).toFixed(2)}</TableCell>
+                    <TableCell className="text-right font-mono">{order.quantity}</TableCell>
+                    <TableCell className="text-right font-mono">{order.filledQty}</TableCell>
+                    <TableCell><Badge variant="secondary">{order.status}</Badge></TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-xs text-destructive hover:bg-destructive/10"
+                        onClick={() => handleCancelOrder(order.marketId, order.id)}
+                        disabled={cancelingId === order.id}
+                      >
+                        {cancelingId === order.id ? "Canceling..." : "Cancel"}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <Card>
+      <CardContent className="flex items-start justify-between gap-4 p-5">
+        <div className="space-y-1">
+          <div className="text-sm text-muted-foreground">{label}</div>
+          <div className="text-2xl font-semibold tabular-nums">{value}</div>
+        </div>
+        <span className="text-muted-foreground [&_svg]:size-5">{icon}</span>
+      </CardContent>
+    </Card>
+  );
+}
+
+function EmptyState({ text }: { text: string }) {
+  return <div className="flex min-h-28 items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">{text}</div>;
+}
+
+function CenteredState({ title, description }: { title: string; description?: string }) {
+  return (
+    <Card className="mx-auto mt-10 max-w-md">
+      <CardContent className="flex min-h-[260px] flex-col items-center justify-center gap-3 text-center">
+        <div className="flex size-12 items-center justify-center rounded-full border bg-muted">
+          {title.includes("Loading") ? <Clock className="size-6 text-muted-foreground" /> : <User className="size-6 text-muted-foreground" />}
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }

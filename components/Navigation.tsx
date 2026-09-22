@@ -2,143 +2,128 @@
 
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { Search, Home, BarChart2, Briefcase, TrendingUp } from "lucide-react";
+import { BarChart2, Briefcase, Home, Search, TrendingUp } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { ENGINE_URL } from "@/lib/config";
-
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function TopNav() {
-    const { isSignedIn, isLoaded, getToken } = useAuth();
-    const [balance, setBalance] = useState<number | null>(null);
+  const { isSignedIn, isLoaded, getToken } = useAuth();
+  const [balance, setBalance] = useState<number | null>(null);
 
-    const refetchBalance = async () => {
-        try {
-            const token = await getToken();
-            const res = await fetch(`${ENGINE_URL}/api/users/me`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-            const data = await res.json();
-            if (data && typeof data.balance === 'number') {
-                setBalance(data.balance);
-            }
-        } catch (err) {
-            console.error("Error fetching balance:", err);
-        }
-    };
+  const refetchBalance = useCallback(async () => {
+    if (!isSignedIn) return;
+    try {
+      const token = await getToken();
+      const res = await fetch(`${ENGINE_URL}/api/users/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data && typeof data.balance === "number") setBalance(data.balance);
+    } catch (err) {
+      console.error("Error fetching balance:", err);
+    }
+  }, [getToken, isSignedIn]);
 
-    useEffect(() => {
-        if (isSignedIn) {
-            refetchBalance();
-            window.addEventListener("balance-update", refetchBalance);
-        }
-        return () => {
-            window.removeEventListener("balance-update", refetchBalance);
-        };
-    }, [isSignedIn]);
+  useEffect(() => {
+    if (!isSignedIn) return;
+    refetchBalance();
+    window.addEventListener("balance-update", refetchBalance);
+    return () => window.removeEventListener("balance-update", refetchBalance);
+  }, [isSignedIn, refetchBalance]);
 
-    const formattedBalance = balance !== null
-        ? `₹${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-        : "Loading...";
+  const formattedBalance = balance !== null
+    ? `₹${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : "Loading";
 
-    return (
-        <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
-            <div className="flex h-16 items-center px-4 md:px-8 mx-auto max-w-7xl justify-between">
-                <div className="flex items-center gap-6">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                            <TrendingUp className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-xl font-bold tracking-tight text-white hidden sm:inline-block">
-                            TradeOn
-                        </span>
-                    </Link>
+  return (
+    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
+        <div className="flex min-w-0 items-center gap-6">
+          <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
+            <span className="flex size-8 items-center justify-center rounded-md border bg-card">
+              <TrendingUp className="size-4" />
+            </span>
+            <span className="hidden text-base sm:inline">TradeOn</span>
+          </Link>
 
-                    {/* Nav Links (Desktop) */}
-                    <nav className="hidden md:flex items-center gap-6 ml-6">
-                        <NavLink href="/" icon={<Home className="h-4 w-4" />} label="Home" />
-                        <NavLink href="/" icon={<BarChart2 className="h-4 w-4" />} label="Markets" />
-                        <NavLink href="/portfolio" icon={<Briefcase className="h-4 w-4" />} label="Portfolio" />
-                    </nav>
-                </div>
+          <nav className="hidden items-center gap-1 md:flex">
+            <NavLink href="/" icon={<Home />} label="Home" />
+            <NavLink href="/" icon={<BarChart2 />} label="Markets" />
+            <NavLink href="/portfolio" icon={<Briefcase />} label="Portfolio" />
+          </nav>
+        </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="relative hidden sm:block">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
-                        <input
-                            type="text"
-                            placeholder="Search markets..."
-                            className="h-9 w-64 rounded-full border border-white/10 bg-white/5 pl-9 pr-4 text-sm text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-500"
-                        />
-                    </div>
+        <div className="flex min-w-0 items-center gap-2">
+          <div className="relative hidden w-64 lg:block">
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input className="pl-8" placeholder="Search markets" />
+          </div>
 
-                    <div className="flex items-center gap-3">
-                        {isLoaded && isSignedIn ? (
-                            <>
-                                <div className="hidden sm:flex flex-col items-end">
-                                    <span className="text-xs text-slate-400">Available Cash</span>
-                                    <span className="text-sm font-semibold text-emerald-400">{formattedBalance}</span>
-                                </div>
-                                <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center ring-2 ring-white/5 cursor-pointer hover:ring-blue-500 transition-all overflow-hidden">
-                                    <UserButton appearance={{ elements: { userButtonAvatarBox: "h-8 w-8" } }} />
-                                </div>
-                            </>
-                        ) : isLoaded ? (
-                            <Link href="/sign-in" className="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all">
-                                Sign In
-                            </Link>
-                        ) : (
-                            <div className="w-16 h-8 bg-white/5 animate-pulse rounded-full" />
-                        )}
-                    </div>
-                </div>
+          {isLoaded && isSignedIn ? (
+            <div className="hidden items-end sm:flex sm:flex-col">
+              <span className="text-xs text-muted-foreground">Available</span>
+              <span className="text-sm font-medium tabular-nums">{formattedBalance}</span>
             </div>
-        </header>
-    );
+          ) : null}
+
+          <ThemeToggle />
+
+          {isLoaded && isSignedIn ? (
+            <UserButton appearance={{ elements: { userButtonAvatarBox: "h-8 w-8" } }} />
+          ) : isLoaded ? (
+            <Button asChild size="md" variant="primary">
+              <Link href="/sign-in">Sign in</Link>
+            </Button>
+          ) : (
+            <div className="h-8 w-16 rounded-md bg-muted" />
+          )}
+        </div>
+      </div>
+    </header>
+  );
 }
 
 export function BottomNav() {
-    return (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-slate-950/90 backdrop-blur-lg pb-safe">
-            <nav className="flex h-16 items-center justify-between px-6">
-                <MobileNavLink href="/" icon={<Home className="h-5 w-5" />} label="Home" />
-                <MobileNavLink href="/" icon={<BarChart2 className="h-5 w-5" />} label="Markets" />
-                <MobileNavLink href="/portfolio" icon={<Briefcase className="h-5 w-5" />} label="Portfolio" />
-            </nav>
-        </div>
-    );
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 backdrop-blur md:hidden">
+      <nav className="mx-auto grid h-16 max-w-md grid-cols-3 px-3">
+        <MobileNavLink href="/" icon={<Home />} label="Home" />
+        <MobileNavLink href="/" icon={<BarChart2 />} label="Markets" />
+        <MobileNavLink href="/portfolio" icon={<Briefcase />} label="Portfolio" />
+      </nav>
+    </div>
+  );
 }
 
 function NavLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
-    const pathname = usePathname();
-    const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+  const pathname = usePathname();
+  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
 
-    return (
-        <Link
-            href={href}
-            className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive ? "text-blue-400" : "text-slate-400 hover:text-slate-200"
-                }`}
-        >
-            {icon}
-            {label}
-        </Link>
-    );
+  return (
+    <Button asChild variant={isActive ? "secondary" : "ghost"} size="md">
+      <Link href={href} className="gap-2">
+        <span className="[&_svg]:size-4">{icon}</span>
+        {label}
+      </Link>
+    </Button>
+  );
 }
 
 function MobileNavLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
-    const pathname = usePathname();
-    const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+  const pathname = usePathname();
+  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
 
-    return (
-        <Link
-            href={href}
-            className={`flex flex-col items-center justify-center gap-1 w-full h-full transition-colors ${isActive ? "text-blue-400" : "text-slate-400"
-                }`}
-        >
-            {icon}
-            <span className="text-[10px] font-medium">{label}</span>
-        </Link>
-    );
+  return (
+    <Link
+      href={href}
+      className={`flex flex-col items-center justify-center gap-1 text-xs transition-colors ${isActive ? "text-foreground" : "text-muted-foreground"}`}
+    >
+      <span className="[&_svg]:size-5">{icon}</span>
+      {label}
+    </Link>
+  );
 }

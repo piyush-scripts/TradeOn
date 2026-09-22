@@ -12,7 +12,10 @@
         "drizzle:generate": "drizzle-kit generate",
         "drizzle:migrate": "drizzle-kit migrate",
         "drizzle:push": "drizzle-kit push",
-        "seed-user": "tsx src/seed-user.ts"
+        "seed-user": "tsx src/seed-user.ts",
+        "seed": "tsx src/seed.ts",
+        "bot:simulate": "tsx src/bot-simulator.ts",
+        "test": "tsx src/test-suite.ts"
     },
     "dependencies": {
         "@clerk/express": "^1.0.0",

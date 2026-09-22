@@ -9,8 +9,10 @@ const router = Router();
 const orderPayloadSchema = z.object({
     marketId: z.number().int().positive(),
     side: z.enum(["YES", "NO"]),
-    price: z.number().int().min(1).max(9900),
-    quantity: z.number().int().positive(),
+    price: z.number().int()
+        .min(1, { message: "Price must be at least 1 paise (₹0.01)" })
+        .max(100, { message: "Price cannot exceed 100 paise (₹1.00)" }),
+    quantity: z.number().int().positive({ message: "Quantity must be a positive integer" }),
     clientOrderId: z.string().uuid().default(() => crypto.randomUUID()),
 });
 
@@ -53,6 +55,19 @@ const createOrderRoute: RequestHandler = async (req, res) => {
             return;
         }
 
+        // Check if user has active resting orders on the opposite side
+        const cachedBook = await redisClient.getCachedOrderBook(marketId);
+        if (cachedBook) {
+            const oppositeOrders = side === "YES" ? cachedBook.noOrders : cachedBook.yesOrders;
+            const hasOppositeOrder = oppositeOrders.some(o => o.userId === userId);
+            if (hasOppositeOrder) {
+                res.status(400).json({
+                    error: `You already have active bids on the ${side === "YES" ? "NO" : "YES"} side. You can only bid on one side at a time.`
+                });
+                return;
+            }
+        }
+
         await redisClient.enqueueCommand({
             requestId,
             clientOrderId,
@@ -76,6 +91,39 @@ const createOrderRoute: RequestHandler = async (req, res) => {
 };
 
 router.post("/", requireClerkAuth, createOrderRoute);
+
+router.post("/cancel", requireClerkAuth, async (req, res) => {
+    try {
+        const userId = getClerkUserId(req);
+        if (!userId) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
+
+        const { marketId, orderId } = req.body;
+        if (marketId === undefined || !orderId) {
+            res.status(400).json({ error: "Missing marketId or orderId" });
+            return;
+        }
+
+        const redisClient = await RedisClient.getInstance();
+        const requestId = crypto.randomUUID();
+
+        await redisClient.enqueueCommand({
+            requestId,
+            clientOrderId: String(orderId),
+            userId,
+            marketId: Number(marketId),
+            type: "ORDER_CANCEL",
+            timestamp: Date.now(),
+        });
+
+        res.json({ message: "Cancel request queued", orderId });
+    } catch (err: any) {
+        console.error("[ordersRouter:cancelOrder]: " + err.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 router.get("/orderbook/:marketId", async (req, res) => {
     try {

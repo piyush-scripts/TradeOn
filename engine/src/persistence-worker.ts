@@ -60,11 +60,24 @@ async function runWorker() {
               .where(eq(users.clerkId, exec.userId))
               .limit(1);
 
+            let internalUserId: number;
             if (!userRow[0]) {
-              console.error(`[PersistenceWorker:runWorker]: User ${exec.userId} not found in database`);
-              continue;
+              if (exec.userId.startsWith("bot_")) {
+                const inserted = await tx.insert(users).values({
+                  clerkId: exec.userId,
+                  email: `${exec.userId}@tradeon.internal`,
+                  balance: 100000000,
+                  reservedBalance: 0,
+                }).returning({ id: users.id });
+                internalUserId = inserted[0].id;
+                console.log(`[PersistenceWorker:runWorker]: Auto-created bot user ${exec.userId} in Postgres (ID: ${internalUserId})`);
+              } else {
+                console.error(`[PersistenceWorker:runWorker]: User ${exec.userId} not found in database`);
+                continue;
+              }
+            } else {
+              internalUserId = userRow[0].id;
             }
-            const internalUserId = userRow[0].id;
 
             if (exec.tradeId === "CANCEL") {
               // Order Cancellation Event

@@ -1,158 +1,181 @@
 "use client";
 
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { TrendingUp, Flame, Activity, Clock, Zap } from "lucide-react";
+import { Activity, Clock, TrendingUp, Wallet } from "lucide-react";
+import { ENGINE_URL } from "@/lib/config";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardToolbar } from "@/components/ui/card";
+import { useUserPortfolio } from "@/hooks/useUserPortfolio";
 
-// Mock Active Markets
 const markets = [
-  {
-    id: 1,
-    question: "Will Bitcoin reach $100k by December 2026?",
-    probabilityYes: 65,
-    volume: "₹14.2M",
-    category: "Crypto",
-    resolveDate: "Dec 31",
-  },
-  {
-    id: 2,
-    question: "Will AI pass the Turing test in 2026?",
-    probabilityYes: 32,
-    volume: "₹8.5M",
-    category: "Tech",
-    resolveDate: "Dec 31",
-  },
-  {
-    id: 3,
-    question: "Will the Fed cut interest rates in Q4?",
-    probabilityYes: 88,
-    volume: "₹22.1M",
-    category: "Economy",
-    resolveDate: "Oct 15",
-  },
-  {
-    id: 4,
-    question: "Will GTA 6 release on schedule?",
-    probabilityYes: 45,
-    volume: "₹5.6M",
-    category: "Pop Culture",
-    resolveDate: "Nov 30",
-  }
+  { id: 1, question: "Will Bitcoin reach $100k by December 2026?", volume: "₹14.2M", category: "Crypto", resolveDate: "Dec 31" },
+  { id: 2, question: "Will AI pass the Turing test in 2026?", volume: "₹8.5M", category: "Tech", resolveDate: "Dec 31" },
+  { id: 3, question: "Will the Fed cut interest rates in Q4?", volume: "₹22.1M", category: "Economy", resolveDate: "Oct 15" },
+  { id: 4, question: "Will GTA 6 release on schedule?", volume: "₹5.6M", category: "Culture", resolveDate: "Nov 30" },
 ];
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [liveProbabilities, setLiveProbabilities] = useState<Record<number, number>>({
+    1: 50,
+    2: 50,
+    3: 50,
+    4: 50,
+  });
+
+  const { getPosition, balance } = useUserPortfolio();
+
+  const fetchLiveProbabilities = useCallback(async () => {
+    try {
+      const updates: Record<number, number> = {};
+      await Promise.all(
+        markets.map(async (m) => {
+          try {
+            const res = await fetch(`${ENGINE_URL}/api/orders/orderbook/${m.id}`);
+            if (res.ok) {
+              const data = await res.json();
+              const topYesBid = data.yesOrders?.[0]?.price;
+              const topNoBid = data.noOrders?.[0]?.price;
+
+              let yesProb = 50;
+              if (topYesBid !== undefined && topNoBid !== undefined) {
+                const impliedYesAsk = 100 - topNoBid;
+                yesProb = Math.round((topYesBid + impliedYesAsk) / 2);
+              } else if (topYesBid !== undefined) {
+                yesProb = topYesBid;
+              } else if (topNoBid !== undefined) {
+                yesProb = 100 - topNoBid;
+              }
+
+              updates[m.id] = Math.max(1, Math.min(99, yesProb));
+            }
+          } catch (e) {
+            console.error(`Failed to fetch orderbook for market #${m.id}`, e);
+          }
+        })
+      );
+
+      if (Object.keys(updates).length > 0) {
+        setLiveProbabilities((prev) => ({ ...prev, ...updates }));
+      }
+    } catch (err) {
+      console.error("Error fetching live homepage probabilities:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLiveProbabilities();
+    const interval = setInterval(fetchLiveProbabilities, 3000);
+    return () => clearInterval(interval);
+  }, [fetchLiveProbabilities]);
+
+  const categories = ["All", "Crypto", "Politics", "Tech", "Sports", "Economy", "Culture"];
+
+  const filteredMarkets = useMemo(() => {
+    if (selectedCategory === "All") return markets;
+    return markets.filter(m => m.category.toLowerCase() === selectedCategory.toLowerCase());
+  }, [selectedCategory]);
+
   return (
-    <div className="flex flex-col gap-8 pb-12 animate-in fade-in duration-500">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 p-8 sm:p-12 shadow-2xl">
-        <div className="absolute top-0 right-0 p-12 opacity-20 hidden md:block">
-          <Zap className="w-64 h-64 text-blue-500 blur-3xl mix-blend-screen" />
-        </div>
-
-        <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
-            <Flame className="w-4 h-4" />
-            <span>Trending Ecosystem</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif text-white tracking-tight leading-[1.1] mb-6">
-            Trade your opinions. <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-              Profit from reality.
+    <div className="grid gap-8 pb-8">
+      <section className="grid gap-3">
+        <div className="flex items-center justify-between">
+          <Badge variant="outline" appearance="outline" className="w-fit">Live markets</Badge>
+          {balance !== null && (
+            <span className="text-xs font-mono font-medium text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 inline-flex items-center gap-1.5">
+              <Wallet className="size-3.5" /> Balance: ₹{(balance / 100).toFixed(2)}
             </span>
-          </h1>
-          <p className="text-lg text-slate-400 mb-8 max-w-xl">
-            The fastest execution engine for trading global events. Secure your position and let reality determine the outcome.
-          </p>
+          )}
+        </div>
+        <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Trade event outcomes</h1>
+            <p className="max-w-2xl text-muted-foreground">
+              Minimal prediction markets with live order books, simple pricing, and ₹1 payout shares.
+            </p>
+          </div>
+          <Button asChild variant="outline">
+            <Link href="/portfolio">View portfolio</Link>
+          </Button>
         </div>
       </section>
 
-      {/* Category Tabs */}
-      <section>
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide">
-          {["All Markets", "Crypto", "Politics", "Tech", "Sports", "Economy"].map((cat, i) => (
-            <button
-              key={cat}
-              className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${i === 0
-                  ? "bg-white text-slate-950"
-                  : "bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
-                }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+      <section className="flex gap-2 overflow-x-auto pb-1">
+        {categories.map((category) => (
+          <Button 
+            key={category} 
+            variant={selectedCategory === category ? "secondary" : "outline"} 
+            size="sm"
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </Button>
+        ))}
       </section>
 
-      {/* Market Grid */}
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-blue-400" />
-            Live Markets
+      <section className="grid gap-4">
+        <div className="flex items-center justify-between">
+          <h2 className="inline-flex items-center gap-2 text-xl font-semibold tracking-tight">
+            <Activity className="size-5" /> Markets
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {markets.map((market) => (
-            <Link href={`/market/${market.id}`} key={market.id}>
-              <div className="group relative bg-slate-900 border border-white/10 rounded-2xl p-5 hover:border-blue-500/30 hover:bg-slate-800/80 transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.15)] overflow-hidden flex flex-col h-full cursor-pointer">
-                {/* Glow effect on hover */}
-                <div className="absolute -inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {filteredMarkets.map((market) => {
+            const pos = getPosition(market.id);
+            const sharesYes = pos?.sharesYes || 0;
+            const sharesNo = pos?.sharesNo || 0;
+            const hasPosition = sharesYes > 0 || sharesNo > 0;
+            const probYes = liveProbabilities[market.id] ?? 50;
 
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 bg-white/5 px-2.5 py-1 rounded-md">
-                    {market.category}
-                  </span>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                    <Clock className="w-3.5 h-3.5" />
-                    {market.resolveDate}
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-bold text-slate-100 mb-6 leading-snug group-hover:text-white transition-colors">
-                  {market.question}
-                </h3>
-
-                <div className="mt-auto">
-                  <div className="flex items-end justify-between mb-2">
-                    <div className="flex flex-col">
-                      <span className="text-3xl font-bold text-emerald-400 tracking-tight">
-                        {market.probabilityYes}%
-                      </span>
-                      <span className="text-xs text-emerald-400/70 font-medium">YES</span>
+            return (
+              <Link href={`/market/${market.id}`} key={market.id}>
+                <Card className={`h-full transition-colors hover:bg-muted/40 relative ${hasPosition ? "border-emerald-500/40" : ""}`}>
+                  <CardHeader>
+                    <CardToolbar className="w-full justify-between flex-wrap gap-1.5">
+                      <Badge variant="outline" appearance="outline">{market.category}</Badge>
+                      <div className="flex items-center gap-2">
+                        {sharesYes > 0 && (
+                          <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[11px]">
+                            {sharesYes} YES
+                          </Badge>
+                        )}
+                        {sharesNo > 0 && (
+                          <Badge className="bg-rose-500/10 text-rose-500 border-rose-500/20 text-[11px]">
+                            {sharesNo} NO
+                          </Badge>
+                        )}
+                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                          <Clock className="size-3.5" /> {market.resolveDate}
+                        </span>
+                      </div>
+                    </CardToolbar>
+                    <CardTitle className="line-clamp-2 text-base leading-6">{market.question}</CardTitle>
+                    <CardDescription className="inline-flex items-center gap-1">
+                      <TrendingUp className="size-3.5" /> Volume {market.volume}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid gap-3">
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <div className="text-3xl font-semibold tabular-nums text-emerald-500">{probYes}%</div>
+                        <div className="text-xs text-muted-foreground font-medium">YES</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-medium tabular-nums text-rose-500">{100 - probYes}%</div>
+                        <div className="text-xs text-muted-foreground font-medium">NO</div>
+                      </div>
                     </div>
-
-                    <div className="flex flex-col items-end">
-                      <span className="text-lg font-bold text-rose-400">
-                        {100 - market.probabilityYes}%
-                      </span>
-                      <span className="text-xs text-rose-400/70 font-medium">NO</span>
+                    <div className="h-2 overflow-hidden rounded-full bg-rose-500/20">
+                      <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${probYes}%` }} />
                     </div>
-                  </div>
-
-                  {/* Prob Bar */}
-                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
-                    <div
-                      className="h-full bg-emerald-500 transition-all duration-1000 ease-out"
-                      style={{ width: `${market.probabilityYes}%` }}
-                    />
-                    <div
-                      className="h-full bg-rose-500 transition-all duration-1000 ease-out"
-                      style={{ width: `${100 - market.probabilityYes}%` }}
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between mt-4 text-xs text-slate-500">
-                    <div className="flex items-center gap-1">
-                      <TrendingUp className="w-3.5 h-3.5" /> Vol: {market.volume}
-                    </div>
-                    <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
-                      Trade Now →
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>
